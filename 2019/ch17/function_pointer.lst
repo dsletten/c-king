@@ -1,0 +1,187 @@
+   1              		.file	"function_pointer.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 673A2025 		.string	"g: %d\n"
+   7      640A00
+   8              	.LC1:
+   9 0007 683A2025 		.string	"h: %d\n"
+   9      640A00
+  10              		.text
+  11              		.globl	main
+  13              	main:
+  14              	.LFB5:
+  15              		.file 1 "function_pointer.c"
+   1:function_pointer.c **** /*
+   2:function_pointer.c ****  *
+   3:function_pointer.c ****  *   File:
+   4:function_pointer.c ****  *      function_pointer.c
+   5:function_pointer.c ****  *
+   6:function_pointer.c ****  *   Synopsis:
+   7:function_pointer.c ****  *
+   8:function_pointer.c ****  *   Revision History:
+   9:function_pointer.c ****  *      Date    Change Description
+  10:function_pointer.c ****  *      ------  -----------------------------------------
+  11:function_pointer.c ****  *      200629  Original.
+  12:function_pointer.c ****  *
+  13:function_pointer.c ****  */
+  14:function_pointer.c **** 
+  15:function_pointer.c **** #include <stdio.h>
+  16:function_pointer.c **** #include <stdlib.h>
+  17:function_pointer.c **** 
+  18:function_pointer.c **** int f(int (*g)(int), int n);
+  19:function_pointer.c **** int g(int n);
+  20:function_pointer.c **** int h(int n);
+  21:function_pointer.c **** 
+  22:function_pointer.c **** int main(void) {
+  16              		.loc 1 22 0
+  17              		.cfi_startproc
+  18 0000 55       		push	rbp
+  19              		.cfi_def_cfa_offset 16
+  20              		.cfi_offset 6, -16
+  21 0001 4889E5   		mov	rbp, rsp
+  22              		.cfi_def_cfa_register 6
+  23 0004 4883EC10 		sub	rsp, 16
+  23:function_pointer.c ****   int n = 9;
+  24              		.loc 1 23 0
+  25 0008 C745F809 		mov	DWORD PTR -8[rbp], 9
+  25      000000
+  24:function_pointer.c **** 
+  25:function_pointer.c ****   int result = f(g, n);
+  26              		.loc 1 25 0
+  27 000f 8B45F8   		mov	eax, DWORD PTR -8[rbp]
+  28 0012 89C6     		mov	esi, eax
+  29 0014 488D3D00 		lea	rdi, g[rip]
+  29      000000
+  30 001b E8000000 		call	f
+  30      00
+  31 0020 8945FC   		mov	DWORD PTR -4[rbp], eax
+  26:function_pointer.c ****   printf("g: %d\n", result);
+  32              		.loc 1 26 0
+  33 0023 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+  34 0026 89C6     		mov	esi, eax
+  35 0028 488D3D00 		lea	rdi, .LC0[rip]
+  35      000000
+  36 002f B8000000 		mov	eax, 0
+  36      00
+  37 0034 E8000000 		call	printf@PLT
+  37      00
+  27:function_pointer.c **** 
+  28:function_pointer.c ****   result = f(h, n);
+  38              		.loc 1 28 0
+  39 0039 8B45F8   		mov	eax, DWORD PTR -8[rbp]
+  40 003c 89C6     		mov	esi, eax
+  41 003e 488D3D00 		lea	rdi, h[rip]
+  41      000000
+  42 0045 E8000000 		call	f
+  42      00
+  43 004a 8945FC   		mov	DWORD PTR -4[rbp], eax
+  29:function_pointer.c ****   printf("h: %d\n", result);
+  44              		.loc 1 29 0
+  45 004d 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+  46 0050 89C6     		mov	esi, eax
+  47 0052 488D3D00 		lea	rdi, .LC1[rip]
+  47      000000
+  48 0059 B8000000 		mov	eax, 0
+  48      00
+  49 005e E8000000 		call	printf@PLT
+  49      00
+  30:function_pointer.c **** 
+  31:function_pointer.c ****   exit(EXIT_SUCCESS);
+  50              		.loc 1 31 0
+  51 0063 BF000000 		mov	edi, 0
+  51      00
+  52 0068 E8000000 		call	exit@PLT
+  52      00
+  53              		.cfi_endproc
+  54              	.LFE5:
+  56              		.globl	f
+  58              	f:
+  59              	.LFB6:
+  32:function_pointer.c **** }
+  33:function_pointer.c **** 
+  34:function_pointer.c **** int f(int (*g)(int), int n) {
+  60              		.loc 1 34 0
+  61              		.cfi_startproc
+  62 006d 55       		push	rbp
+  63              		.cfi_def_cfa_offset 16
+  64              		.cfi_offset 6, -16
+  65 006e 4889E5   		mov	rbp, rsp
+  66              		.cfi_def_cfa_register 6
+  67 0071 4883EC10 		sub	rsp, 16
+  68 0075 48897DF8 		mov	QWORD PTR -8[rbp], rdi
+  69 0079 8975F4   		mov	DWORD PTR -12[rbp], esi
+  35:function_pointer.c ****   return (*g)(2 * n);
+  70              		.loc 1 35 0
+  71 007c 8B45F4   		mov	eax, DWORD PTR -12[rbp]
+  72 007f 8D1400   		lea	edx, [rax+rax]
+  73 0082 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+  74 0086 89D7     		mov	edi, edx
+  75 0088 FFD0     		call	rax
+  76              	.LVL0:
+  36:function_pointer.c **** }
+  77              		.loc 1 36 0
+  78 008a C9       		leave
+  79              		.cfi_def_cfa 7, 8
+  80 008b C3       		ret
+  81              		.cfi_endproc
+  82              	.LFE6:
+  84              		.globl	g
+  86              	g:
+  87              	.LFB7:
+  37:function_pointer.c **** 
+  38:function_pointer.c **** int g(int n) {
+  88              		.loc 1 38 0
+  89              		.cfi_startproc
+  90 008c 55       		push	rbp
+  91              		.cfi_def_cfa_offset 16
+  92              		.cfi_offset 6, -16
+  93 008d 4889E5   		mov	rbp, rsp
+  94              		.cfi_def_cfa_register 6
+  95 0090 897DFC   		mov	DWORD PTR -4[rbp], edi
+  39:function_pointer.c ****   return n - 5;
+  96              		.loc 1 39 0
+  97 0093 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+  98 0096 83E805   		sub	eax, 5
+  40:function_pointer.c **** }
+  99              		.loc 1 40 0
+ 100 0099 5D       		pop	rbp
+ 101              		.cfi_def_cfa 7, 8
+ 102 009a C3       		ret
+ 103              		.cfi_endproc
+ 104              	.LFE7:
+ 106              		.globl	h
+ 108              	h:
+ 109              	.LFB8:
+  41:function_pointer.c **** 
+  42:function_pointer.c **** int h(int n) {
+ 110              		.loc 1 42 0
+ 111              		.cfi_startproc
+ 112 009b 55       		push	rbp
+ 113              		.cfi_def_cfa_offset 16
+ 114              		.cfi_offset 6, -16
+ 115 009c 4889E5   		mov	rbp, rsp
+ 116              		.cfi_def_cfa_register 6
+ 117 009f 897DFC   		mov	DWORD PTR -4[rbp], edi
+  43:function_pointer.c ****   return n * 10;
+ 118              		.loc 1 43 0
+ 119 00a2 8B55FC   		mov	edx, DWORD PTR -4[rbp]
+ 120 00a5 89D0     		mov	eax, edx
+ 121 00a7 C1E002   		sal	eax, 2
+ 122 00aa 01D0     		add	eax, edx
+ 123 00ac 01C0     		add	eax, eax
+  44:function_pointer.c **** }
+ 124              		.loc 1 44 0
+ 125 00ae 5D       		pop	rbp
+ 126              		.cfi_def_cfa 7, 8
+ 127 00af C3       		ret
+ 128              		.cfi_endproc
+ 129              	.LFE8:
+ 131              	.Letext0:
+ 132              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 133              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 134              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 135              		.file 5 "/usr/include/stdio.h"
+ 136              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

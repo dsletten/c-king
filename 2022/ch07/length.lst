@@ -1,0 +1,143 @@
+   1              		.file	"length.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.file 0 "/home/slytobias/c/books/King/2022/ch07" "length.c"
+   6              		.section	.rodata
+   7              	.LC0:
+   8 0000 456E7465 		.string	"Enter a message: "
+   8      72206120 
+   8      6D657373 
+   8      6167653A 
+   8      2000
+   9              	.LC1:
+  10 0012 63686172 		.string	"character"
+  10      61637465 
+  10      7200
+  11              	.LC2:
+  12 001c 63686172 		.string	"characters"
+  12      61637465 
+  12      727300
+  13              	.LC3:
+  14 0027 596F7572 		.string	"Your message was %d %s long.\n"
+  14      206D6573 
+  14      73616765 
+  14      20776173 
+  14      20256420 
+  15              		.text
+  16              		.globl	main
+  18              	main:
+  19              	.LFB6:
+  20              		.file 1 "length.c"
+   1:length.c      **** /*
+   2:length.c      ****  *
+   3:length.c      ****  *   File:
+   4:length.c      ****  *      length.c
+   5:length.c      ****  *
+   6:length.c      ****  *   Synopsis:
+   7:length.c      ****  *
+   8:length.c      ****  *   Revision History:
+   9:length.c      ****  *      Date    Change Description
+  10:length.c      ****  *      ------  -----------------------------------------
+  11:length.c      ****  *      230127  Original.
+  12:length.c      ****  *
+  13:length.c      ****  */
+  14:length.c      **** 
+  15:length.c      **** #include <stdio.h>
+  16:length.c      **** #include <stdlib.h>
+  17:length.c      **** 
+  18:length.c      **** int main(void) {
+  21              		.loc 1 18 16
+  22              		.cfi_startproc
+  23 0000 F30F1EFA 		endbr64
+  24 0004 55       		push	rbp
+  25              		.cfi_def_cfa_offset 16
+  26              		.cfi_offset 6, -16
+  27 0005 4889E5   		mov	rbp, rsp
+  28              		.cfi_def_cfa_register 6
+  29 0008 4883EC10 		sub	rsp, 16
+  19:length.c      ****   int n = 0;
+  30              		.loc 1 19 7
+  31 000c C745FC00 		mov	DWORD PTR -4[rbp], 0
+  31      000000
+  20:length.c      **** 
+  21:length.c      ****   printf("Enter a message: ");
+  32              		.loc 1 21 3
+  33 0013 488D0500 		lea	rax, .LC0[rip]
+  33      000000
+  34 001a 4889C7   		mov	rdi, rax
+  35 001d B8000000 		mov	eax, 0
+  35      00
+  36 0022 E8000000 		call	printf@PLT
+  36      00
+  22:length.c      **** 
+  23:length.c      ****   while ( getchar() != '\n' ) {
+  37              		.loc 1 23 9
+  38 0027 EB04     		jmp	.L2
+  39              	.L3:
+  24:length.c      ****     n++;
+  40              		.loc 1 24 6
+  41 0029 8345FC01 		add	DWORD PTR -4[rbp], 1
+  42              	.L2:
+  23:length.c      ****     n++;
+  43              		.loc 1 23 11
+  44 002d E8000000 		call	getchar@PLT
+  44      00
+  23:length.c      ****     n++;
+  45              		.loc 1 23 21
+  46 0032 83F80A   		cmp	eax, 10
+  47 0035 75F2     		jne	.L3
+  25:length.c      ****   }
+  26:length.c      **** 
+  27:length.c      ****   printf("Your message was %d %s long.\n", n, (n == 1 ? "character" : "characters"));
+  48              		.loc 1 27 3
+  49 0037 837DFC01 		cmp	DWORD PTR -4[rbp], 1
+  50 003b 7509     		jne	.L4
+  51              		.loc 1 27 3 is_stmt 0 discriminator 1
+  52 003d 488D0500 		lea	rax, .LC1[rip]
+  52      000000
+  53 0044 EB07     		jmp	.L5
+  54              	.L4:
+  55              		.loc 1 27 3 discriminator 2
+  56 0046 488D0500 		lea	rax, .LC2[rip]
+  56      000000
+  57              	.L5:
+  58              		.loc 1 27 3 discriminator 4
+  59 004d 8B4DFC   		mov	ecx, DWORD PTR -4[rbp]
+  60 0050 4889C2   		mov	rdx, rax
+  61 0053 89CE     		mov	esi, ecx
+  62 0055 488D0500 		lea	rax, .LC3[rip]
+  62      000000
+  63 005c 4889C7   		mov	rdi, rax
+  64 005f B8000000 		mov	eax, 0
+  64      00
+  65 0064 E8000000 		call	printf@PLT
+  65      00
+  28:length.c      **** 
+  29:length.c      ****   exit(EXIT_SUCCESS);
+  66              		.loc 1 29 3 is_stmt 1 discriminator 4
+  67 0069 BF000000 		mov	edi, 0
+  67      00
+  68 006e E8000000 		call	exit@PLT
+  68      00
+  69              		.cfi_endproc
+  70              	.LFE6:
+  72              	.Letext0:
+  73              		.file 2 "/usr/include/stdlib.h"
+  74              		.file 3 "/usr/include/stdio.h"
+ 421              		.section	.note.gnu.property,"a"
+ 422              		.align 8
+ 423 0000 04000000 		.long	1f - 0f
+ 424 0004 10000000 		.long	4f - 1f
+ 425 0008 05000000 		.long	5
+ 426              	0:
+ 427 000c 474E5500 		.string	"GNU"
+ 428              	1:
+ 429              		.align 8
+ 430 0010 020000C0 		.long	0xc0000002
+ 431 0014 04000000 		.long	3f - 2f
+ 432              	2:
+ 433 0018 03000000 		.long	0x3
+ 434              	3:
+ 435 001c 00000000 		.align 8
+ 436              	4:

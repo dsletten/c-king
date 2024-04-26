@@ -1,0 +1,958 @@
+   1              		.file	"inventory3.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.globl	inventory
+   6              		.bss
+   7              		.align 8
+  10              	inventory:
+  11 0000 00000000 		.zero	8
+  11      00000000 
+  12              		.section	.rodata
+  13              	.LC0:
+  14 0000 456E7465 		.string	"Enter operation code: "
+  14      72206F70 
+  14      65726174 
+  14      696F6E20 
+  14      636F6465 
+  15              	.LC1:
+  16 0017 20256300 		.string	" %c"
+  17              	.LC2:
+  18 001b 496C6C65 		.string	"Illegal code"
+  18      67616C20 
+  18      636F6465 
+  18      00
+  19              		.text
+  20              		.globl	main
+  22              	main:
+  23              	.LFB5:
+  24              		.file 1 "inventory3.c"
+   1:inventory3.c  **** /*
+   2:inventory3.c  ****  *
+   3:inventory3.c  ****  *   File:
+   4:inventory3.c  ****  *      inventory3.c
+   5:inventory3.c  ****  *
+   6:inventory3.c  ****  *   Synopsis:
+   7:inventory3.c  ****  *      Redo of chapter 16 version using linked list rather than array.
+   8:inventory3.c  ****  *      Different kind of linked list!
+   9:inventory3.c  ****  *      
+  10:inventory3.c  ****  *   Revision History:
+  11:inventory3.c  ****  *      Date    Change Description
+  12:inventory3.c  ****  *      ------  -----------------------------------------
+  13:inventory3.c  ****  *      200611  Original.
+  14:inventory3.c  ****  *
+  15:inventory3.c  ****  */
+  16:inventory3.c  **** #include <stdio.h>
+  17:inventory3.c  **** #include <stdlib.h>
+  18:inventory3.c  **** #include <stdbool.h>
+  19:inventory3.c  **** 
+  20:inventory3.c  **** #include "readline.h"
+  21:inventory3.c  **** /* #include "cons.h" */
+  22:inventory3.c  **** 
+  23:inventory3.c  **** #define NAME_LENGTH 25
+  24:inventory3.c  **** 
+  25:inventory3.c  **** typedef struct part part;
+  26:inventory3.c  **** struct part {
+  27:inventory3.c  ****   int number;
+  28:inventory3.c  ****   char name[NAME_LENGTH+1];
+  29:inventory3.c  ****   int on_hand;
+  30:inventory3.c  **** };
+  31:inventory3.c  **** 
+  32:inventory3.c  **** typedef struct part_cons *parts_list; 
+  33:inventory3.c  **** typedef struct part_cons { 
+  34:inventory3.c  ****   part *car;
+  35:inventory3.c  ****   parts_list cdr;
+  36:inventory3.c  ****  } part_cons;
+  37:inventory3.c  **** 
+  38:inventory3.c  **** /* DefCons(part); */
+  39:inventory3.c  **** /* struct cons { */
+  40:inventory3.c  **** /*   struct part *car; */
+  41:inventory3.c  **** /*   /\* struct part car; *\/ */
+  42:inventory3.c  **** /*   struct cons *cdr; */
+  43:inventory3.c  **** /* }; */
+  44:inventory3.c  **** 
+  45:inventory3.c  **** parts_list inventory = NULL;
+  46:inventory3.c  **** 
+  47:inventory3.c  **** part *find_part(int number);
+  48:inventory3.c  **** void insert(void);
+  49:inventory3.c  **** void search(void);
+  50:inventory3.c  **** void update(void);
+  51:inventory3.c  **** void print(void);
+  52:inventory3.c  **** 
+  53:inventory3.c  **** int main(void) {
+  25              		.loc 1 53 0
+  26              		.cfi_startproc
+  27 0000 55       		push	rbp
+  28              		.cfi_def_cfa_offset 16
+  29              		.cfi_offset 6, -16
+  30 0001 4889E5   		mov	rbp, rsp
+  31              		.cfi_def_cfa_register 6
+  32 0004 4883EC10 		sub	rsp, 16
+  33              		.loc 1 53 0
+  34 0008 64488B04 		mov	rax, QWORD PTR fs:40
+  34      25280000 
+  34      00
+  35 0011 488945F8 		mov	QWORD PTR -8[rbp], rax
+  36 0015 31C0     		xor	eax, eax
+  37              	.L11:
+  54:inventory3.c  ****   char code;
+  55:inventory3.c  **** 
+  56:inventory3.c  ****   while ( true ) {
+  57:inventory3.c  ****     printf("Enter operation code: ");
+  38              		.loc 1 57 0
+  39 0017 488D3D00 		lea	rdi, .LC0[rip]
+  39      000000
+  40 001e B8000000 		mov	eax, 0
+  40      00
+  41 0023 E8000000 		call	printf@PLT
+  41      00
+  58:inventory3.c  ****     scanf(" %c", &code);
+  42              		.loc 1 58 0
+  43 0028 488D45F7 		lea	rax, -9[rbp]
+  44 002c 4889C6   		mov	rsi, rax
+  45 002f 488D3D00 		lea	rdi, .LC1[rip]
+  45      000000
+  46 0036 B8000000 		mov	eax, 0
+  46      00
+  47 003b E8000000 		call	__isoc99_scanf@PLT
+  47      00
+  59:inventory3.c  ****     
+  60:inventory3.c  ****     while ( getchar() != '\n' ) {}
+  48              		.loc 1 60 0
+  49 0040 90       		nop
+  50              	.L2:
+  51              		.loc 1 60 0 is_stmt 0 discriminator 1
+  52 0041 E8000000 		call	getchar@PLT
+  52      00
+  53 0046 83F80A   		cmp	eax, 10
+  54 0049 75F6     		jne	.L2
+  61:inventory3.c  **** 
+  62:inventory3.c  ****     switch ( code ) {
+  55              		.loc 1 62 0 is_stmt 1
+  56 004b 0FB645F7 		movzx	eax, BYTE PTR -9[rbp]
+  57 004f 0FBEC0   		movsx	eax, al
+  58 0052 83E869   		sub	eax, 105
+  59 0055 83F80C   		cmp	eax, 12
+  60 0058 7749     		ja	.L3
+  61 005a 89C0     		mov	eax, eax
+  62 005c 488D1485 		lea	rdx, 0[0+rax*4]
+  62      00000000 
+  63 0064 488D0500 		lea	rax, .L5[rip]
+  63      000000
+  64 006b 8B0402   		mov	eax, DWORD PTR [rdx+rax]
+  65 006e 4863D0   		movsx	rdx, eax
+  66 0071 488D0500 		lea	rax, .L5[rip]
+  66      000000
+  67 0078 4801D0   		add	rax, rdx
+  68 007b FFE0     		jmp	rax
+  69              		.section	.rodata
+  70              		.align 4
+  71              		.align 4
+  72              	.L5:
+  73 0028 00000000 		.long	.L4-.L5
+  74 002c 00000000 		.long	.L3-.L5
+  75 0030 00000000 		.long	.L3-.L5
+  76 0034 00000000 		.long	.L3-.L5
+  77 0038 00000000 		.long	.L3-.L5
+  78 003c 00000000 		.long	.L3-.L5
+  79 0040 00000000 		.long	.L3-.L5
+  80 0044 00000000 		.long	.L6-.L5
+  81 0048 00000000 		.long	.L7-.L5
+  82 004c 00000000 		.long	.L3-.L5
+  83 0050 00000000 		.long	.L8-.L5
+  84 0054 00000000 		.long	.L3-.L5
+  85 0058 00000000 		.long	.L9-.L5
+  86              		.text
+  87              	.L4:
+  63:inventory3.c  ****       case 'i': insert();
+  88              		.loc 1 63 0
+  89 007d E8000000 		call	insert
+  89      00
+  64:inventory3.c  ****                 break;
+  90              		.loc 1 64 0
+  91 0082 EB2B     		jmp	.L10
+  92              	.L8:
+  65:inventory3.c  ****       case 's': search();
+  93              		.loc 1 65 0
+  94 0084 E8000000 		call	search
+  94      00
+  66:inventory3.c  ****                 break;
+  95              		.loc 1 66 0
+  96 0089 EB24     		jmp	.L10
+  97              	.L9:
+  67:inventory3.c  ****       case 'u': update();
+  98              		.loc 1 67 0
+  99 008b E8000000 		call	update
+  99      00
+  68:inventory3.c  ****                 break;
+ 100              		.loc 1 68 0
+ 101 0090 EB1D     		jmp	.L10
+ 102              	.L6:
+  69:inventory3.c  ****       case 'p': print();
+ 103              		.loc 1 69 0
+ 104 0092 E8000000 		call	print
+ 104      00
+  70:inventory3.c  ****                 break;
+ 105              		.loc 1 70 0
+ 106 0097 EB16     		jmp	.L10
+ 107              	.L7:
+  71:inventory3.c  ****       case 'q': exit(EXIT_SUCCESS);
+ 108              		.loc 1 71 0
+ 109 0099 BF000000 		mov	edi, 0
+ 109      00
+ 110 009e E8000000 		call	exit@PLT
+ 110      00
+ 111              	.L3:
+  72:inventory3.c  ****       default:  printf("Illegal code\n");
+ 112              		.loc 1 72 0
+ 113 00a3 488D3D00 		lea	rdi, .LC2[rip]
+ 113      000000
+ 114 00aa E8000000 		call	puts@PLT
+ 114      00
+ 115              	.L10:
+  73:inventory3.c  ****     }
+  74:inventory3.c  ****     
+  75:inventory3.c  ****     printf("\n");
+ 116              		.loc 1 75 0
+ 117 00af BF0A0000 		mov	edi, 10
+ 117      00
+ 118 00b4 E8000000 		call	putchar@PLT
+ 118      00
+  57:inventory3.c  ****     scanf(" %c", &code);
+ 119              		.loc 1 57 0
+ 120 00b9 E959FFFF 		jmp	.L11
+ 120      FF
+ 121              		.cfi_endproc
+ 122              	.LFE5:
+ 124              		.globl	find_part
+ 126              	find_part:
+ 127              	.LFB6:
+  76:inventory3.c  ****   }
+  77:inventory3.c  **** }
+  78:inventory3.c  **** 
+  79:inventory3.c  **** part *find_part(int number) {
+ 128              		.loc 1 79 0
+ 129              		.cfi_startproc
+ 130 00be 55       		push	rbp
+ 131              		.cfi_def_cfa_offset 16
+ 132              		.cfi_offset 6, -16
+ 133 00bf 4889E5   		mov	rbp, rsp
+ 134              		.cfi_def_cfa_register 6
+ 135 00c2 897DEC   		mov	DWORD PTR -20[rbp], edi
+  80:inventory3.c  ****   parts_list l;
+  81:inventory3.c  **** 
+  82:inventory3.c  ****   for (l = inventory; l != NULL  &&  number > l->car->number; l = l->cdr) {}
+ 136              		.loc 1 82 0
+ 137 00c5 488B0500 		mov	rax, QWORD PTR inventory[rip]
+ 137      000000
+ 138 00cc 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 139 00d0 EB0C     		jmp	.L14
+ 140              	.L16:
+ 141              		.loc 1 82 0 is_stmt 0 discriminator 4
+ 142 00d2 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 143 00d6 488B4008 		mov	rax, QWORD PTR 8[rax]
+ 144 00da 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 145              	.L14:
+ 146              		.loc 1 82 0 discriminator 1
+ 147 00de 48837DF8 		cmp	QWORD PTR -8[rbp], 0
+ 147      00
+ 148 00e3 740E     		je	.L15
+ 149              		.loc 1 82 0 discriminator 3
+ 150 00e5 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 151 00e9 488B00   		mov	rax, QWORD PTR [rax]
+ 152 00ec 8B00     		mov	eax, DWORD PTR [rax]
+ 153 00ee 3945EC   		cmp	DWORD PTR -20[rbp], eax
+ 154 00f1 7FDF     		jg	.L16
+ 155              	.L15:
+  83:inventory3.c  **** 
+  84:inventory3.c  ****   if ( l != NULL  &&  number == l->car->number ) {
+ 156              		.loc 1 84 0 is_stmt 1
+ 157 00f3 48837DF8 		cmp	QWORD PTR -8[rbp], 0
+ 157      00
+ 158 00f8 7417     		je	.L17
+ 159              		.loc 1 84 0 is_stmt 0 discriminator 1
+ 160 00fa 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 161 00fe 488B00   		mov	rax, QWORD PTR [rax]
+ 162 0101 8B00     		mov	eax, DWORD PTR [rax]
+ 163 0103 3945EC   		cmp	DWORD PTR -20[rbp], eax
+ 164 0106 7509     		jne	.L17
+  85:inventory3.c  ****     return l->car;
+ 165              		.loc 1 85 0 is_stmt 1
+ 166 0108 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 167 010c 488B00   		mov	rax, QWORD PTR [rax]
+ 168 010f EB05     		jmp	.L18
+ 169              	.L17:
+  86:inventory3.c  ****   } else {
+  87:inventory3.c  ****     return NULL;
+ 170              		.loc 1 87 0
+ 171 0111 B8000000 		mov	eax, 0
+ 171      00
+ 172              	.L18:
+  88:inventory3.c  ****   }
+  89:inventory3.c  **** }
+ 173              		.loc 1 89 0
+ 174 0116 5D       		pop	rbp
+ 175              		.cfi_def_cfa 7, 8
+ 176 0117 C3       		ret
+ 177              		.cfi_endproc
+ 178              	.LFE6:
+ 180              		.section	.rodata
+ 181 005c 00000000 		.align 8
+ 182              	.LC3:
+ 183 0060 44617461 		.string	"Database is full; can't add more parts."
+ 183      62617365 
+ 183      20697320 
+ 183      66756C6C 
+ 183      3B206361 
+ 184              	.LC4:
+ 185 0088 456E7465 		.string	"Enter part number: "
+ 185      72207061 
+ 185      7274206E 
+ 185      756D6265 
+ 185      723A2000 
+ 186              	.LC5:
+ 187 009c 256400   		.string	"%d"
+ 188              	.LC6:
+ 189 009f 50617274 		.string	"Part already exists."
+ 189      20616C72 
+ 189      65616479 
+ 189      20657869 
+ 189      7374732E 
+ 190              	.LC7:
+ 191 00b4 456E7465 		.string	"Enter part name: "
+ 191      72207061 
+ 191      7274206E 
+ 191      616D653A 
+ 191      2000
+ 192              	.LC8:
+ 193 00c6 456E7465 		.string	"Enter quantity on hand: "
+ 193      72207175 
+ 193      616E7469 
+ 193      7479206F 
+ 193      6E206861 
+ 194              		.text
+ 195              		.globl	insert
+ 197              	insert:
+ 198              	.LFB7:
+  90:inventory3.c  **** 
+  91:inventory3.c  **** void insert(void) {
+ 199              		.loc 1 91 0
+ 200              		.cfi_startproc
+ 201 0118 55       		push	rbp
+ 202              		.cfi_def_cfa_offset 16
+ 203              		.cfi_offset 6, -16
+ 204 0119 4889E5   		mov	rbp, rsp
+ 205              		.cfi_def_cfa_register 6
+ 206 011c 4883EC20 		sub	rsp, 32
+  92:inventory3.c  ****   parts_list current, previous;
+  93:inventory3.c  ****   part_cons *new_cons = malloc(sizeof(part_cons));
+ 207              		.loc 1 93 0
+ 208 0120 BF100000 		mov	edi, 16
+ 208      00
+ 209 0125 E8000000 		call	malloc@PLT
+ 209      00
+ 210 012a 488945F0 		mov	QWORD PTR -16[rbp], rax
+  94:inventory3.c  ****   if ( new_cons == NULL ) {
+ 211              		.loc 1 94 0
+ 212 012e 48837DF0 		cmp	QWORD PTR -16[rbp], 0
+ 212      00
+ 213 0133 7511     		jne	.L20
+  95:inventory3.c  ****     printf("Database is full; can't add more parts.\n");
+ 214              		.loc 1 95 0
+ 215 0135 488D3D00 		lea	rdi, .LC3[rip]
+ 215      000000
+ 216 013c E8000000 		call	puts@PLT
+ 216      00
+  96:inventory3.c  ****     return;
+ 217              		.loc 1 96 0
+ 218 0141 E9530100 		jmp	.L19
+ 218      00
+ 219              	.L20:
+  97:inventory3.c  ****   }
+  98:inventory3.c  **** 
+  99:inventory3.c  ****   part *new_part = malloc(sizeof(part));
+ 220              		.loc 1 99 0
+ 221 0146 BF240000 		mov	edi, 36
+ 221      00
+ 222 014b E8000000 		call	malloc@PLT
+ 222      00
+ 223 0150 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 100:inventory3.c  ****   if ( new_part == NULL ) {
+ 224              		.loc 1 100 0
+ 225 0154 48837DF8 		cmp	QWORD PTR -8[rbp], 0
+ 225      00
+ 226 0159 7511     		jne	.L22
+ 101:inventory3.c  ****     printf("Database is full; can't add more parts.\n");
+ 227              		.loc 1 101 0
+ 228 015b 488D3D00 		lea	rdi, .LC3[rip]
+ 228      000000
+ 229 0162 E8000000 		call	puts@PLT
+ 229      00
+ 102:inventory3.c  ****     return;
+ 230              		.loc 1 102 0
+ 231 0167 E92D0100 		jmp	.L19
+ 231      00
+ 232              	.L22:
+ 103:inventory3.c  ****   }
+ 104:inventory3.c  **** 
+ 105:inventory3.c  ****   printf("Enter part number: ");
+ 233              		.loc 1 105 0
+ 234 016c 488D3D00 		lea	rdi, .LC4[rip]
+ 234      000000
+ 235 0173 B8000000 		mov	eax, 0
+ 235      00
+ 236 0178 E8000000 		call	printf@PLT
+ 236      00
+ 106:inventory3.c  ****   scanf("%d", &new_part->number);
+ 237              		.loc 1 106 0
+ 238 017d 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 239 0181 4889C6   		mov	rsi, rax
+ 240 0184 488D3D00 		lea	rdi, .LC5[rip]
+ 240      000000
+ 241 018b B8000000 		mov	eax, 0
+ 241      00
+ 242 0190 E8000000 		call	__isoc99_scanf@PLT
+ 242      00
+ 107:inventory3.c  **** 
+ 108:inventory3.c  ****   for (current = inventory, previous = NULL;
+ 243              		.loc 1 108 0
+ 244 0195 488B0500 		mov	rax, QWORD PTR inventory[rip]
+ 244      000000
+ 245 019c 488945E0 		mov	QWORD PTR -32[rbp], rax
+ 246 01a0 48C745E8 		mov	QWORD PTR -24[rbp], 0
+ 246      00000000 
+ 247 01a8 EB14     		jmp	.L23
+ 248              	.L25:
+ 109:inventory3.c  ****        current != NULL  &&  new_part->number > current->car->number;
+ 110:inventory3.c  ****        previous = current, current = current->cdr) {}
+ 249              		.loc 1 110 0
+ 250 01aa 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 251 01ae 488945E8 		mov	QWORD PTR -24[rbp], rax
+ 252 01b2 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 253 01b6 488B4008 		mov	rax, QWORD PTR 8[rax]
+ 254 01ba 488945E0 		mov	QWORD PTR -32[rbp], rax
+ 255              	.L23:
+ 108:inventory3.c  ****        current != NULL  &&  new_part->number > current->car->number;
+ 256              		.loc 1 108 0 discriminator 1
+ 257 01be 48837DE0 		cmp	QWORD PTR -32[rbp], 0
+ 257      00
+ 258 01c3 7413     		je	.L24
+ 109:inventory3.c  ****        current != NULL  &&  new_part->number > current->car->number;
+ 259              		.loc 1 109 0
+ 260 01c5 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 261 01c9 8B10     		mov	edx, DWORD PTR [rax]
+ 262 01cb 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 263 01cf 488B00   		mov	rax, QWORD PTR [rax]
+ 264 01d2 8B00     		mov	eax, DWORD PTR [rax]
+ 265 01d4 39C2     		cmp	edx, eax
+ 266 01d6 7FD2     		jg	.L25
+ 267              	.L24:
+ 111:inventory3.c  **** 
+ 112:inventory3.c  ****   if ( current != NULL  &&  new_part->number == current->car->number ) {
+ 268              		.loc 1 112 0
+ 269 01d8 48837DE0 		cmp	QWORD PTR -32[rbp], 0
+ 269      00
+ 270 01dd 7430     		je	.L26
+ 271              		.loc 1 112 0 is_stmt 0 discriminator 1
+ 272 01df 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 273 01e3 8B10     		mov	edx, DWORD PTR [rax]
+ 274 01e5 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 275 01e9 488B00   		mov	rax, QWORD PTR [rax]
+ 276 01ec 8B00     		mov	eax, DWORD PTR [rax]
+ 277 01ee 39C2     		cmp	edx, eax
+ 278 01f0 751D     		jne	.L26
+ 113:inventory3.c  ****     printf("Part already exists.\n");
+ 279              		.loc 1 113 0 is_stmt 1
+ 280 01f2 488D3D00 		lea	rdi, .LC6[rip]
+ 280      000000
+ 281 01f9 E8000000 		call	puts@PLT
+ 281      00
+ 114:inventory3.c  ****     free(new_part);
+ 282              		.loc 1 114 0
+ 283 01fe 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 284 0202 4889C7   		mov	rdi, rax
+ 285 0205 E8000000 		call	free@PLT
+ 285      00
+ 115:inventory3.c  ****     return;
+ 286              		.loc 1 115 0
+ 287 020a E98A0000 		jmp	.L19
+ 287      00
+ 288              	.L26:
+ 116:inventory3.c  ****   }
+ 117:inventory3.c  **** 
+ 118:inventory3.c  ****   printf("Enter part name: ");
+ 289              		.loc 1 118 0
+ 290 020f 488D3D00 		lea	rdi, .LC7[rip]
+ 290      000000
+ 291 0216 B8000000 		mov	eax, 0
+ 291      00
+ 292 021b E8000000 		call	printf@PLT
+ 292      00
+ 119:inventory3.c  ****   readline(new_part->name, NAME_LENGTH);
+ 293              		.loc 1 119 0
+ 294 0220 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 295 0224 4883C004 		add	rax, 4
+ 296 0228 BE190000 		mov	esi, 25
+ 296      00
+ 297 022d 4889C7   		mov	rdi, rax
+ 298 0230 E8000000 		call	readline@PLT
+ 298      00
+ 120:inventory3.c  **** 
+ 121:inventory3.c  ****   printf("Enter quantity on hand: ");
+ 299              		.loc 1 121 0
+ 300 0235 488D3D00 		lea	rdi, .LC8[rip]
+ 300      000000
+ 301 023c B8000000 		mov	eax, 0
+ 301      00
+ 302 0241 E8000000 		call	printf@PLT
+ 302      00
+ 122:inventory3.c  ****   scanf("%d", &new_part->on_hand);
+ 303              		.loc 1 122 0
+ 304 0246 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 305 024a 4883C020 		add	rax, 32
+ 306 024e 4889C6   		mov	rsi, rax
+ 307 0251 488D3D00 		lea	rdi, .LC5[rip]
+ 307      000000
+ 308 0258 B8000000 		mov	eax, 0
+ 308      00
+ 309 025d E8000000 		call	__isoc99_scanf@PLT
+ 309      00
+ 123:inventory3.c  **** 
+ 124:inventory3.c  ****   new_cons->car = new_part;
+ 310              		.loc 1 124 0
+ 311 0262 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 312 0266 488B55F8 		mov	rdx, QWORD PTR -8[rbp]
+ 313 026a 488910   		mov	QWORD PTR [rax], rdx
+ 125:inventory3.c  ****   new_cons->cdr = current;
+ 314              		.loc 1 125 0
+ 315 026d 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 316 0271 488B55E0 		mov	rdx, QWORD PTR -32[rbp]
+ 317 0275 48895008 		mov	QWORD PTR 8[rax], rdx
+ 126:inventory3.c  **** 
+ 127:inventory3.c  ****   if ( previous == NULL ) {
+ 318              		.loc 1 127 0
+ 319 0279 48837DE8 		cmp	QWORD PTR -24[rbp], 0
+ 319      00
+ 320 027e 750D     		jne	.L27
+ 128:inventory3.c  ****     inventory = new_cons;
+ 321              		.loc 1 128 0
+ 322 0280 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 323 0284 48890500 		mov	QWORD PTR inventory[rip], rax
+ 323      000000
+ 324 028b EB0C     		jmp	.L19
+ 325              	.L27:
+ 129:inventory3.c  ****   } else {
+ 130:inventory3.c  ****     previous->cdr = new_cons;
+ 326              		.loc 1 130 0
+ 327 028d 488B45E8 		mov	rax, QWORD PTR -24[rbp]
+ 328 0291 488B55F0 		mov	rdx, QWORD PTR -16[rbp]
+ 329 0295 48895008 		mov	QWORD PTR 8[rax], rdx
+ 330              	.L19:
+ 131:inventory3.c  ****   }
+ 132:inventory3.c  **** }
+ 331              		.loc 1 132 0
+ 332 0299 C9       		leave
+ 333              		.cfi_def_cfa 7, 8
+ 334 029a C3       		ret
+ 335              		.cfi_endproc
+ 336              	.LFE7:
+ 338              		.section	.rodata
+ 339              	.LC9:
+ 340 00df 25376420 		.string	"%7d       %-25s%11d\n"
+ 340      20202020 
+ 340      2020252D 
+ 340      32357325 
+ 340      3131640A 
+ 341              		.text
+ 342              		.globl	print_parts_list
+ 344              	print_parts_list:
+ 345              	.LFB8:
+ 133:inventory3.c  **** 
+ 134:inventory3.c  **** void print_parts_list(parts_list l) {
+ 346              		.loc 1 134 0
+ 347              		.cfi_startproc
+ 348 029b 55       		push	rbp
+ 349              		.cfi_def_cfa_offset 16
+ 350              		.cfi_offset 6, -16
+ 351 029c 4889E5   		mov	rbp, rsp
+ 352              		.cfi_def_cfa_register 6
+ 353 029f 4883EC20 		sub	rsp, 32
+ 354 02a3 48897DE8 		mov	QWORD PTR -24[rbp], rdi
+ 135:inventory3.c  ****   if ( l != NULL ) {
+ 355              		.loc 1 135 0
+ 356 02a7 48837DE8 		cmp	QWORD PTR -24[rbp], 0
+ 356      00
+ 357 02ac 7448     		je	.L30
+ 358              	.LBB2:
+ 136:inventory3.c  ****     part *p = l->car;
+ 359              		.loc 1 136 0
+ 360 02ae 488B45E8 		mov	rax, QWORD PTR -24[rbp]
+ 361 02b2 488B00   		mov	rax, QWORD PTR [rax]
+ 362 02b5 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 137:inventory3.c  ****     printf("%7d       %-25s%11d\n", p->number, p->name, p->on_hand);
+ 363              		.loc 1 137 0
+ 364 02b9 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 365 02bd 8B5020   		mov	edx, DWORD PTR 32[rax]
+ 366 02c0 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 367 02c4 488D7004 		lea	rsi, 4[rax]
+ 368 02c8 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 369 02cc 8B00     		mov	eax, DWORD PTR [rax]
+ 370 02ce 89D1     		mov	ecx, edx
+ 371 02d0 4889F2   		mov	rdx, rsi
+ 372 02d3 89C6     		mov	esi, eax
+ 373 02d5 488D3D00 		lea	rdi, .LC9[rip]
+ 373      000000
+ 374 02dc B8000000 		mov	eax, 0
+ 374      00
+ 375 02e1 E8000000 		call	printf@PLT
+ 375      00
+ 138:inventory3.c  ****     print_parts_list(l->cdr);
+ 376              		.loc 1 138 0
+ 377 02e6 488B45E8 		mov	rax, QWORD PTR -24[rbp]
+ 378 02ea 488B4008 		mov	rax, QWORD PTR 8[rax]
+ 379 02ee 4889C7   		mov	rdi, rax
+ 380 02f1 E8000000 		call	print_parts_list
+ 380      00
+ 381              	.L30:
+ 382              	.LBE2:
+ 139:inventory3.c  ****   }
+ 140:inventory3.c  **** }
+ 383              		.loc 1 140 0
+ 384 02f6 90       		nop
+ 385 02f7 C9       		leave
+ 386              		.cfi_def_cfa 7, 8
+ 387 02f8 C3       		ret
+ 388              		.cfi_endproc
+ 389              	.LFE8:
+ 391              		.section	.rodata
+ 392 00f4 00000000 		.align 8
+ 393              	.LC10:
+ 394 00f8 50617274 		.string	"Part Number   Part Name                  Quantity on Hand"
+ 394      204E756D 
+ 394      62657220 
+ 394      20205061 
+ 394      7274204E 
+ 395              		.text
+ 396              		.globl	print
+ 398              	print:
+ 399              	.LFB9:
+ 141:inventory3.c  **** 
+ 142:inventory3.c  **** void print(void) {
+ 400              		.loc 1 142 0
+ 401              		.cfi_startproc
+ 402 02f9 55       		push	rbp
+ 403              		.cfi_def_cfa_offset 16
+ 404              		.cfi_offset 6, -16
+ 405 02fa 4889E5   		mov	rbp, rsp
+ 406              		.cfi_def_cfa_register 6
+ 407 02fd 4883EC10 		sub	rsp, 16
+ 143:inventory3.c  ****   printf("Part Number   Part Name                  Quantity on Hand\n");
+ 408              		.loc 1 143 0
+ 409 0301 488D3D00 		lea	rdi, .LC10[rip]
+ 409      000000
+ 410 0308 E8000000 		call	puts@PLT
+ 410      00
+ 411              	.LBB3:
+ 144:inventory3.c  ****   /* print_parts_list(inventory); */
+ 145:inventory3.c  **** 
+ 146:inventory3.c  ****   for (parts_list l = inventory; l != NULL; l = l->cdr) {
+ 412              		.loc 1 146 0
+ 413 030d 488B0500 		mov	rax, QWORD PTR inventory[rip]
+ 413      000000
+ 414 0314 488945F0 		mov	QWORD PTR -16[rbp], rax
+ 415 0318 EB44     		jmp	.L32
+ 416              	.L33:
+ 417              	.LBB4:
+ 147:inventory3.c  ****     part *p = l->car;
+ 418              		.loc 1 147 0 discriminator 3
+ 419 031a 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 420 031e 488B00   		mov	rax, QWORD PTR [rax]
+ 421 0321 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 148:inventory3.c  ****     printf("%7d       %-25s%11d\n", p->number, p->name, p->on_hand);
+ 422              		.loc 1 148 0 discriminator 3
+ 423 0325 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 424 0329 8B5020   		mov	edx, DWORD PTR 32[rax]
+ 425 032c 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 426 0330 488D7004 		lea	rsi, 4[rax]
+ 427 0334 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 428 0338 8B00     		mov	eax, DWORD PTR [rax]
+ 429 033a 89D1     		mov	ecx, edx
+ 430 033c 4889F2   		mov	rdx, rsi
+ 431 033f 89C6     		mov	esi, eax
+ 432 0341 488D3D00 		lea	rdi, .LC9[rip]
+ 432      000000
+ 433 0348 B8000000 		mov	eax, 0
+ 433      00
+ 434 034d E8000000 		call	printf@PLT
+ 434      00
+ 435              	.LBE4:
+ 146:inventory3.c  ****     part *p = l->car;
+ 436              		.loc 1 146 0 discriminator 3
+ 437 0352 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 438 0356 488B4008 		mov	rax, QWORD PTR 8[rax]
+ 439 035a 488945F0 		mov	QWORD PTR -16[rbp], rax
+ 440              	.L32:
+ 146:inventory3.c  ****     part *p = l->car;
+ 441              		.loc 1 146 0 is_stmt 0 discriminator 1
+ 442 035e 48837DF0 		cmp	QWORD PTR -16[rbp], 0
+ 442      00
+ 443 0363 75B5     		jne	.L33
+ 444              	.LBE3:
+ 149:inventory3.c  ****   }
+ 150:inventory3.c  **** }
+ 445              		.loc 1 150 0 is_stmt 1
+ 446 0365 90       		nop
+ 447 0366 C9       		leave
+ 448              		.cfi_def_cfa 7, 8
+ 449 0367 C3       		ret
+ 450              		.cfi_endproc
+ 451              	.LFE9:
+ 453              		.section	.rodata
+ 454              	.LC11:
+ 455 0132 50617274 		.string	"Part not found."
+ 455      206E6F74 
+ 455      20666F75 
+ 455      6E642E00 
+ 456              	.LC12:
+ 457 0142 50617274 		.string	"Part name: %s\n"
+ 457      206E616D 
+ 457      653A2025 
+ 457      730A00
+ 458              	.LC13:
+ 459 0151 5175616E 		.string	"Quantity on hand: %d\n"
+ 459      74697479 
+ 459      206F6E20 
+ 459      68616E64 
+ 459      3A202564 
+ 460              		.text
+ 461              		.globl	search
+ 463              	search:
+ 464              	.LFB10:
+ 151:inventory3.c  **** 
+ 152:inventory3.c  **** void search(void) {
+ 465              		.loc 1 152 0
+ 466              		.cfi_startproc
+ 467 0368 55       		push	rbp
+ 468              		.cfi_def_cfa_offset 16
+ 469              		.cfi_offset 6, -16
+ 470 0369 4889E5   		mov	rbp, rsp
+ 471              		.cfi_def_cfa_register 6
+ 472 036c 4883EC20 		sub	rsp, 32
+ 473              		.loc 1 152 0
+ 474 0370 64488B04 		mov	rax, QWORD PTR fs:40
+ 474      25280000 
+ 474      00
+ 475 0379 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 476 037d 31C0     		xor	eax, eax
+ 153:inventory3.c  ****   printf("Enter part number: ");
+ 477              		.loc 1 153 0
+ 478 037f 488D3D00 		lea	rdi, .LC4[rip]
+ 478      000000
+ 479 0386 B8000000 		mov	eax, 0
+ 479      00
+ 480 038b E8000000 		call	printf@PLT
+ 480      00
+ 154:inventory3.c  ****   int number;
+ 155:inventory3.c  ****   scanf("%d", &number);
+ 481              		.loc 1 155 0
+ 482 0390 488D45EC 		lea	rax, -20[rbp]
+ 483 0394 4889C6   		mov	rsi, rax
+ 484 0397 488D3D00 		lea	rdi, .LC5[rip]
+ 484      000000
+ 485 039e B8000000 		mov	eax, 0
+ 485      00
+ 486 03a3 E8000000 		call	__isoc99_scanf@PLT
+ 486      00
+ 156:inventory3.c  ****   
+ 157:inventory3.c  ****   part *p = find_part(number);
+ 487              		.loc 1 157 0
+ 488 03a8 8B45EC   		mov	eax, DWORD PTR -20[rbp]
+ 489 03ab 89C7     		mov	edi, eax
+ 490 03ad E8000000 		call	find_part
+ 490      00
+ 491 03b2 488945F0 		mov	QWORD PTR -16[rbp], rax
+ 158:inventory3.c  **** 
+ 159:inventory3.c  ****   if ( p == NULL ) {
+ 492              		.loc 1 159 0
+ 493 03b6 48837DF0 		cmp	QWORD PTR -16[rbp], 0
+ 493      00
+ 494 03bb 750E     		jne	.L35
+ 160:inventory3.c  ****     printf("Part not found.\n");
+ 495              		.loc 1 160 0
+ 496 03bd 488D3D00 		lea	rdi, .LC11[rip]
+ 496      000000
+ 497 03c4 E8000000 		call	puts@PLT
+ 497      00
+ 161:inventory3.c  ****   } else {
+ 162:inventory3.c  ****     printf("Part name: %s\n", p->name);
+ 163:inventory3.c  ****     printf("Quantity on hand: %d\n", p->on_hand);
+ 164:inventory3.c  ****   }
+ 165:inventory3.c  **** }
+ 498              		.loc 1 165 0
+ 499 03c9 EB36     		jmp	.L38
+ 500              	.L35:
+ 162:inventory3.c  ****     printf("Quantity on hand: %d\n", p->on_hand);
+ 501              		.loc 1 162 0
+ 502 03cb 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 503 03cf 4883C004 		add	rax, 4
+ 504 03d3 4889C6   		mov	rsi, rax
+ 505 03d6 488D3D00 		lea	rdi, .LC12[rip]
+ 505      000000
+ 506 03dd B8000000 		mov	eax, 0
+ 506      00
+ 507 03e2 E8000000 		call	printf@PLT
+ 507      00
+ 163:inventory3.c  ****   }
+ 508              		.loc 1 163 0
+ 509 03e7 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 510 03eb 8B4020   		mov	eax, DWORD PTR 32[rax]
+ 511 03ee 89C6     		mov	esi, eax
+ 512 03f0 488D3D00 		lea	rdi, .LC13[rip]
+ 512      000000
+ 513 03f7 B8000000 		mov	eax, 0
+ 513      00
+ 514 03fc E8000000 		call	printf@PLT
+ 514      00
+ 515              	.L38:
+ 516              		.loc 1 165 0
+ 517 0401 90       		nop
+ 518 0402 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 519 0406 64483304 		xor	rax, QWORD PTR fs:40
+ 519      25280000 
+ 519      00
+ 520 040f 7405     		je	.L37
+ 521 0411 E8000000 		call	__stack_chk_fail@PLT
+ 521      00
+ 522              	.L37:
+ 523 0416 C9       		leave
+ 524              		.cfi_def_cfa 7, 8
+ 525 0417 C3       		ret
+ 526              		.cfi_endproc
+ 527              	.LFE10:
+ 529              		.section	.rodata
+ 530 0167 00       		.align 8
+ 531              	.LC14:
+ 532 0168 456E7465 		.string	"Enter change in quantity in hand: "
+ 532      72206368 
+ 532      616E6765 
+ 532      20696E20 
+ 532      7175616E 
+ 533              		.text
+ 534              		.globl	update
+ 536              	update:
+ 537              	.LFB11:
+ 166:inventory3.c  **** 
+ 167:inventory3.c  **** void update(void) {
+ 538              		.loc 1 167 0
+ 539              		.cfi_startproc
+ 540 0418 55       		push	rbp
+ 541              		.cfi_def_cfa_offset 16
+ 542              		.cfi_offset 6, -16
+ 543 0419 4889E5   		mov	rbp, rsp
+ 544              		.cfi_def_cfa_register 6
+ 545 041c 4883EC20 		sub	rsp, 32
+ 546              		.loc 1 167 0
+ 547 0420 64488B04 		mov	rax, QWORD PTR fs:40
+ 547      25280000 
+ 547      00
+ 548 0429 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 549 042d 31C0     		xor	eax, eax
+ 168:inventory3.c  ****   printf("Enter part number: ");
+ 550              		.loc 1 168 0
+ 551 042f 488D3D00 		lea	rdi, .LC4[rip]
+ 551      000000
+ 552 0436 B8000000 		mov	eax, 0
+ 552      00
+ 553 043b E8000000 		call	printf@PLT
+ 553      00
+ 169:inventory3.c  ****   int number;
+ 170:inventory3.c  ****   scanf("%d", &number);
+ 554              		.loc 1 170 0
+ 555 0440 488D45E8 		lea	rax, -24[rbp]
+ 556 0444 4889C6   		mov	rsi, rax
+ 557 0447 488D3D00 		lea	rdi, .LC5[rip]
+ 557      000000
+ 558 044e B8000000 		mov	eax, 0
+ 558      00
+ 559 0453 E8000000 		call	__isoc99_scanf@PLT
+ 559      00
+ 171:inventory3.c  ****   
+ 172:inventory3.c  ****   part *p = find_part(number);
+ 560              		.loc 1 172 0
+ 561 0458 8B45E8   		mov	eax, DWORD PTR -24[rbp]
+ 562 045b 89C7     		mov	edi, eax
+ 563 045d E8000000 		call	find_part
+ 563      00
+ 564 0462 488945F0 		mov	QWORD PTR -16[rbp], rax
+ 173:inventory3.c  **** 
+ 174:inventory3.c  ****   if ( p == NULL ) {
+ 565              		.loc 1 174 0
+ 566 0466 48837DF0 		cmp	QWORD PTR -16[rbp], 0
+ 566      00
+ 567 046b 750E     		jne	.L40
+ 175:inventory3.c  ****     printf("Part not found.\n");
+ 568              		.loc 1 175 0
+ 569 046d 488D3D00 		lea	rdi, .LC11[rip]
+ 569      000000
+ 570 0474 E8000000 		call	puts@PLT
+ 570      00
+ 176:inventory3.c  ****   } else {
+ 177:inventory3.c  ****     printf("Enter change in quantity in hand: ");
+ 178:inventory3.c  ****     int change; // delta
+ 179:inventory3.c  ****     scanf("%d", &change);
+ 180:inventory3.c  ****     p->on_hand += change;
+ 181:inventory3.c  ****   }
+ 182:inventory3.c  **** }
+ 571              		.loc 1 182 0
+ 572 0479 EB3C     		jmp	.L43
+ 573              	.L40:
+ 574              	.LBB5:
+ 177:inventory3.c  ****     int change; // delta
+ 575              		.loc 1 177 0
+ 576 047b 488D3D00 		lea	rdi, .LC14[rip]
+ 576      000000
+ 577 0482 B8000000 		mov	eax, 0
+ 577      00
+ 578 0487 E8000000 		call	printf@PLT
+ 578      00
+ 179:inventory3.c  ****     p->on_hand += change;
+ 579              		.loc 1 179 0
+ 580 048c 488D45EC 		lea	rax, -20[rbp]
+ 581 0490 4889C6   		mov	rsi, rax
+ 582 0493 488D3D00 		lea	rdi, .LC5[rip]
+ 582      000000
+ 583 049a B8000000 		mov	eax, 0
+ 583      00
+ 584 049f E8000000 		call	__isoc99_scanf@PLT
+ 584      00
+ 180:inventory3.c  ****   }
+ 585              		.loc 1 180 0
+ 586 04a4 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 587 04a8 8B5020   		mov	edx, DWORD PTR 32[rax]
+ 588 04ab 8B45EC   		mov	eax, DWORD PTR -20[rbp]
+ 589 04ae 01C2     		add	edx, eax
+ 590 04b0 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 591 04b4 895020   		mov	DWORD PTR 32[rax], edx
+ 592              	.L43:
+ 593              	.LBE5:
+ 594              		.loc 1 182 0
+ 595 04b7 90       		nop
+ 596 04b8 488B45F8 		mov	rax, QWORD PTR -8[rbp]
+ 597 04bc 64483304 		xor	rax, QWORD PTR fs:40
+ 597      25280000 
+ 597      00
+ 598 04c5 7405     		je	.L42
+ 599 04c7 E8000000 		call	__stack_chk_fail@PLT
+ 599      00
+ 600              	.L42:
+ 601 04cc C9       		leave
+ 602              		.cfi_def_cfa 7, 8
+ 603 04cd C3       		ret
+ 604              		.cfi_endproc
+ 605              	.LFE11:
+ 607              	.Letext0:
+ 608              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 609              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 610              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 611              		.file 5 "/usr/include/stdio.h"
+ 612              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

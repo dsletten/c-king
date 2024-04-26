@@ -1,0 +1,139 @@
+
+swap:	file format Mach-O 64-bit x86-64
+
+Disassembly of section __TEXT,__text:
+__text:
+; int main(void) {
+100000ec0:	55 	push	rbp
+100000ec1:	48 89 e5 	mov	rbp, rsp
+100000ec4:	48 83 ec 30 	sub	rsp, 48
+100000ec8:	c7 45 fc 00 00 00 00 	mov	dword ptr [rbp - 4], 0
+; int m = 1, n = 2;
+100000ecf:	c7 45 f8 01 00 00 00 	mov	dword ptr [rbp - 8], 1
+100000ed6:	c7 45 f4 02 00 00 00 	mov	dword ptr [rbp - 12], 2
+; printf("m: %d n: %d\n", m, n);
+100000edd:	8b 75 f8 	mov	esi, dword ptr [rbp - 8]
+100000ee0:	8b 55 f4 	mov	edx, dword ptr [rbp - 12]
+100000ee3:	48 8d 05 b2 00 00 00 	lea	rax, [rip + 178]
+100000eea:	31 c9 	xor	ecx, ecx
+100000eec:	40 88 cf 	mov	dil, cl
+100000eef:	40 88 7d f3 	mov	byte ptr [rbp - 13], dil
+100000ef3:	48 89 c7 	mov	rdi, rax
+100000ef6:	44 8a 45 f3 	mov	r8b, byte ptr [rbp - 13]
+100000efa:	48 89 45 e8 	mov	qword ptr [rbp - 24], rax
+100000efe:	44 88 c0 	mov	al, r8b
+100000f01:	89 4d e4 	mov	dword ptr [rbp - 28], ecx
+100000f04:	e8 69 00 00 00 	call	105 <swap.c+0x100000f72>
+100000f09:	48 8d 7d f8 	lea	rdi, [rbp - 8]
+100000f0d:	48 8d 75 f4 	lea	rsi, [rbp - 12]
+100000f11:	89 45 e0 	mov	dword ptr [rbp - 32], eax
+; swap(&m, &n);
+100000f14:	e8 27 00 00 00 	call	39 <_swap>
+; printf("m: %d n: %d\n", m, n);
+100000f19:	8b 75 f8 	mov	esi, dword ptr [rbp - 8]
+100000f1c:	8b 55 f4 	mov	edx, dword ptr [rbp - 12]
+100000f1f:	48 8b 7d e8 	mov	rdi, qword ptr [rbp - 24]
+100000f23:	8a 45 f3 	mov	al, byte ptr [rbp - 13]
+100000f26:	e8 47 00 00 00 	call	71 <swap.c+0x100000f72>
+100000f2b:	8b 7d e4 	mov	edi, dword ptr [rbp - 28]
+100000f2e:	89 45 dc 	mov	dword ptr [rbp - 36], eax
+; exit(EXIT_SUCCESS);
+100000f31:	e8 36 00 00 00 	call	54 <swap.c+0x100000f6c>
+100000f36:	66 2e 0f 1f 84 00 00 00 00 00 	nop	word ptr cs:[rax + rax]
+; void swap(int *a, int *b) {
+100000f40:	55 	push	rbp
+100000f41:	48 89 e5 	mov	rbp, rsp
+100000f44:	48 89 7d f8 	mov	qword ptr [rbp - 8], rdi
+100000f48:	48 89 75 f0 	mov	qword ptr [rbp - 16], rsi
+; int temp = *a;
+100000f4c:	48 8b 75 f8 	mov	rsi, qword ptr [rbp - 8]
+100000f50:	8b 06 	mov	eax, dword ptr [rsi]
+100000f52:	89 45 ec 	mov	dword ptr [rbp - 20], eax
+; *a = *b;
+100000f55:	48 8b 75 f0 	mov	rsi, qword ptr [rbp - 16]
+100000f59:	8b 06 	mov	eax, dword ptr [rsi]
+100000f5b:	48 8b 75 f8 	mov	rsi, qword ptr [rbp - 8]
+100000f5f:	89 06 	mov	dword ptr [rsi], eax
+; *b = temp;
+100000f61:	8b 45 ec 	mov	eax, dword ptr [rbp - 20]
+100000f64:	48 8b 75 f0 	mov	rsi, qword ptr [rbp - 16]
+100000f68:	89 06 	mov	dword ptr [rsi], eax
+; }
+100000f6a:	5d 	pop	rbp
+100000f6b:	c3 	ret
+
+_main:
+; int main(void) {
+100000ec0:	55 	push	rbp
+100000ec1:	48 89 e5 	mov	rbp, rsp
+100000ec4:	48 83 ec 30 	sub	rsp, 48
+100000ec8:	c7 45 fc 00 00 00 00 	mov	dword ptr [rbp - 4], 0
+; int m = 1, n = 2;
+100000ecf:	c7 45 f8 01 00 00 00 	mov	dword ptr [rbp - 8], 1
+100000ed6:	c7 45 f4 02 00 00 00 	mov	dword ptr [rbp - 12], 2
+; printf("m: %d n: %d\n", m, n);
+100000edd:	8b 75 f8 	mov	esi, dword ptr [rbp - 8]
+100000ee0:	8b 55 f4 	mov	edx, dword ptr [rbp - 12]
+100000ee3:	48 8d 05 b2 00 00 00 	lea	rax, [rip + 178]
+100000eea:	31 c9 	xor	ecx, ecx
+100000eec:	40 88 cf 	mov	dil, cl
+100000eef:	40 88 7d f3 	mov	byte ptr [rbp - 13], dil
+100000ef3:	48 89 c7 	mov	rdi, rax
+100000ef6:	44 8a 45 f3 	mov	r8b, byte ptr [rbp - 13]
+100000efa:	48 89 45 e8 	mov	qword ptr [rbp - 24], rax
+100000efe:	44 88 c0 	mov	al, r8b
+100000f01:	89 4d e4 	mov	dword ptr [rbp - 28], ecx
+100000f04:	e8 69 00 00 00 	call	105 <swap.c+0x100000f72>
+100000f09:	48 8d 7d f8 	lea	rdi, [rbp - 8]
+100000f0d:	48 8d 75 f4 	lea	rsi, [rbp - 12]
+100000f11:	89 45 e0 	mov	dword ptr [rbp - 32], eax
+; swap(&m, &n);
+100000f14:	e8 27 00 00 00 	call	39 <_swap>
+; printf("m: %d n: %d\n", m, n);
+100000f19:	8b 75 f8 	mov	esi, dword ptr [rbp - 8]
+100000f1c:	8b 55 f4 	mov	edx, dword ptr [rbp - 12]
+100000f1f:	48 8b 7d e8 	mov	rdi, qword ptr [rbp - 24]
+100000f23:	8a 45 f3 	mov	al, byte ptr [rbp - 13]
+100000f26:	e8 47 00 00 00 	call	71 <swap.c+0x100000f72>
+100000f2b:	8b 7d e4 	mov	edi, dword ptr [rbp - 28]
+100000f2e:	89 45 dc 	mov	dword ptr [rbp - 36], eax
+; exit(EXIT_SUCCESS);
+100000f31:	e8 36 00 00 00 	call	54 <swap.c+0x100000f6c>
+100000f36:	66 2e 0f 1f 84 00 00 00 00 00 	nop	word ptr cs:[rax + rax]
+
+_swap:
+; void swap(int *a, int *b) {
+100000f40:	55 	push	rbp
+100000f41:	48 89 e5 	mov	rbp, rsp
+100000f44:	48 89 7d f8 	mov	qword ptr [rbp - 8], rdi
+100000f48:	48 89 75 f0 	mov	qword ptr [rbp - 16], rsi
+; int temp = *a;
+100000f4c:	48 8b 75 f8 	mov	rsi, qword ptr [rbp - 8]
+100000f50:	8b 06 	mov	eax, dword ptr [rsi]
+100000f52:	89 45 ec 	mov	dword ptr [rbp - 20], eax
+; *a = *b;
+100000f55:	48 8b 75 f0 	mov	rsi, qword ptr [rbp - 16]
+100000f59:	8b 06 	mov	eax, dword ptr [rsi]
+100000f5b:	48 8b 75 f8 	mov	rsi, qword ptr [rbp - 8]
+100000f5f:	89 06 	mov	dword ptr [rsi], eax
+; *b = temp;
+100000f61:	8b 45 ec 	mov	eax, dword ptr [rbp - 20]
+100000f64:	48 8b 75 f0 	mov	rsi, qword ptr [rbp - 16]
+100000f68:	89 06 	mov	dword ptr [rsi], eax
+; }
+100000f6a:	5d 	pop	rbp
+100000f6b:	c3 	ret
+Disassembly of section __TEXT,__stubs:
+__stubs:
+100000f6c:	ff 25 8e 10 00 00 	jmp	qword ptr [rip + 4238]
+100000f72:	ff 25 90 10 00 00 	jmp	qword ptr [rip + 4240]
+Disassembly of section __TEXT,__stub_helper:
+__stub_helper:
+100000f78:	4c 8d 1d 91 10 00 00 	lea	r11, [rip + 4241]
+100000f7f:	41 53 	push	r11
+100000f81:	ff 25 79 00 00 00 	jmp	qword ptr [rip + 121]
+100000f87:	90 	nop
+100000f88:	68 00 00 00 00 	push	0
+100000f8d:	e9 e6 ff ff ff 	jmp	-26 </var/folders/kt/q3xbpytd4t92sxv_w264m8bh0000gq/T/swap-1a7c80.o+0xa152ea04>
+100000f92:	68 0c 00 00 00 	push	12
+100000f97:	e9 dc ff ff ff 	jmp	-36 </var/folders/kt/q3xbpytd4t92sxv_w264m8bh0000gq/T/swap-1a7c80.o+0xa152ea04>

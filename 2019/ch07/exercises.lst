@@ -1,0 +1,203 @@
+   1              		.file	"exercises.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 25642025 		.string	"%d %d %d\n"
+   7      64202564 
+   7      0A00
+   8              	.LC2:
+   9 000a 25660A00 		.string	"%f\n"
+  10              	.LC5:
+  11 000e 25640A00 		.string	"%d\n"
+  12              	.LC6:
+  13 0012 25630A00 		.string	"%c\n"
+  14              		.text
+  15              		.globl	main
+  17              	main:
+  18              	.LFB5:
+  19              		.file 1 "exercises.c"
+   1:exercises.c   **** /*
+   2:exercises.c   ****  *
+   3:exercises.c   ****  *   File:
+   4:exercises.c   ****  *      exercises.c
+   5:exercises.c   ****  *
+   6:exercises.c   ****  *   Synopsis:
+   7:exercises.c   ****  *
+   8:exercises.c   ****  *   Revision History:
+   9:exercises.c   ****  *      Date    Change Description
+  10:exercises.c   ****  *      ------  -----------------------------------------
+  11:exercises.c   ****  *      200213  Original.
+  12:exercises.c   ****  *
+  13:exercises.c   ****  */
+  14:exercises.c   **** #include <stdio.h>
+  15:exercises.c   **** #include <stdlib.h>
+  16:exercises.c   **** 
+  17:exercises.c   **** int main(void) {
+  20              		.loc 1 17 0
+  21              		.cfi_startproc
+  22 0000 55       		push	rbp
+  23              		.cfi_def_cfa_offset 16
+  24              		.cfi_offset 6, -16
+  25 0001 4889E5   		mov	rbp, rsp
+  26              		.cfi_def_cfa_register 6
+  27 0004 4883EC20 		sub	rsp, 32
+  18:exercises.c   ****   {
+  19:exercises.c   ****     //
+  20:exercises.c   ****     //    1.
+  21:exercises.c   ****     //    
+  22:exercises.c   ****     printf("%d %d %d\n", 077, 0x77, 0XABC);
+  28              		.loc 1 22 0
+  29 0008 B9BC0A00 		mov	ecx, 2748
+  29      00
+  30 000d BA770000 		mov	edx, 119
+  30      00
+  31 0012 BE3F0000 		mov	esi, 63
+  31      00
+  32 0017 488D3D00 		lea	rdi, .LC0[rip]
+  32      000000
+  33 001e B8000000 		mov	eax, 0
+  33      00
+  34 0023 E8000000 		call	printf@PLT
+  34      00
+  23:exercises.c   ****   }
+  24:exercises.c   **** 
+  25:exercises.c   ****   {
+  26:exercises.c   ****     //
+  27:exercises.c   ****     //    3.
+  28:exercises.c   ****     //    
+  29:exercises.c   ****     printf("%f\n", 010E2);
+  35              		.loc 1 29 0
+  36 0028 488B0500 		mov	rax, QWORD PTR .LC1[rip]
+  36      000000
+  37 002f 488945E8 		mov	QWORD PTR -24[rbp], rax
+  38 0033 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  38      E8
+  39 0038 488D3D00 		lea	rdi, .LC2[rip]
+  39      000000
+  40 003f B8010000 		mov	eax, 1
+  40      00
+  41 0044 E8000000 		call	printf@PLT
+  41      00
+  30:exercises.c   ****     printf("%f\n", 32.1E+5);
+  42              		.loc 1 30 0
+  43 0049 488B0500 		mov	rax, QWORD PTR .LC3[rip]
+  43      000000
+  44 0050 488945E8 		mov	QWORD PTR -24[rbp], rax
+  45 0054 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  45      E8
+  46 0059 488D3D00 		lea	rdi, .LC2[rip]
+  46      000000
+  47 0060 B8010000 		mov	eax, 1
+  47      00
+  48 0065 E8000000 		call	printf@PLT
+  48      00
+  31:exercises.c   ****     printf("%f\n", 3.978e-2);
+  49              		.loc 1 31 0
+  50 006a 488B0500 		mov	rax, QWORD PTR .LC4[rip]
+  50      000000
+  51 0071 488945E8 		mov	QWORD PTR -24[rbp], rax
+  52 0075 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  52      E8
+  53 007a 488D3D00 		lea	rdi, .LC2[rip]
+  53      000000
+  54 0081 B8010000 		mov	eax, 1
+  54      00
+  55 0086 E8000000 		call	printf@PLT
+  55      00
+  56              	.LBB2:
+  32:exercises.c   ****   }
+  33:exercises.c   **** 
+  34:exercises.c   ****   {
+  35:exercises.c   ****     //
+  36:exercises.c   ****     //    6.
+  37:exercises.c   ****     //    
+  38:exercises.c   ****     char c = 'a';
+  57              		.loc 1 38 0
+  58 008b C645FB61 		mov	BYTE PTR -5[rbp], 97
+  39:exercises.c   ****     int i = 5;
+  59              		.loc 1 39 0
+  60 008f C745FC05 		mov	DWORD PTR -4[rbp], 5
+  60      000000
+  40:exercises.c   **** 
+  41:exercises.c   ****     i += c;
+  61              		.loc 1 41 0
+  62 0096 0FBE45FB 		movsx	eax, BYTE PTR -5[rbp]
+  63 009a 0145FC   		add	DWORD PTR -4[rbp], eax
+  42:exercises.c   ****     printf("%d\n", i);
+  64              		.loc 1 42 0
+  65 009d 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+  66 00a0 89C6     		mov	esi, eax
+  67 00a2 488D3D00 		lea	rdi, .LC5[rip]
+  67      000000
+  68 00a9 B8000000 		mov	eax, 0
+  68      00
+  69 00ae E8000000 		call	printf@PLT
+  69      00
+  43:exercises.c   **** 
+  44:exercises.c   ****     c = 2 * c - 1;
+  70              		.loc 1 44 0
+  71 00b3 0FB645FB 		movzx	eax, BYTE PTR -5[rbp]
+  72 00b7 01C0     		add	eax, eax
+  73 00b9 83E801   		sub	eax, 1
+  74 00bc 8845FB   		mov	BYTE PTR -5[rbp], al
+  45:exercises.c   ****     printf("%c\n", c);
+  75              		.loc 1 45 0
+  76 00bf 0FBE45FB 		movsx	eax, BYTE PTR -5[rbp]
+  77 00c3 89C6     		mov	esi, eax
+  78 00c5 488D3D00 		lea	rdi, .LC6[rip]
+  78      000000
+  79 00cc B8000000 		mov	eax, 0
+  79      00
+  80 00d1 E8000000 		call	printf@PLT
+  80      00
+  46:exercises.c   ****     printf("%d\n", c);
+  81              		.loc 1 46 0
+  82 00d6 0FBE45FB 		movsx	eax, BYTE PTR -5[rbp]
+  83 00da 89C6     		mov	esi, eax
+  84 00dc 488D3D00 		lea	rdi, .LC5[rip]
+  84      000000
+  85 00e3 B8000000 		mov	eax, 0
+  85      00
+  86 00e8 E8000000 		call	printf@PLT
+  86      00
+  47:exercises.c   **** 
+  48:exercises.c   ****     putchar(c);
+  87              		.loc 1 48 0
+  88 00ed 0FBE45FB 		movsx	eax, BYTE PTR -5[rbp]
+  89 00f1 89C7     		mov	edi, eax
+  90 00f3 E8000000 		call	putchar@PLT
+  90      00
+  91              	.LBE2:
+  49:exercises.c   ****     //    printf(c); // Core dump!
+  50:exercises.c   ****   }
+  51:exercises.c   **** 
+  52:exercises.c   ****   exit(EXIT_SUCCESS);
+  92              		.loc 1 52 0
+  93 00f8 BF000000 		mov	edi, 0
+  93      00
+  94 00fd E8000000 		call	exit@PLT
+  94      00
+  95              		.cfi_endproc
+  96              	.LFE5:
+  98              		.section	.rodata
+  99 0016 0000     		.align 8
+ 100              	.LC1:
+ 101 0018 00000000 		.long	0
+ 102 001c 00408F40 		.long	1083129856
+ 103              		.align 8
+ 104              	.LC3:
+ 105 0020 00000000 		.long	0
+ 106 0024 887D4841 		.long	1095269768
+ 107              		.align 8
+ 108              	.LC4:
+ 109 0028 CBDB114E 		.long	1309793227
+ 110 002c 0B5EA43F 		.long	1067736587
+ 111              		.text
+ 112              	.Letext0:
+ 113              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 114              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 115              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 116              		.file 5 "/usr/include/stdio.h"
+ 117              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

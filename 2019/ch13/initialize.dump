@@ -1,0 +1,103 @@
+
+initialize:	file format Mach-O 64-bit x86-64
+
+Disassembly of section __TEXT,__text:
+__text:
+; int main(void) {
+100000ef0:	55 	push	rbp
+100000ef1:	48 89 e5 	mov	rbp, rsp
+100000ef4:	48 83 ec 40 	sub	rsp, 64
+100000ef8:	c7 45 fc 00 00 00 00 	mov	dword ptr [rbp - 4], 0
+; char *pung = "pung";
+100000eff:	48 8d 05 9a 00 00 00 	lea	rax, [rip + 154]
+100000f06:	48 89 45 f0 	mov	qword ptr [rbp - 16], rax
+; char foo[] = "foo";
+100000f0a:	c7 45 ec 66 6f 6f 00 	mov	dword ptr [rbp - 20], 7303014
+; char bar[] = {'b', 'a', 'r', '\0'};
+100000f11:	c7 45 e8 62 61 72 00 	mov	dword ptr [rbp - 24], 7496034
+; printf("%s\n", pung);
+100000f18:	48 8b 75 f0 	mov	rsi, qword ptr [rbp - 16]
+100000f1c:	48 8d 05 8a 00 00 00 	lea	rax, [rip + 138]
+100000f23:	31 c9 	xor	ecx, ecx
+100000f25:	88 ca 	mov	dl, cl
+100000f27:	48 89 c7 	mov	rdi, rax
+100000f2a:	48 89 45 e0 	mov	qword ptr [rbp - 32], rax
+100000f2e:	88 d0 	mov	al, dl
+100000f30:	89 4d dc 	mov	dword ptr [rbp - 36], ecx
+100000f33:	88 55 db 	mov	byte ptr [rbp - 37], dl
+100000f36:	e8 3b 00 00 00 	call	59 <initialize.c+0x100000f76>
+100000f3b:	48 8d 75 ec 	lea	rsi, [rbp - 20]
+100000f3f:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000f43:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f46:	89 45 d4 	mov	dword ptr [rbp - 44], eax
+; printf("%s\n", foo);
+100000f49:	88 d0 	mov	al, dl
+100000f4b:	e8 26 00 00 00 	call	38 <initialize.c+0x100000f76>
+100000f50:	48 8d 75 e8 	lea	rsi, [rbp - 24]
+100000f54:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000f58:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f5b:	89 45 d0 	mov	dword ptr [rbp - 48], eax
+; printf("%s\n", bar);
+100000f5e:	88 d0 	mov	al, dl
+100000f60:	e8 11 00 00 00 	call	17 <initialize.c+0x100000f76>
+100000f65:	8b 7d dc 	mov	edi, dword ptr [rbp - 36]
+100000f68:	89 45 cc 	mov	dword ptr [rbp - 52], eax
+; exit(EXIT_SUCCESS);
+100000f6b:	e8 00 00 00 00 	call	0 <initialize.c+0x100000f70>
+
+_main:
+; int main(void) {
+100000ef0:	55 	push	rbp
+100000ef1:	48 89 e5 	mov	rbp, rsp
+100000ef4:	48 83 ec 40 	sub	rsp, 64
+100000ef8:	c7 45 fc 00 00 00 00 	mov	dword ptr [rbp - 4], 0
+; char *pung = "pung";
+100000eff:	48 8d 05 9a 00 00 00 	lea	rax, [rip + 154]
+100000f06:	48 89 45 f0 	mov	qword ptr [rbp - 16], rax
+; char foo[] = "foo";
+100000f0a:	c7 45 ec 66 6f 6f 00 	mov	dword ptr [rbp - 20], 7303014
+; char bar[] = {'b', 'a', 'r', '\0'};
+100000f11:	c7 45 e8 62 61 72 00 	mov	dword ptr [rbp - 24], 7496034
+; printf("%s\n", pung);
+100000f18:	48 8b 75 f0 	mov	rsi, qword ptr [rbp - 16]
+100000f1c:	48 8d 05 8a 00 00 00 	lea	rax, [rip + 138]
+100000f23:	31 c9 	xor	ecx, ecx
+100000f25:	88 ca 	mov	dl, cl
+100000f27:	48 89 c7 	mov	rdi, rax
+100000f2a:	48 89 45 e0 	mov	qword ptr [rbp - 32], rax
+100000f2e:	88 d0 	mov	al, dl
+100000f30:	89 4d dc 	mov	dword ptr [rbp - 36], ecx
+100000f33:	88 55 db 	mov	byte ptr [rbp - 37], dl
+100000f36:	e8 3b 00 00 00 	call	59 <initialize.c+0x100000f76>
+100000f3b:	48 8d 75 ec 	lea	rsi, [rbp - 20]
+100000f3f:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000f43:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f46:	89 45 d4 	mov	dword ptr [rbp - 44], eax
+; printf("%s\n", foo);
+100000f49:	88 d0 	mov	al, dl
+100000f4b:	e8 26 00 00 00 	call	38 <initialize.c+0x100000f76>
+100000f50:	48 8d 75 e8 	lea	rsi, [rbp - 24]
+100000f54:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000f58:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f5b:	89 45 d0 	mov	dword ptr [rbp - 48], eax
+; printf("%s\n", bar);
+100000f5e:	88 d0 	mov	al, dl
+100000f60:	e8 11 00 00 00 	call	17 <initialize.c+0x100000f76>
+100000f65:	8b 7d dc 	mov	edi, dword ptr [rbp - 36]
+100000f68:	89 45 cc 	mov	dword ptr [rbp - 52], eax
+; exit(EXIT_SUCCESS);
+100000f6b:	e8 00 00 00 00 	call	0 <initialize.c+0x100000f70>
+Disassembly of section __TEXT,__stubs:
+__stubs:
+100000f70:	ff 25 8a 10 00 00 	jmp	qword ptr [rip + 4234]
+100000f76:	ff 25 8c 10 00 00 	jmp	qword ptr [rip + 4236]
+Disassembly of section __TEXT,__stub_helper:
+__stub_helper:
+100000f7c:	4c 8d 1d 8d 10 00 00 	lea	r11, [rip + 4237]
+100000f83:	41 53 	push	r11
+100000f85:	ff 25 75 00 00 00 	jmp	qword ptr [rip + 117]
+100000f8b:	90 	nop
+100000f8c:	68 00 00 00 00 	push	0
+100000f91:	e9 e6 ff ff ff 	jmp	-26 </var/folders/kt/q3xbpytd4t92sxv_w264m8bh0000gq/T/initialize-1fdff3.o+0xa1475bcd>
+100000f96:	68 0c 00 00 00 	push	12
+100000f9b:	e9 dc ff ff ff 	jmp	-36 </var/folders/kt/q3xbpytd4t92sxv_w264m8bh0000gq/T/initialize-1fdff3.o+0xa1475bcd>

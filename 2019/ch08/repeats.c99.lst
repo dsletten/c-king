@@ -1,0 +1,196 @@
+   1              		.file	"repeats.c99.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 456E7465 		.string	"Enter a number: "
+   7      72206120 
+   7      6E756D62 
+   7      65723A20 
+   7      00
+   8              	.LC1:
+   9 0011 256C6400 		.string	"%ld"
+  10              	.LC2:
+  11 0015 52657065 		.string	"Repeated digit"
+  11      61746564 
+  11      20646967 
+  11      697400
+  12              	.LC3:
+  13 0024 4E6F2072 		.string	"No repeated digit"
+  13      65706561 
+  13      74656420 
+  13      64696769 
+  13      7400
+  14              		.text
+  15              		.globl	main
+  17              	main:
+  18              	.LFB5:
+  19              		.file 1 "repeats.c99.c"
+   1:repeats.c99.c **** /*
+   2:repeats.c99.c ****  *
+   3:repeats.c99.c ****  *   File:
+   4:repeats.c99.c ****  *      repeats.c99.c
+   5:repeats.c99.c ****  *
+   6:repeats.c99.c ****  *   Synopsis:
+   7:repeats.c99.c ****  *
+   8:repeats.c99.c ****  *   Revision History:
+   9:repeats.c99.c ****  *      Date    Change Description
+  10:repeats.c99.c ****  *      ------  -----------------------------------------
+  11:repeats.c99.c ****  *      200221  Original.
+  12:repeats.c99.c ****  *
+  13:repeats.c99.c ****  */
+  14:repeats.c99.c **** #include <stdio.h>
+  15:repeats.c99.c **** #include <stdlib.h>
+  16:repeats.c99.c **** #include <stdbool.h>
+  17:repeats.c99.c **** 
+  18:repeats.c99.c **** int main(void) {
+  20              		.loc 1 18 0
+  21              		.cfi_startproc
+  22 0000 55       		push	rbp
+  23              		.cfi_def_cfa_offset 16
+  24              		.cfi_offset 6, -16
+  25 0001 4889E5   		mov	rbp, rsp
+  26              		.cfi_def_cfa_register 6
+  27 0004 4883EC30 		sub	rsp, 48
+  28              		.loc 1 18 0
+  29 0008 64488B04 		mov	rax, QWORD PTR fs:40
+  29      25280000 
+  29      00
+  30 0011 488945F8 		mov	QWORD PTR -8[rbp], rax
+  31 0015 31C0     		xor	eax, eax
+  19:repeats.c99.c ****   bool digit_seen[10] = {false};
+  32              		.loc 1 19 0
+  33 0017 48C745EE 		mov	QWORD PTR -18[rbp], 0
+  33      00000000 
+  34 001f 66C745F6 		mov	WORD PTR -10[rbp], 0
+  34      0000
+  20:repeats.c99.c ****   int digit;
+  21:repeats.c99.c ****   long int n;
+  22:repeats.c99.c ****   
+  23:repeats.c99.c ****   printf("Enter a number: ");
+  35              		.loc 1 23 0
+  36 0025 488D3D00 		lea	rdi, .LC0[rip]
+  36      000000
+  37 002c B8000000 		mov	eax, 0
+  37      00
+  38 0031 E8000000 		call	printf@PLT
+  38      00
+  24:repeats.c99.c ****   scanf("%ld", &n);
+  39              		.loc 1 24 0
+  40 0036 488D45E0 		lea	rax, -32[rbp]
+  41 003a 4889C6   		mov	rsi, rax
+  42 003d 488D3D00 		lea	rdi, .LC1[rip]
+  42      000000
+  43 0044 B8000000 		mov	eax, 0
+  43      00
+  44 0049 E8000000 		call	__isoc99_scanf@PLT
+  44      00
+  25:repeats.c99.c **** 
+  26:repeats.c99.c ****   while ( n > 0 ) {
+  45              		.loc 1 26 0
+  46 004e EB79     		jmp	.L2
+  47              	.L5:
+  27:repeats.c99.c ****     digit = n % 10;
+  48              		.loc 1 27 0
+  49 0050 488B4DE0 		mov	rcx, QWORD PTR -32[rbp]
+  50 0054 48BA6766 		movabs	rdx, 7378697629483820647
+  50      66666666 
+  50      6666
+  51 005e 4889C8   		mov	rax, rcx
+  52 0061 48F7EA   		imul	rdx
+  53 0064 48C1FA02 		sar	rdx, 2
+  54 0068 4889C8   		mov	rax, rcx
+  55 006b 48C1F83F 		sar	rax, 63
+  56 006f 4829C2   		sub	rdx, rax
+  57 0072 4889D0   		mov	rax, rdx
+  58 0075 48C1E002 		sal	rax, 2
+  59 0079 4801D0   		add	rax, rdx
+  60 007c 4801C0   		add	rax, rax
+  61 007f 4829C1   		sub	rcx, rax
+  62 0082 4889CA   		mov	rdx, rcx
+  63 0085 8955DC   		mov	DWORD PTR -36[rbp], edx
+  28:repeats.c99.c ****     if ( digit_seen[digit] ) {
+  64              		.loc 1 28 0
+  65 0088 8B45DC   		mov	eax, DWORD PTR -36[rbp]
+  66 008b 4898     		cdqe
+  67 008d 0FB64405 		movzx	eax, BYTE PTR -18[rbp+rax]
+  67      EE
+  68 0092 84C0     		test	al, al
+  69 0094 7542     		jne	.L9
+  29:repeats.c99.c ****       break;
+  30:repeats.c99.c ****     } else {
+  31:repeats.c99.c ****       digit_seen[digit] = true;
+  70              		.loc 1 31 0
+  71 0096 8B45DC   		mov	eax, DWORD PTR -36[rbp]
+  72 0099 4898     		cdqe
+  73 009b C64405EE 		mov	BYTE PTR -18[rbp+rax], 1
+  73      01
+  32:repeats.c99.c ****     }
+  33:repeats.c99.c **** 
+  34:repeats.c99.c ****     n /= 10;
+  74              		.loc 1 34 0
+  75 00a0 488B4DE0 		mov	rcx, QWORD PTR -32[rbp]
+  76 00a4 48BA6766 		movabs	rdx, 7378697629483820647
+  76      66666666 
+  76      6666
+  77 00ae 4889C8   		mov	rax, rcx
+  78 00b1 48F7EA   		imul	rdx
+  79 00b4 48C1FA02 		sar	rdx, 2
+  80 00b8 4889C8   		mov	rax, rcx
+  81 00bb 48C1F83F 		sar	rax, 63
+  82 00bf 4829C2   		sub	rdx, rax
+  83 00c2 4889D0   		mov	rax, rdx
+  84 00c5 488945E0 		mov	QWORD PTR -32[rbp], rax
+  85              	.L2:
+  26:repeats.c99.c ****     digit = n % 10;
+  86              		.loc 1 26 0
+  87 00c9 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+  88 00cd 4885C0   		test	rax, rax
+  89 00d0 0F8F7AFF 		jg	.L5
+  89      FFFF
+  90 00d6 EB01     		jmp	.L4
+  91              	.L9:
+  29:repeats.c99.c ****       break;
+  92              		.loc 1 29 0
+  93 00d8 90       		nop
+  94              	.L4:
+  35:repeats.c99.c ****   }
+  36:repeats.c99.c **** 
+  37:repeats.c99.c ****   if ( n > 0 ) {
+  95              		.loc 1 37 0
+  96 00d9 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+  97 00dd 4885C0   		test	rax, rax
+  98 00e0 7E0E     		jle	.L6
+  38:repeats.c99.c ****     printf("Repeated digit\n");
+  99              		.loc 1 38 0
+ 100 00e2 488D3D00 		lea	rdi, .LC2[rip]
+ 100      000000
+ 101 00e9 E8000000 		call	puts@PLT
+ 101      00
+ 102 00ee EB0C     		jmp	.L7
+ 103              	.L6:
+  39:repeats.c99.c ****   } else {
+  40:repeats.c99.c ****     printf("No repeated digit\n");
+ 104              		.loc 1 40 0
+ 105 00f0 488D3D00 		lea	rdi, .LC3[rip]
+ 105      000000
+ 106 00f7 E8000000 		call	puts@PLT
+ 106      00
+ 107              	.L7:
+  41:repeats.c99.c ****   }
+  42:repeats.c99.c **** 
+  43:repeats.c99.c ****   exit(EXIT_SUCCESS);
+ 108              		.loc 1 43 0
+ 109 00fc BF000000 		mov	edi, 0
+ 109      00
+ 110 0101 E8000000 		call	exit@PLT
+ 110      00
+ 111              		.cfi_endproc
+ 112              	.LFE5:
+ 114              	.Letext0:
+ 115              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 116              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 117              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 118              		.file 5 "/usr/include/stdio.h"
+ 119              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

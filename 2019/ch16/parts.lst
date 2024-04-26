@@ -1,0 +1,441 @@
+   1              		.file	"parts.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 25700A25 		.string	"%p\n%p\n%p\n"
+   7      700A2570 
+   7      0A00
+   8              	.LC1:
+   9 000a 256C750A 		.string	"%lu\n"
+   9      00
+  10              	.LC2:
+  11 000f 25700A00 		.string	"%p\n"
+  12              	.LC3:
+  13 0013 466F6F20 		.string	"Foo splicer"
+  13      73706C69 
+  13      63657200 
+  14              	.LC4:
+  15 001f 25640A00 		.string	"%d\n"
+  16              		.text
+  17              		.globl	main
+  19              	main:
+  20              	.LFB5:
+  21              		.file 1 "parts.c"
+   1:parts.c       **** /*
+   2:parts.c       ****  *
+   3:parts.c       ****  *   File:
+   4:parts.c       ****  *      parts.c
+   5:parts.c       ****  *
+   6:parts.c       ****  *   Synopsis:
+   7:parts.c       ****  *
+   8:parts.c       ****  *   Revision History:
+   9:parts.c       ****  *      Date    Change Description
+  10:parts.c       ****  *      ------  -----------------------------------------
+  11:parts.c       ****  *      200531  Original.
+  12:parts.c       ****  *
+  13:parts.c       ****  */
+  14:parts.c       **** #include <stdio.h>
+  15:parts.c       **** #include <stdlib.h>
+  16:parts.c       **** #include <string.h>
+  17:parts.c       **** 
+  18:parts.c       **** struct part {
+  19:parts.c       ****   int number;
+  20:parts.c       ****   char name[31];
+  21:parts.c       ****   int on_hand;
+  22:parts.c       **** };
+  23:parts.c       **** 
+  24:parts.c       **** struct part build(int number, const char *name, int on_hand);
+  25:parts.c       **** 
+  26:parts.c       **** int main(void) {
+  22              		.loc 1 26 0
+  23              		.cfi_startproc
+  24 0000 55       		push	rbp
+  25              		.cfi_def_cfa_offset 16
+  26              		.cfi_offset 6, -16
+  27 0001 4889E5   		mov	rbp, rsp
+  28              		.cfi_def_cfa_register 6
+  29 0004 4881ECC0 		sub	rsp, 192
+  29      000000
+  30              		.loc 1 26 0
+  31 000b 64488B04 		mov	rax, QWORD PTR fs:40
+  31      25280000 
+  31      00
+  32 0014 488945F8 		mov	QWORD PTR -8[rbp], rax
+  33 0018 31C0     		xor	eax, eax
+  27:parts.c       ****   struct {
+  28:parts.c       ****     int number;
+  29:parts.c       ****     char name[31];
+  30:parts.c       ****     int on_hand;
+  31:parts.c       ****   } part1, part2;
+  32:parts.c       **** 
+  33:parts.c       ****   printf("%p\n%p\n%p\n", &part1.number, &part1.name, &part1.on_hand);
+  34              		.loc 1 33 0
+  35 001a 488D8540 		lea	rax, -192[rbp]
+  35      FFFFFF
+  36 0021 488D4824 		lea	rcx, 36[rax]
+  37 0025 488D8540 		lea	rax, -192[rbp]
+  37      FFFFFF
+  38 002c 488D5004 		lea	rdx, 4[rax]
+  39 0030 488D8540 		lea	rax, -192[rbp]
+  39      FFFFFF
+  40 0037 4889C6   		mov	rsi, rax
+  41 003a 488D3D00 		lea	rdi, .LC0[rip]
+  41      000000
+  42 0041 B8000000 		mov	eax, 0
+  42      00
+  43 0046 E8000000 		call	printf@PLT
+  43      00
+  34:parts.c       ****   printf("%p\n%p\n%p\n", &part2.number, &part2.name, &part2.on_hand);
+  44              		.loc 1 34 0
+  45 004b 488D8570 		lea	rax, -144[rbp]
+  45      FFFFFF
+  46 0052 488D4824 		lea	rcx, 36[rax]
+  47 0056 488D8570 		lea	rax, -144[rbp]
+  47      FFFFFF
+  48 005d 488D5004 		lea	rdx, 4[rax]
+  49 0061 488D8570 		lea	rax, -144[rbp]
+  49      FFFFFF
+  50 0068 4889C6   		mov	rsi, rax
+  51 006b 488D3D00 		lea	rdi, .LC0[rip]
+  51      000000
+  52 0072 B8000000 		mov	eax, 0
+  52      00
+  53 0077 E8000000 		call	printf@PLT
+  53      00
+  35:parts.c       **** 
+  36:parts.c       ****   printf("%lu\n", (unsigned long) sizeof part1);
+  54              		.loc 1 36 0
+  55 007c BE280000 		mov	esi, 40
+  55      00
+  56 0081 488D3D00 		lea	rdi, .LC1[rip]
+  56      000000
+  57 0088 B8000000 		mov	eax, 0
+  57      00
+  58 008d E8000000 		call	printf@PLT
+  58      00
+  37:parts.c       ****   printf("%lu\n", (unsigned long) sizeof part1.number);
+  59              		.loc 1 37 0
+  60 0092 BE040000 		mov	esi, 4
+  60      00
+  61 0097 488D3D00 		lea	rdi, .LC1[rip]
+  61      000000
+  62 009e B8000000 		mov	eax, 0
+  62      00
+  63 00a3 E8000000 		call	printf@PLT
+  63      00
+  38:parts.c       ****   printf("%lu\n", (unsigned long) sizeof part1.name);
+  64              		.loc 1 38 0
+  65 00a8 BE1F0000 		mov	esi, 31
+  65      00
+  66 00ad 488D3D00 		lea	rdi, .LC1[rip]
+  66      000000
+  67 00b4 B8000000 		mov	eax, 0
+  67      00
+  68 00b9 E8000000 		call	printf@PLT
+  68      00
+  39:parts.c       ****   printf("%lu\n", (unsigned long) sizeof part1.on_hand);
+  69              		.loc 1 39 0
+  70 00be BE040000 		mov	esi, 4
+  70      00
+  71 00c3 488D3D00 		lea	rdi, .LC1[rip]
+  71      000000
+  72 00ca B8000000 		mov	eax, 0
+  72      00
+  73 00cf E8000000 		call	printf@PLT
+  73      00
+  74              	.LBB2:
+  40:parts.c       **** 
+  41:parts.c       ****   {
+  42:parts.c       ****     struct {
+  43:parts.c       ****       int number;
+  44:parts.c       ****       char name[31];
+  45:parts.c       ****       int on_hand;
+  46:parts.c       ****     } part1 = {24, "Disk drive", 10},
+  75              		.loc 1 46 0
+  76 00d4 C745A018 		mov	DWORD PTR -96[rbp], 24
+  76      000000
+  77 00db 48B84469 		movabs	rax, 7598245611731904836
+  77      736B2064 
+  77      7269
+  78 00e5 BA766500 		mov	edx, 25974
+  78      00
+  79 00ea 488945A4 		mov	QWORD PTR -92[rbp], rax
+  80 00ee 488955AC 		mov	QWORD PTR -84[rbp], rdx
+  81 00f2 48C745B4 		mov	QWORD PTR -76[rbp], 0
+  81      00000000 
+  82 00fa C745BC00 		mov	DWORD PTR -68[rbp], 0
+  82      000000
+  83 0101 66C745C0 		mov	WORD PTR -64[rbp], 0
+  83      0000
+  84 0107 C645C200 		mov	BYTE PTR -62[rbp], 0
+  85 010b C745C40A 		mov	DWORD PTR -60[rbp], 10
+  85      000000
+  47:parts.c       ****         part2 = {35, "Printer cable", 8};
+  86              		.loc 1 47 0
+  87 0112 C745D023 		mov	DWORD PTR -48[rbp], 35
+  87      000000
+  88 0119 48B85072 		movabs	rax, 2338042707301724752
+  88      696E7465 
+  88      7220
+  89 0123 48BA6361 		movabs	rdx, 435610083683
+  89      626C6500 
+  89      0000
+  90 012d 488945D4 		mov	QWORD PTR -44[rbp], rax
+  91 0131 488955DC 		mov	QWORD PTR -36[rbp], rdx
+  92 0135 48C745E4 		mov	QWORD PTR -28[rbp], 0
+  92      00000000 
+  93 013d C745EC00 		mov	DWORD PTR -20[rbp], 0
+  93      000000
+  94 0144 66C745F0 		mov	WORD PTR -16[rbp], 0
+  94      0000
+  95 014a C645F200 		mov	BYTE PTR -14[rbp], 0
+  96 014e C745F408 		mov	DWORD PTR -12[rbp], 8
+  96      000000
+  48:parts.c       ****     
+  49:parts.c       ****     part2 = part1;
+  97              		.loc 1 49 0
+  98 0155 488B45A0 		mov	rax, QWORD PTR -96[rbp]
+  99 0159 488B55A8 		mov	rdx, QWORD PTR -88[rbp]
+ 100 015d 488945D0 		mov	QWORD PTR -48[rbp], rax
+ 101 0161 488955D8 		mov	QWORD PTR -40[rbp], rdx
+ 102 0165 488B45B0 		mov	rax, QWORD PTR -80[rbp]
+ 103 0169 488B55B8 		mov	rdx, QWORD PTR -72[rbp]
+ 104 016d 488945E0 		mov	QWORD PTR -32[rbp], rax
+ 105 0171 488955E8 		mov	QWORD PTR -24[rbp], rdx
+ 106 0175 488B45C0 		mov	rax, QWORD PTR -64[rbp]
+ 107 0179 488945F0 		mov	QWORD PTR -16[rbp], rax
+  50:parts.c       ****     printf("%s\n", part1.name);
+ 108              		.loc 1 50 0
+ 109 017d 488D45A0 		lea	rax, -96[rbp]
+ 110 0181 4883C004 		add	rax, 4
+ 111 0185 4889C7   		mov	rdi, rax
+ 112 0188 E8000000 		call	puts@PLT
+ 112      00
+  51:parts.c       ****     printf("%s\n", part2.name);
+ 113              		.loc 1 51 0
+ 114 018d 488D45D0 		lea	rax, -48[rbp]
+ 115 0191 4883C004 		add	rax, 4
+ 116 0195 4889C7   		mov	rdi, rax
+ 117 0198 E8000000 		call	puts@PLT
+ 117      00
+  52:parts.c       ****     printf("%p\n", &part1.name);
+ 118              		.loc 1 52 0
+ 119 019d 488D45A0 		lea	rax, -96[rbp]
+ 120 01a1 4883C004 		add	rax, 4
+ 121 01a5 4889C6   		mov	rsi, rax
+ 122 01a8 488D3D00 		lea	rdi, .LC2[rip]
+ 122      000000
+ 123 01af B8000000 		mov	eax, 0
+ 123      00
+ 124 01b4 E8000000 		call	printf@PLT
+ 124      00
+  53:parts.c       ****     printf("%p\n", &part2.name);
+ 125              		.loc 1 53 0
+ 126 01b9 488D45D0 		lea	rax, -48[rbp]
+ 127 01bd 4883C004 		add	rax, 4
+ 128 01c1 4889C6   		mov	rsi, rax
+ 129 01c4 488D3D00 		lea	rdi, .LC2[rip]
+ 129      000000
+ 130 01cb B8000000 		mov	eax, 0
+ 130      00
+ 131 01d0 E8000000 		call	printf@PLT
+ 131      00
+  54:parts.c       ****     
+  55:parts.c       ****     /* part1.name = "pung"; */
+  56:parts.c       ****     strcpy(part1.name, "pung");
+ 132              		.loc 1 56 0
+ 133 01d5 488D45A0 		lea	rax, -96[rbp]
+ 134 01d9 4883C004 		add	rax, 4
+ 135 01dd C7007075 		mov	DWORD PTR [rax], 1735292272
+ 135      6E67
+ 136 01e3 C6400400 		mov	BYTE PTR 4[rax], 0
+  57:parts.c       ****     printf("%s\n", part1.name);
+ 137              		.loc 1 57 0
+ 138 01e7 488D45A0 		lea	rax, -96[rbp]
+ 139 01eb 4883C004 		add	rax, 4
+ 140 01ef 4889C7   		mov	rdi, rax
+ 141 01f2 E8000000 		call	puts@PLT
+ 141      00
+  58:parts.c       ****     printf("%s\n", part2.name);
+ 142              		.loc 1 58 0
+ 143 01f7 488D45D0 		lea	rax, -48[rbp]
+ 144 01fb 4883C004 		add	rax, 4
+ 145 01ff 4889C7   		mov	rdi, rax
+ 146 0202 E8000000 		call	puts@PLT
+ 146      00
+  59:parts.c       ****     printf("%p\n", &part1.name);
+ 147              		.loc 1 59 0
+ 148 0207 488D45A0 		lea	rax, -96[rbp]
+ 149 020b 4883C004 		add	rax, 4
+ 150 020f 4889C6   		mov	rsi, rax
+ 151 0212 488D3D00 		lea	rdi, .LC2[rip]
+ 151      000000
+ 152 0219 B8000000 		mov	eax, 0
+ 152      00
+ 153 021e E8000000 		call	printf@PLT
+ 153      00
+  60:parts.c       ****     printf("%p\n", &part2.name);
+ 154              		.loc 1 60 0
+ 155 0223 488D45D0 		lea	rax, -48[rbp]
+ 156 0227 4883C004 		add	rax, 4
+ 157 022b 4889C6   		mov	rsi, rax
+ 158 022e 488D3D00 		lea	rdi, .LC2[rip]
+ 158      000000
+ 159 0235 B8000000 		mov	eax, 0
+ 159      00
+ 160 023a E8000000 		call	printf@PLT
+ 160      00
+ 161              	.LBE2:
+  61:parts.c       ****   }
+  62:parts.c       **** 
+  63:parts.c       ****   /* { */
+  64:parts.c       ****   /*   struct part { */
+  65:parts.c       ****   /*     int number; */
+  66:parts.c       ****   /*     char name[31]; */
+  67:parts.c       ****   /*     int on_hand; */
+  68:parts.c       ****   /*   }; */
+  69:parts.c       **** 
+  70:parts.c       ****   /*   struct part part1 = { .number = 24, .name = "Disk drive", .on_hand = 10}, */
+  71:parts.c       ****   /*     part2 = {.name = "Printer cable"}; */
+  72:parts.c       **** 
+  73:parts.c       ****   /*   printf("%d\n", part1.number); */
+  74:parts.c       ****   /*   printf("%s\n", part1.name); */
+  75:parts.c       ****   /*   printf("%d\n", part1.on_hand); */
+  76:parts.c       ****   /*   printf("%d\n", part2.number); */
+  77:parts.c       ****   /*   printf("%s\n", part2.name); */
+  78:parts.c       ****   /*   printf("%d\n", part2.on_hand); */
+  79:parts.c       ****   /* } */
+  80:parts.c       **** 
+  81:parts.c       **** 
+  82:parts.c       ****   struct part p = build(18, "Foo splicer", 12);
+ 162              		.loc 1 82 0
+ 163 023f 488D45D0 		lea	rax, -48[rbp]
+ 164 0243 B90C0000 		mov	ecx, 12
+ 164      00
+ 165 0248 488D1500 		lea	rdx, .LC3[rip]
+ 165      000000
+ 166 024f BE120000 		mov	esi, 18
+ 166      00
+ 167 0254 4889C7   		mov	rdi, rax
+ 168 0257 E8000000 		call	build
+ 168      00
+  83:parts.c       ****   printf("%d\n", p.number);
+ 169              		.loc 1 83 0
+ 170 025c 8B45D0   		mov	eax, DWORD PTR -48[rbp]
+ 171 025f 89C6     		mov	esi, eax
+ 172 0261 488D3D00 		lea	rdi, .LC4[rip]
+ 172      000000
+ 173 0268 B8000000 		mov	eax, 0
+ 173      00
+ 174 026d E8000000 		call	printf@PLT
+ 174      00
+  84:parts.c       ****   printf("%s\n", p.name);
+ 175              		.loc 1 84 0
+ 176 0272 488D45D0 		lea	rax, -48[rbp]
+ 177 0276 4883C004 		add	rax, 4
+ 178 027a 4889C7   		mov	rdi, rax
+ 179 027d E8000000 		call	puts@PLT
+ 179      00
+  85:parts.c       ****   printf("%d\n", p.on_hand);
+ 180              		.loc 1 85 0
+ 181 0282 8B45F4   		mov	eax, DWORD PTR -12[rbp]
+ 182 0285 89C6     		mov	esi, eax
+ 183 0287 488D3D00 		lea	rdi, .LC4[rip]
+ 183      000000
+ 184 028e B8000000 		mov	eax, 0
+ 184      00
+ 185 0293 E8000000 		call	printf@PLT
+ 185      00
+  86:parts.c       ****   
+  87:parts.c       ****   exit(EXIT_SUCCESS);
+ 186              		.loc 1 87 0
+ 187 0298 BF000000 		mov	edi, 0
+ 187      00
+ 188 029d E8000000 		call	exit@PLT
+ 188      00
+ 189              		.cfi_endproc
+ 190              	.LFE5:
+ 192              		.globl	build
+ 194              	build:
+ 195              	.LFB6:
+  88:parts.c       **** }
+  89:parts.c       **** 
+  90:parts.c       **** struct part build(int number, const char *name, int on_hand) {
+ 196              		.loc 1 90 0
+ 197              		.cfi_startproc
+ 198 02a2 55       		push	rbp
+ 199              		.cfi_def_cfa_offset 16
+ 200              		.cfi_offset 6, -16
+ 201 02a3 4889E5   		mov	rbp, rsp
+ 202              		.cfi_def_cfa_register 6
+ 203 02a6 4883EC50 		sub	rsp, 80
+ 204 02aa 48897DC8 		mov	QWORD PTR -56[rbp], rdi
+ 205 02ae 8975C4   		mov	DWORD PTR -60[rbp], esi
+ 206 02b1 488955B8 		mov	QWORD PTR -72[rbp], rdx
+ 207 02b5 894DC0   		mov	DWORD PTR -64[rbp], ecx
+ 208              		.loc 1 90 0
+ 209 02b8 64488B04 		mov	rax, QWORD PTR fs:40
+ 209      25280000 
+ 209      00
+ 210 02c1 488945F8 		mov	QWORD PTR -8[rbp], rax
+ 211 02c5 31C0     		xor	eax, eax
+  91:parts.c       ****   /* struct part p = {number, name, on_hand}; */
+  92:parts.c       ****   /* struct part p = {.number=number, .name=name, .on_hand=on_hand}; */
+  93:parts.c       **** 
+  94:parts.c       ****   struct part p;
+  95:parts.c       **** 
+  96:parts.c       ****   p.number = number;
+ 212              		.loc 1 96 0
+ 213 02c7 8B45C4   		mov	eax, DWORD PTR -60[rbp]
+ 214 02ca 8945D0   		mov	DWORD PTR -48[rbp], eax
+  97:parts.c       ****   strcpy(p.name, name);
+ 215              		.loc 1 97 0
+ 216 02cd 488B45B8 		mov	rax, QWORD PTR -72[rbp]
+ 217 02d1 488D55D0 		lea	rdx, -48[rbp]
+ 218 02d5 4883C204 		add	rdx, 4
+ 219 02d9 4889C6   		mov	rsi, rax
+ 220 02dc 4889D7   		mov	rdi, rdx
+ 221 02df E8000000 		call	strcpy@PLT
+ 221      00
+  98:parts.c       ****   p.on_hand = on_hand;
+ 222              		.loc 1 98 0
+ 223 02e4 8B45C0   		mov	eax, DWORD PTR -64[rbp]
+ 224 02e7 8945F4   		mov	DWORD PTR -12[rbp], eax
+  99:parts.c       **** 
+ 100:parts.c       ****   return p;
+ 225              		.loc 1 100 0
+ 226 02ea 488B4DC8 		mov	rcx, QWORD PTR -56[rbp]
+ 227 02ee 488B45D0 		mov	rax, QWORD PTR -48[rbp]
+ 228 02f2 488B55D8 		mov	rdx, QWORD PTR -40[rbp]
+ 229 02f6 488901   		mov	QWORD PTR [rcx], rax
+ 230 02f9 48895108 		mov	QWORD PTR 8[rcx], rdx
+ 231 02fd 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 232 0301 488B55E8 		mov	rdx, QWORD PTR -24[rbp]
+ 233 0305 48894110 		mov	QWORD PTR 16[rcx], rax
+ 234 0309 48895118 		mov	QWORD PTR 24[rcx], rdx
+ 235 030d 488B45F0 		mov	rax, QWORD PTR -16[rbp]
+ 236 0311 48894120 		mov	QWORD PTR 32[rcx], rax
+ 101:parts.c       **** }
+ 237              		.loc 1 101 0
+ 238 0315 488B45C8 		mov	rax, QWORD PTR -56[rbp]
+ 239 0319 488B75F8 		mov	rsi, QWORD PTR -8[rbp]
+ 240 031d 64483334 		xor	rsi, QWORD PTR fs:40
+ 240      25280000 
+ 240      00
+ 241 0326 7405     		je	.L5
+ 242 0328 E8000000 		call	__stack_chk_fail@PLT
+ 242      00
+ 243              	.L5:
+ 244 032d C9       		leave
+ 245              		.cfi_def_cfa 7, 8
+ 246 032e C3       		ret
+ 247              		.cfi_endproc
+ 248              	.LFE6:
+ 250              	.Letext0:
+ 251              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 252              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 253              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 254              		.file 5 "/usr/include/stdio.h"
+ 255              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

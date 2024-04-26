@@ -1,0 +1,258 @@
+   1              		.file	"grade.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 456E7465 		.string	"Enter numerical grade: "
+   7      72206E75 
+   7      6D657269 
+   7      63616C20 
+   7      67726164 
+   8              	.LC1:
+   9 0018 256400   		.string	"%d"
+  10              		.text
+  11              		.globl	get_grade
+  13              	get_grade:
+  14              	.LFB5:
+  15              		.file 1 "grade.c"
+   1:grade.c       **** /*
+   2:grade.c       ****  *
+   3:grade.c       ****  *   File:
+   4:grade.c       ****  *      grade.c
+   5:grade.c       ****  *
+   6:grade.c       ****  *   Synopsis:
+   7:grade.c       ****  *
+   8:grade.c       ****  *   Revision History:
+   9:grade.c       ****  *      Date    Change Description
+  10:grade.c       ****  *      ------  -----------------------------------------
+  11:grade.c       ****  *      200104  Original.
+  12:grade.c       ****  *
+  13:grade.c       ****  */
+  14:grade.c       **** #include <stdio.h>
+  15:grade.c       **** #include <stdlib.h>
+  16:grade.c       **** 
+  17:grade.c       **** int get_grade() {
+  16              		.loc 1 17 0
+  17              		.cfi_startproc
+  18 0000 55       		push	rbp
+  19              		.cfi_def_cfa_offset 16
+  20              		.cfi_offset 6, -16
+  21 0001 4889E5   		mov	rbp, rsp
+  22              		.cfi_def_cfa_register 6
+  23 0004 4883EC10 		sub	rsp, 16
+  24              		.loc 1 17 0
+  25 0008 64488B04 		mov	rax, QWORD PTR fs:40
+  25      25280000 
+  25      00
+  26 0011 488945F8 		mov	QWORD PTR -8[rbp], rax
+  27 0015 31C0     		xor	eax, eax
+  18:grade.c       ****   int grade;
+  19:grade.c       ****   printf("Enter numerical grade: ");
+  28              		.loc 1 19 0
+  29 0017 488D3D00 		lea	rdi, .LC0[rip]
+  29      000000
+  30 001e B8000000 		mov	eax, 0
+  30      00
+  31 0023 E8000000 		call	printf@PLT
+  31      00
+  20:grade.c       ****   scanf("%d", &grade);
+  32              		.loc 1 20 0
+  33 0028 488D45F4 		lea	rax, -12[rbp]
+  34 002c 4889C6   		mov	rsi, rax
+  35 002f 488D3D00 		lea	rdi, .LC1[rip]
+  35      000000
+  36 0036 B8000000 		mov	eax, 0
+  36      00
+  37 003b E8000000 		call	__isoc99_scanf@PLT
+  37      00
+  21:grade.c       **** 
+  22:grade.c       ****   if ( grade < 0  ||  grade > 100 ) {
+  38              		.loc 1 22 0
+  39 0040 8B45F4   		mov	eax, DWORD PTR -12[rbp]
+  40 0043 85C0     		test	eax, eax
+  41 0045 7808     		js	.L2
+  42              		.loc 1 22 0 is_stmt 0 discriminator 1
+  43 0047 8B45F4   		mov	eax, DWORD PTR -12[rbp]
+  44 004a 83F864   		cmp	eax, 100
+  45 004d 7E0C     		jle	.L3
+  46              	.L2:
+  23:grade.c       ****     return get_grade();
+  47              		.loc 1 23 0 is_stmt 1
+  48 004f B8000000 		mov	eax, 0
+  48      00
+  49 0054 E8000000 		call	get_grade
+  49      00
+  50 0059 EB03     		jmp	.L5
+  51              	.L3:
+  24:grade.c       ****   } else {
+  25:grade.c       ****     return grade;
+  52              		.loc 1 25 0
+  53 005b 8B45F4   		mov	eax, DWORD PTR -12[rbp]
+  54              	.L5:
+  26:grade.c       ****   }
+  27:grade.c       **** }
+  55              		.loc 1 27 0 discriminator 1
+  56 005e 488B55F8 		mov	rdx, QWORD PTR -8[rbp]
+  57 0062 64483314 		xor	rdx, QWORD PTR fs:40
+  57      25280000 
+  57      00
+  58 006b 7405     		je	.L6
+  59              		.loc 1 27 0 is_stmt 0
+  60 006d E8000000 		call	__stack_chk_fail@PLT
+  60      00
+  61              	.L6:
+  62 0072 C9       		leave
+  63              		.cfi_def_cfa 7, 8
+  64 0073 C3       		ret
+  65              		.cfi_endproc
+  66              	.LFE5:
+  68              		.section	.rodata
+  69              	.LC2:
+  70 001b 4C657474 		.string	"Letter grade: "
+  70      65722067 
+  70      72616465 
+  70      3A2000
+  71              		.text
+  72              		.globl	main
+  74              	main:
+  75              	.LFB6:
+  28:grade.c       **** 
+  29:grade.c       **** int main(void) {
+  76              		.loc 1 29 0 is_stmt 1
+  77              		.cfi_startproc
+  78 0074 55       		push	rbp
+  79              		.cfi_def_cfa_offset 16
+  80              		.cfi_offset 6, -16
+  81 0075 4889E5   		mov	rbp, rsp
+  82              		.cfi_def_cfa_register 6
+  83 0078 4883EC10 		sub	rsp, 16
+  30:grade.c       ****   int grade = get_grade();
+  84              		.loc 1 30 0
+  85 007c B8000000 		mov	eax, 0
+  85      00
+  86 0081 E8000000 		call	get_grade
+  86      00
+  87 0086 8945FC   		mov	DWORD PTR -4[rbp], eax
+  31:grade.c       ****   
+  32:grade.c       ****   printf("Letter grade: ");
+  88              		.loc 1 32 0
+  89 0089 488D3D00 		lea	rdi, .LC2[rip]
+  89      000000
+  90 0090 B8000000 		mov	eax, 0
+  90      00
+  91 0095 E8000000 		call	printf@PLT
+  91      00
+  33:grade.c       ****   
+  34:grade.c       ****   switch ( grade / 10 ) {
+  92              		.loc 1 34 0
+  93 009a 8B4DFC   		mov	ecx, DWORD PTR -4[rbp]
+  94 009d BA676666 		mov	edx, 1717986919
+  94      66
+  95 00a2 89C8     		mov	eax, ecx
+  96 00a4 F7EA     		imul	edx
+  97 00a6 C1FA02   		sar	edx, 2
+  98 00a9 89C8     		mov	eax, ecx
+  99 00ab C1F81F   		sar	eax, 31
+ 100 00ae 29C2     		sub	edx, eax
+ 101 00b0 89D0     		mov	eax, edx
+ 102 00b2 83E806   		sub	eax, 6
+ 103 00b5 83F804   		cmp	eax, 4
+ 104 00b8 7753     		ja	.L8
+ 105 00ba 89C0     		mov	eax, eax
+ 106 00bc 488D1485 		lea	rdx, 0[0+rax*4]
+ 106      00000000 
+ 107 00c4 488D0500 		lea	rax, .L10[rip]
+ 107      000000
+ 108 00cb 8B0402   		mov	eax, DWORD PTR [rdx+rax]
+ 109 00ce 4863D0   		movsx	rdx, eax
+ 110 00d1 488D0500 		lea	rax, .L10[rip]
+ 110      000000
+ 111 00d8 4801D0   		add	rax, rdx
+ 112 00db FFE0     		jmp	rax
+ 113              		.section	.rodata
+ 114 002a 0000     		.align 4
+ 115              		.align 4
+ 116              	.L10:
+ 117 002c 00000000 		.long	.L9-.L10
+ 118 0030 00000000 		.long	.L11-.L10
+ 119 0034 00000000 		.long	.L12-.L10
+ 120 0038 00000000 		.long	.L13-.L10
+ 121 003c 00000000 		.long	.L13-.L10
+ 122              		.text
+ 123              	.L13:
+  35:grade.c       ****     case 10: case 9: 
+  36:grade.c       ****       printf("A");
+ 124              		.loc 1 36 0
+ 125 00dd BF410000 		mov	edi, 65
+ 125      00
+ 126 00e2 E8000000 		call	putchar@PLT
+ 126      00
+  37:grade.c       ****       break;
+ 127              		.loc 1 37 0
+ 128 00e7 EB2E     		jmp	.L14
+ 129              	.L12:
+  38:grade.c       ****     case 8:
+  39:grade.c       ****       printf("B");
+ 130              		.loc 1 39 0
+ 131 00e9 BF420000 		mov	edi, 66
+ 131      00
+ 132 00ee E8000000 		call	putchar@PLT
+ 132      00
+  40:grade.c       ****       break;
+ 133              		.loc 1 40 0
+ 134 00f3 EB22     		jmp	.L14
+ 135              	.L11:
+  41:grade.c       ****     case 7:
+  42:grade.c       ****       printf("C");
+ 136              		.loc 1 42 0
+ 137 00f5 BF430000 		mov	edi, 67
+ 137      00
+ 138 00fa E8000000 		call	putchar@PLT
+ 138      00
+  43:grade.c       ****       break;
+ 139              		.loc 1 43 0
+ 140 00ff EB16     		jmp	.L14
+ 141              	.L9:
+  44:grade.c       ****     case 6:
+  45:grade.c       ****       printf("D");
+ 142              		.loc 1 45 0
+ 143 0101 BF440000 		mov	edi, 68
+ 143      00
+ 144 0106 E8000000 		call	putchar@PLT
+ 144      00
+  46:grade.c       ****       break;
+ 145              		.loc 1 46 0
+ 146 010b EB0A     		jmp	.L14
+ 147              	.L8:
+  47:grade.c       ****     default:
+  48:grade.c       ****       printf("F");
+ 148              		.loc 1 48 0
+ 149 010d BF460000 		mov	edi, 70
+ 149      00
+ 150 0112 E8000000 		call	putchar@PLT
+ 150      00
+ 151              	.L14:
+  49:grade.c       ****   }
+  50:grade.c       **** 
+  51:grade.c       ****   printf("\n");
+ 152              		.loc 1 51 0
+ 153 0117 BF0A0000 		mov	edi, 10
+ 153      00
+ 154 011c E8000000 		call	putchar@PLT
+ 154      00
+  52:grade.c       **** 
+  53:grade.c       ****   exit(EXIT_SUCCESS);
+ 155              		.loc 1 53 0
+ 156 0121 BF000000 		mov	edi, 0
+ 156      00
+ 157 0126 E8000000 		call	exit@PLT
+ 157      00
+ 158              		.cfi_endproc
+ 159              	.LFE6:
+ 161              	.Letext0:
+ 162              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 163              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 164              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 165              		.file 5 "/usr/include/stdio.h"
+ 166              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

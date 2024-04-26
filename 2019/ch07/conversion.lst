@@ -1,0 +1,1319 @@
+   1              		.file	"conversion.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC3:
+   7 0000 73686F72 		.string	"short + float: %.15f\n"
+   7      74202B20 
+   7      666C6F61 
+   7      743A2025 
+   7      2E313566 
+   8              	.LC4:
+   9 0016 73686F72 		.string	"short + double: %.15f\n"
+   9      74202B20 
+   9      646F7562 
+   9      6C653A20 
+   9      252E3135 
+  10              	.LC5:
+  11 002d 73686F72 		.string	"short + long double: %.15Lf\n"
+  11      74202B20 
+  11      6C6F6E67 
+  11      20646F75 
+  11      626C653A 
+  12              	.LC6:
+  13 004a 696E7420 		.string	"int + float: %.15f\n"
+  13      2B20666C 
+  13      6F61743A 
+  13      20252E31 
+  13      35660A00 
+  14              	.LC7:
+  15 005e 696E7420 		.string	"int + double: %.15f\n"
+  15      2B20646F 
+  15      75626C65 
+  15      3A20252E 
+  15      3135660A 
+  16              	.LC8:
+  17 0073 696E7420 		.string	"int + long double: %.15Lf\n"
+  17      2B206C6F 
+  17      6E672064 
+  17      6F75626C 
+  17      653A2025 
+  18              	.LC9:
+  19 008e 6C6F6E67 		.string	"long + float: %.15f\n"
+  19      202B2066 
+  19      6C6F6174 
+  19      3A20252E 
+  19      3135660A 
+  20              	.LC10:
+  21 00a3 6C6F6E67 		.string	"long + double: %.15f\n"
+  21      202B2064 
+  21      6F75626C 
+  21      653A2025 
+  21      2E313566 
+  22              	.LC11:
+  23 00b9 6C6F6E67 		.string	"long + long double: %.15Lf\n"
+  23      202B206C 
+  23      6F6E6720 
+  23      646F7562 
+  23      6C653A20 
+  24              	.LC12:
+  25 00d5 756E7369 		.string	"unsigned + float: %.15f\n"
+  25      676E6564 
+  25      202B2066 
+  25      6C6F6174 
+  25      3A20252E 
+  26              	.LC13:
+  27 00ee 756E7369 		.string	"unsigned + double: %.15f\n"
+  27      676E6564 
+  27      202B2064 
+  27      6F75626C 
+  27      653A2025 
+  28              		.align 8
+  29              	.LC14:
+  30 0108 756E7369 		.string	"unsigned + long double: %.15Lf\n"
+  30      676E6564 
+  30      202B206C 
+  30      6F6E6720 
+  30      646F7562 
+  31              	.LC15:
+  32 0128 756E7369 		.string	"unsigned long + float: %.15f\n"
+  32      676E6564 
+  32      206C6F6E 
+  32      67202B20 
+  32      666C6F61 
+  33 0146 0000     		.align 8
+  34              	.LC16:
+  35 0148 756E7369 		.string	"unsigned long + double: %.15f\n"
+  35      676E6564 
+  35      206C6F6E 
+  35      67202B20 
+  35      646F7562 
+  36 0167 00       		.align 8
+  37              	.LC18:
+  38 0168 756E7369 		.string	"unsigned long + long double: %.15Lf\n"
+  38      676E6564 
+  38      206C6F6E 
+  38      67202B20 
+  38      6C6F6E67 
+  39              	.LC19:
+  40 018d 646F7562 		.string	"double cast to float: %.15f\n"
+  40      6C652063 
+  40      61737420 
+  40      746F2066 
+  40      6C6F6174 
+  41              	.LC20:
+  42 01aa 666C6F61 		.string	"float cast to double: %.15f\n"
+  42      74206361 
+  42      73742074 
+  42      6F20646F 
+  42      75626C65 
+  43 01c7 00       		.align 8
+  44              	.LC21:
+  45 01c8 646F7562 		.string	"double cast to long double: %.15Lf\n"
+  45      6C652063 
+  45      61737420 
+  45      746F206C 
+  45      6F6E6720 
+  46              	.LC22:
+  47 01ec 646F7562 		.string	"double cast to int: %d\n"
+  47      6C652063 
+  47      61737420 
+  47      746F2069 
+  47      6E743A20 
+  48              	.LC23:
+  49 0204 666C6F61 		.string	"float cast to int: %d\n"
+  49      74206361 
+  49      73742074 
+  49      6F20696E 
+  49      743A2025 
+  50              	.LC25:
+  51 021b 41637475 		.string	"Actual long value: %ld\n"
+  51      616C206C 
+  51      6F6E6720 
+  51      76616C75 
+  51      653A2025 
+  52 0233 00000000 		.align 8
+  52      00
+  53              	.LC26:
+  54 0238 6C6F6E67 		.string	"long * float (loss of precision): %.15f\n"
+  54      202A2066 
+  54      6C6F6174 
+  54      20286C6F 
+  54      7373206F 
+  55 0261 00000000 		.align 8
+  55      000000
+  56              	.LC28:
+  57 0268 6C6F6E67 		.string	"long * double cast to float (loss of precision): %.15f\n"
+  57      202A2064 
+  57      6F75626C 
+  57      65206361 
+  57      73742074 
+  58              		.align 8
+  59              	.LC29:
+  60 02a0 6C6F6E67 		.string	"long * double (loss of precision): %.15f\n"
+  60      202A2064 
+  60      6F75626C 
+  60      6520286C 
+  60      6F737320 
+  61 02ca 00000000 		.align 8
+  61      0000
+  62              	.LC31:
+  63 02d0 6C6F6E67 		.string	"long * long double (slight loss of precision): %.15Lf\n"
+  63      202A206C 
+  63      6F6E6720 
+  63      646F7562 
+  63      6C652028 
+  64              	.LC34:
+  65 0307 496E6372 		.string	"Incremented double: %f\n"
+  65      656D656E 
+  65      74656420 
+  65      646F7562 
+  65      6C653A20 
+  66 031f 00       		.align 8
+  67              	.LC35:
+  68 0320 436F6D70 		.string	"Compound expression final type double: %f\n"
+  68      6F756E64 
+  68      20657870 
+  68      72657373 
+  68      696F6E20 
+  69              	.LC36:
+  70 034b 4475683A 		.string	"Duh: -10 < 10"
+  70      202D3130 
+  70      203C2031 
+  70      3000
+  71              	.LC37:
+  72 0359 44276F68 		.string	"D'oh! This is C."
+  72      21205468 
+  72      69732069 
+  72      7320432E 
+  72      00
+  73              	.LC38:
+  74 036a 756E7369 		.string	"unsigned"
+  74      676E6564 
+  74      00
+  75              	.LC39:
+  76 0373 6C6F6E67 		.string	"long+unsigned -> long"
+  76      2B756E73 
+  76      69676E65 
+  76      64202D3E 
+  76      206C6F6E 
+  77              	.LC40:
+  78 0389 6C6F6E67 		.string	"long+unsigned -> unsigned"
+  78      2B756E73 
+  78      69676E65 
+  78      64202D3E 
+  78      20756E73 
+  79              	.LC42:
+  80 03a3 633A2025 		.string	"c: %c i: %d f: %f\n"
+  80      6320693A 
+  80      20256420 
+  80      663A2025 
+  80      660A00
+  81              	.LC44:
+  82 03b6 46726163 		.string	"Fraction: %f\n"
+  82      74696F6E 
+  82      3A202566 
+  82      0A00
+  83              	.LC45:
+  84 03c4 25660A00 		.string	"%f\n"
+  85              	.LC46:
+  86 03c8 50726F64 		.string	"Product: %ld\n"
+  86      7563743A 
+  86      20256C64 
+  86      0A00
+  87              		.text
+  88              		.globl	main
+  90              	main:
+  91              	.LFB5:
+  92              		.file 1 "conversion.c"
+   1:conversion.c  **** /*
+   2:conversion.c  ****  *
+   3:conversion.c  ****  *   File:
+   4:conversion.c  ****  *      conversion.c
+   5:conversion.c  ****  *
+   6:conversion.c  ****  *   Synopsis:
+   7:conversion.c  ****  *      Explore implicit conversions and cast.
+   8:conversion.c  ****  *
+   9:conversion.c  ****  *   Revision History:
+  10:conversion.c  ****  *      Date    Change Description
+  11:conversion.c  ****  *      ------  -----------------------------------------
+  12:conversion.c  ****  *      200128  Original.
+  13:conversion.c  ****  *
+  14:conversion.c  ****  */
+  15:conversion.c  **** #include <stdio.h>
+  16:conversion.c  **** #include <stdlib.h>
+  17:conversion.c  **** 
+  18:conversion.c  **** int main(void) {
+  93              		.loc 1 18 0
+  94              		.cfi_startproc
+  95 0000 55       		push	rbp
+  96              		.cfi_def_cfa_offset 16
+  97              		.cfi_offset 6, -16
+  98 0001 4889E5   		mov	rbp, rsp
+  99              		.cfi_def_cfa_register 6
+ 100 0004 4881ECC0 		sub	rsp, 192
+ 100      000000
+  19:conversion.c  ****   //    Compiler adds these constant values!!!
+  20:conversion.c  ****   /* printf("int + float: %.15f\n", 13 + 94.7F); */
+  21:conversion.c  ****   /* printf("int + double: %.15f\n", 13 + 94.7); */
+  22:conversion.c  **** 
+  23:conversion.c  ****   /* int i = 13; */
+  24:conversion.c  ****   /* float f = 94.7F; */
+  25:conversion.c  ****   /* double d = 94.7; */
+  26:conversion.c  **** 
+  27:conversion.c  ****   /* printf("int + float: %.15f\n", i + f); */
+  28:conversion.c  ****   /* printf("int + double: %.15f\n", i + d); */
+  29:conversion.c  **** 
+  30:conversion.c  ****   short si = 1;
+ 101              		.loc 1 30 0
+ 102 000b 66C78552 		mov	WORD PTR -174[rbp], 1
+ 102      FFFFFF01 
+ 102      00
+  31:conversion.c  ****   int i = 1;
+ 103              		.loc 1 31 0
+ 104 0014 C78554FF 		mov	DWORD PTR -172[rbp], 1
+ 104      FFFF0100 
+ 104      0000
+  32:conversion.c  ****   long li = 1;
+ 105              		.loc 1 32 0
+ 106 001e 48C74588 		mov	QWORD PTR -120[rbp], 1
+ 106      01000000 
+  33:conversion.c  ****   unsigned u = 1;
+ 107              		.loc 1 33 0
+ 108 0026 C78558FF 		mov	DWORD PTR -168[rbp], 1
+ 108      FFFF0100 
+ 108      0000
+  34:conversion.c  ****   unsigned long ul = 1;
+ 109              		.loc 1 34 0
+ 110 0030 48C74590 		mov	QWORD PTR -112[rbp], 1
+ 110      01000000 
+  35:conversion.c  **** 
+  36:conversion.c  ****   float f = 2.5;
+ 111              		.loc 1 36 0
+ 112 0038 F30F1005 		movss	xmm0, DWORD PTR .LC0[rip]
+ 112      00000000 
+ 113 0040 F30F1185 		movss	DWORD PTR -164[rbp], xmm0
+ 113      5CFFFFFF 
+  37:conversion.c  ****   double d = 2.5;
+ 114              		.loc 1 37 0
+ 115 0048 F20F1005 		movsd	xmm0, QWORD PTR .LC1[rip]
+ 115      00000000 
+ 116 0050 F20F1145 		movsd	QWORD PTR -104[rbp], xmm0
+ 116      98
+  38:conversion.c  ****   long double ld = 2.5;
+ 117              		.loc 1 38 0
+ 118 0055 DB2D0000 		fld	TBYTE PTR .LC2[rip]
+ 118      0000
+ 119 005b DB7DF0   		fstp	TBYTE PTR -16[rbp]
+  39:conversion.c  **** 
+  40:conversion.c  ****   printf("short + float: %.15f\n", si + f);
+ 120              		.loc 1 40 0
+ 121 005e 0FBF8552 		movsx	eax, WORD PTR -174[rbp]
+ 121      FFFFFF
+ 122 0065 F30F2AC0 		cvtsi2ss	xmm0, eax
+ 123 0069 F30F5885 		addss	xmm0, DWORD PTR -164[rbp]
+ 123      5CFFFFFF 
+ 124 0071 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 125 0075 488D3D00 		lea	rdi, .LC3[rip]
+ 125      000000
+ 126 007c B8010000 		mov	eax, 1
+ 126      00
+ 127 0081 E8000000 		call	printf@PLT
+ 127      00
+  41:conversion.c  ****   printf("short + double: %.15f\n", si + d);
+ 128              		.loc 1 41 0
+ 129 0086 0FBF8552 		movsx	eax, WORD PTR -174[rbp]
+ 129      FFFFFF
+ 130 008d F20F2AC0 		cvtsi2sd	xmm0, eax
+ 131 0091 F20F5845 		addsd	xmm0, QWORD PTR -104[rbp]
+ 131      98
+ 132 0096 488D3D00 		lea	rdi, .LC4[rip]
+ 132      000000
+ 133 009d B8010000 		mov	eax, 1
+ 133      00
+ 134 00a2 E8000000 		call	printf@PLT
+ 134      00
+  42:conversion.c  ****   printf("short + long double: %.15Lf\n", si + ld);
+ 135              		.loc 1 42 0
+ 136 00a7 DF8552FF 		fild	WORD PTR -174[rbp]
+ 136      FFFF
+ 137 00ad DB6DF0   		fld	TBYTE PTR -16[rbp]
+ 138 00b0 DEC1     		faddp	st(1), st
+ 139 00b2 488D6424 		lea	rsp, -16[rsp]
+ 139      F0
+ 140 00b7 DB3C24   		fstp	TBYTE PTR [rsp]
+ 141 00ba 488D3D00 		lea	rdi, .LC5[rip]
+ 141      000000
+ 142 00c1 B8000000 		mov	eax, 0
+ 142      00
+ 143 00c6 E8000000 		call	printf@PLT
+ 143      00
+ 144 00cb 4883C410 		add	rsp, 16
+  43:conversion.c  **** 
+  44:conversion.c  ****   printf("int + float: %.15f\n", i + f);
+ 145              		.loc 1 44 0
+ 146 00cf F30F2A85 		cvtsi2ss	xmm0, DWORD PTR -172[rbp]
+ 146      54FFFFFF 
+ 147 00d7 F30F5885 		addss	xmm0, DWORD PTR -164[rbp]
+ 147      5CFFFFFF 
+ 148 00df F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 149 00e3 488D3D00 		lea	rdi, .LC6[rip]
+ 149      000000
+ 150 00ea B8010000 		mov	eax, 1
+ 150      00
+ 151 00ef E8000000 		call	printf@PLT
+ 151      00
+  45:conversion.c  ****   printf("int + double: %.15f\n", i + d);
+ 152              		.loc 1 45 0
+ 153 00f4 F20F2A85 		cvtsi2sd	xmm0, DWORD PTR -172[rbp]
+ 153      54FFFFFF 
+ 154 00fc F20F5845 		addsd	xmm0, QWORD PTR -104[rbp]
+ 154      98
+ 155 0101 488D3D00 		lea	rdi, .LC7[rip]
+ 155      000000
+ 156 0108 B8010000 		mov	eax, 1
+ 156      00
+ 157 010d E8000000 		call	printf@PLT
+ 157      00
+  46:conversion.c  ****   printf("int + long double: %.15Lf\n", i + ld);
+ 158              		.loc 1 46 0
+ 159 0112 DB8554FF 		fild	DWORD PTR -172[rbp]
+ 159      FFFF
+ 160 0118 DB6DF0   		fld	TBYTE PTR -16[rbp]
+ 161 011b DEC1     		faddp	st(1), st
+ 162 011d 488D6424 		lea	rsp, -16[rsp]
+ 162      F0
+ 163 0122 DB3C24   		fstp	TBYTE PTR [rsp]
+ 164 0125 488D3D00 		lea	rdi, .LC8[rip]
+ 164      000000
+ 165 012c B8000000 		mov	eax, 0
+ 165      00
+ 166 0131 E8000000 		call	printf@PLT
+ 166      00
+ 167 0136 4883C410 		add	rsp, 16
+  47:conversion.c  **** 
+  48:conversion.c  ****   printf("long + float: %.15f\n", li + f);
+ 168              		.loc 1 48 0
+ 169 013a F3480F2A 		cvtsi2ss	xmm0, QWORD PTR -120[rbp]
+ 169      4588
+ 170 0140 F30F5885 		addss	xmm0, DWORD PTR -164[rbp]
+ 170      5CFFFFFF 
+ 171 0148 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 172 014c 488D3D00 		lea	rdi, .LC9[rip]
+ 172      000000
+ 173 0153 B8010000 		mov	eax, 1
+ 173      00
+ 174 0158 E8000000 		call	printf@PLT
+ 174      00
+  49:conversion.c  ****   printf("long + double: %.15f\n", li + d);
+ 175              		.loc 1 49 0
+ 176 015d F2480F2A 		cvtsi2sd	xmm0, QWORD PTR -120[rbp]
+ 176      4588
+ 177 0163 F20F5845 		addsd	xmm0, QWORD PTR -104[rbp]
+ 177      98
+ 178 0168 488D3D00 		lea	rdi, .LC10[rip]
+ 178      000000
+ 179 016f B8010000 		mov	eax, 1
+ 179      00
+ 180 0174 E8000000 		call	printf@PLT
+ 180      00
+  50:conversion.c  ****   printf("long + long double: %.15Lf\n", li + ld);
+ 181              		.loc 1 50 0
+ 182 0179 DF6D88   		fild	QWORD PTR -120[rbp]
+ 183 017c DB6DF0   		fld	TBYTE PTR -16[rbp]
+ 184 017f DEC1     		faddp	st(1), st
+ 185 0181 488D6424 		lea	rsp, -16[rsp]
+ 185      F0
+ 186 0186 DB3C24   		fstp	TBYTE PTR [rsp]
+ 187 0189 488D3D00 		lea	rdi, .LC11[rip]
+ 187      000000
+ 188 0190 B8000000 		mov	eax, 0
+ 188      00
+ 189 0195 E8000000 		call	printf@PLT
+ 189      00
+ 190 019a 4883C410 		add	rsp, 16
+  51:conversion.c  **** 
+  52:conversion.c  ****   printf("unsigned + float: %.15f\n", u + f);
+ 191              		.loc 1 52 0
+ 192 019e 8B8558FF 		mov	eax, DWORD PTR -168[rbp]
+ 192      FFFF
+ 193 01a4 4885C0   		test	rax, rax
+ 194 01a7 7807     		js	.L2
+ 195 01a9 F3480F2A 		cvtsi2ss	xmm0, rax
+ 195      C0
+ 196 01ae EB15     		jmp	.L3
+ 197              	.L2:
+ 198 01b0 4889C2   		mov	rdx, rax
+ 199 01b3 48D1EA   		shr	rdx
+ 200 01b6 83E001   		and	eax, 1
+ 201 01b9 4809C2   		or	rdx, rax
+ 202 01bc F3480F2A 		cvtsi2ss	xmm0, rdx
+ 202      C2
+ 203 01c1 F30F58C0 		addss	xmm0, xmm0
+ 204              	.L3:
+ 205 01c5 F30F5885 		addss	xmm0, DWORD PTR -164[rbp]
+ 205      5CFFFFFF 
+ 206 01cd F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 207 01d1 488D3D00 		lea	rdi, .LC12[rip]
+ 207      000000
+ 208 01d8 B8010000 		mov	eax, 1
+ 208      00
+ 209 01dd E8000000 		call	printf@PLT
+ 209      00
+  53:conversion.c  ****   printf("unsigned + double: %.15f\n", u + d);
+ 210              		.loc 1 53 0
+ 211 01e2 8B8558FF 		mov	eax, DWORD PTR -168[rbp]
+ 211      FFFF
+ 212 01e8 4885C0   		test	rax, rax
+ 213 01eb 7807     		js	.L4
+ 214 01ed F2480F2A 		cvtsi2sd	xmm0, rax
+ 214      C0
+ 215 01f2 EB15     		jmp	.L5
+ 216              	.L4:
+ 217 01f4 4889C2   		mov	rdx, rax
+ 218 01f7 48D1EA   		shr	rdx
+ 219 01fa 83E001   		and	eax, 1
+ 220 01fd 4809C2   		or	rdx, rax
+ 221 0200 F2480F2A 		cvtsi2sd	xmm0, rdx
+ 221      C2
+ 222 0205 F20F58C0 		addsd	xmm0, xmm0
+ 223              	.L5:
+ 224 0209 F20F5845 		addsd	xmm0, QWORD PTR -104[rbp]
+ 224      98
+ 225 020e 488D3D00 		lea	rdi, .LC13[rip]
+ 225      000000
+ 226 0215 B8010000 		mov	eax, 1
+ 226      00
+ 227 021a E8000000 		call	printf@PLT
+ 227      00
+  54:conversion.c  ****   printf("unsigned + long double: %.15Lf\n", u + ld);
+ 228              		.loc 1 54 0
+ 229 021f 8B8558FF 		mov	eax, DWORD PTR -168[rbp]
+ 229      FFFF
+ 230 0225 48898548 		mov	QWORD PTR -184[rbp], rax
+ 230      FFFFFF
+ 231 022c DFAD48FF 		fild	QWORD PTR -184[rbp]
+ 231      FFFF
+ 232 0232 DB6DF0   		fld	TBYTE PTR -16[rbp]
+ 233 0235 DEC1     		faddp	st(1), st
+ 234 0237 488D6424 		lea	rsp, -16[rsp]
+ 234      F0
+ 235 023c DB3C24   		fstp	TBYTE PTR [rsp]
+ 236 023f 488D3D00 		lea	rdi, .LC14[rip]
+ 236      000000
+ 237 0246 B8000000 		mov	eax, 0
+ 237      00
+ 238 024b E8000000 		call	printf@PLT
+ 238      00
+ 239 0250 4883C410 		add	rsp, 16
+  55:conversion.c  **** 
+  56:conversion.c  ****   printf("unsigned long + float: %.15f\n", ul + f);
+ 240              		.loc 1 56 0
+ 241 0254 488B4590 		mov	rax, QWORD PTR -112[rbp]
+ 242 0258 4885C0   		test	rax, rax
+ 243 025b 7807     		js	.L6
+ 244 025d F3480F2A 		cvtsi2ss	xmm0, rax
+ 244      C0
+ 245 0262 EB15     		jmp	.L7
+ 246              	.L6:
+ 247 0264 4889C2   		mov	rdx, rax
+ 248 0267 48D1EA   		shr	rdx
+ 249 026a 83E001   		and	eax, 1
+ 250 026d 4809C2   		or	rdx, rax
+ 251 0270 F3480F2A 		cvtsi2ss	xmm0, rdx
+ 251      C2
+ 252 0275 F30F58C0 		addss	xmm0, xmm0
+ 253              	.L7:
+ 254 0279 F30F5885 		addss	xmm0, DWORD PTR -164[rbp]
+ 254      5CFFFFFF 
+ 255 0281 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 256 0285 488D3D00 		lea	rdi, .LC15[rip]
+ 256      000000
+ 257 028c B8010000 		mov	eax, 1
+ 257      00
+ 258 0291 E8000000 		call	printf@PLT
+ 258      00
+  57:conversion.c  ****   printf("unsigned long + double: %.15f\n", ul + d);
+ 259              		.loc 1 57 0
+ 260 0296 488B4590 		mov	rax, QWORD PTR -112[rbp]
+ 261 029a 4885C0   		test	rax, rax
+ 262 029d 7807     		js	.L8
+ 263 029f F2480F2A 		cvtsi2sd	xmm0, rax
+ 263      C0
+ 264 02a4 EB15     		jmp	.L9
+ 265              	.L8:
+ 266 02a6 4889C2   		mov	rdx, rax
+ 267 02a9 48D1EA   		shr	rdx
+ 268 02ac 83E001   		and	eax, 1
+ 269 02af 4809C2   		or	rdx, rax
+ 270 02b2 F2480F2A 		cvtsi2sd	xmm0, rdx
+ 270      C2
+ 271 02b7 F20F58C0 		addsd	xmm0, xmm0
+ 272              	.L9:
+ 273 02bb F20F5845 		addsd	xmm0, QWORD PTR -104[rbp]
+ 273      98
+ 274 02c0 488D3D00 		lea	rdi, .LC16[rip]
+ 274      000000
+ 275 02c7 B8010000 		mov	eax, 1
+ 275      00
+ 276 02cc E8000000 		call	printf@PLT
+ 276      00
+  58:conversion.c  ****   printf("unsigned long + long double: %.15Lf\n", ul + ld);
+ 277              		.loc 1 58 0
+ 278 02d1 DF6D90   		fild	QWORD PTR -112[rbp]
+ 279 02d4 48837D90 		cmp	QWORD PTR -112[rbp], 0
+ 279      00
+ 280 02d9 7908     		jns	.L10
+ 281 02db DB2D0000 		fld	TBYTE PTR .LC17[rip]
+ 281      0000
+ 282 02e1 DEC1     		faddp	st(1), st
+ 283              	.L10:
+ 284 02e3 DB6DF0   		fld	TBYTE PTR -16[rbp]
+ 285 02e6 DEC1     		faddp	st(1), st
+ 286 02e8 488D6424 		lea	rsp, -16[rsp]
+ 286      F0
+ 287 02ed DB3C24   		fstp	TBYTE PTR [rsp]
+ 288 02f0 488D3D00 		lea	rdi, .LC18[rip]
+ 288      000000
+ 289 02f7 B8000000 		mov	eax, 0
+ 289      00
+ 290 02fc E8000000 		call	printf@PLT
+ 290      00
+ 291 0301 4883C410 		add	rsp, 16
+  59:conversion.c  **** 
+  60:conversion.c  ****   printf("double cast to float: %.15f\n", f + (float) d);
+ 292              		.loc 1 60 0
+ 293 0305 F20F5A45 		cvtsd2ss	xmm0, QWORD PTR -104[rbp]
+ 293      98
+ 294 030a F30F5885 		addss	xmm0, DWORD PTR -164[rbp]
+ 294      5CFFFFFF 
+ 295 0312 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 296 0316 488D3D00 		lea	rdi, .LC19[rip]
+ 296      000000
+ 297 031d B8010000 		mov	eax, 1
+ 297      00
+ 298 0322 E8000000 		call	printf@PLT
+ 298      00
+  61:conversion.c  ****   printf("float cast to double: %.15f\n", f + d);
+ 299              		.loc 1 61 0
+ 300 0327 F30F5A85 		cvtss2sd	xmm0, DWORD PTR -164[rbp]
+ 300      5CFFFFFF 
+ 301 032f F20F5845 		addsd	xmm0, QWORD PTR -104[rbp]
+ 301      98
+ 302 0334 488D3D00 		lea	rdi, .LC20[rip]
+ 302      000000
+ 303 033b B8010000 		mov	eax, 1
+ 303      00
+ 304 0340 E8000000 		call	printf@PLT
+ 304      00
+  62:conversion.c  ****   printf("double cast to long double: %.15Lf\n", d + ld);
+ 305              		.loc 1 62 0
+ 306 0345 DD4598   		fld	QWORD PTR -104[rbp]
+ 307 0348 DB6DF0   		fld	TBYTE PTR -16[rbp]
+ 308 034b DEC1     		faddp	st(1), st
+ 309 034d 488D6424 		lea	rsp, -16[rsp]
+ 309      F0
+ 310 0352 DB3C24   		fstp	TBYTE PTR [rsp]
+ 311 0355 488D3D00 		lea	rdi, .LC21[rip]
+ 311      000000
+ 312 035c B8000000 		mov	eax, 0
+ 312      00
+ 313 0361 E8000000 		call	printf@PLT
+ 313      00
+ 314 0366 4883C410 		add	rsp, 16
+  63:conversion.c  **** 
+  64:conversion.c  ****   printf("double cast to int: %d\n", (int) d + i);
+ 315              		.loc 1 64 0
+ 316 036a F20F1045 		movsd	xmm0, QWORD PTR -104[rbp]
+ 316      98
+ 317 036f F20F2CD0 		cvttsd2si	edx, xmm0
+ 318 0373 8B8554FF 		mov	eax, DWORD PTR -172[rbp]
+ 318      FFFF
+ 319 0379 01D0     		add	eax, edx
+ 320 037b 89C6     		mov	esi, eax
+ 321 037d 488D3D00 		lea	rdi, .LC22[rip]
+ 321      000000
+ 322 0384 B8000000 		mov	eax, 0
+ 322      00
+ 323 0389 E8000000 		call	printf@PLT
+ 323      00
+  65:conversion.c  ****   printf("float cast to int: %d\n", (int) f + i);
+ 324              		.loc 1 65 0
+ 325 038e F30F1085 		movss	xmm0, DWORD PTR -164[rbp]
+ 325      5CFFFFFF 
+ 326 0396 F30F2CD0 		cvttss2si	edx, xmm0
+ 327 039a 8B8554FF 		mov	eax, DWORD PTR -172[rbp]
+ 327      FFFF
+ 328 03a0 01D0     		add	eax, edx
+ 329 03a2 89C6     		mov	esi, eax
+ 330 03a4 488D3D00 		lea	rdi, .LC23[rip]
+ 330      000000
+ 331 03ab B8000000 		mov	eax, 0
+ 331      00
+ 332 03b0 E8000000 		call	printf@PLT
+ 332      00
+  66:conversion.c  **** 
+  67:conversion.c  ****   long big_long = 576460752303423487L;
+ 333              		.loc 1 67 0
+ 334 03b5 48B8FFFF 		movabs	rax, 576460752303423487
+ 334      FFFFFFFF 
+ 334      FF07
+ 335 03bf 488945A0 		mov	QWORD PTR -96[rbp], rax
+  68:conversion.c  ****   f = 2.4;
+ 336              		.loc 1 68 0
+ 337 03c3 F30F1005 		movss	xmm0, DWORD PTR .LC24[rip]
+ 337      00000000 
+ 338 03cb F30F1185 		movss	DWORD PTR -164[rbp], xmm0
+ 338      5CFFFFFF 
+  69:conversion.c  **** 
+  70:conversion.c  ****   printf("Actual long value: %ld\n", big_long);
+ 339              		.loc 1 70 0
+ 340 03d3 488B45A0 		mov	rax, QWORD PTR -96[rbp]
+ 341 03d7 4889C6   		mov	rsi, rax
+ 342 03da 488D3D00 		lea	rdi, .LC25[rip]
+ 342      000000
+ 343 03e1 B8000000 		mov	eax, 0
+ 343      00
+ 344 03e6 E8000000 		call	printf@PLT
+ 344      00
+  71:conversion.c  ****   printf("long * float (loss of precision): %.15f\n", f * big_long);
+ 345              		.loc 1 71 0
+ 346 03eb F3480F2A 		cvtsi2ss	xmm0, QWORD PTR -96[rbp]
+ 346      45A0
+ 347 03f1 F30F5985 		mulss	xmm0, DWORD PTR -164[rbp]
+ 347      5CFFFFFF 
+ 348 03f9 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 349 03fd 488D3D00 		lea	rdi, .LC26[rip]
+ 349      000000
+ 350 0404 B8010000 		mov	eax, 1
+ 350      00
+ 351 0409 E8000000 		call	printf@PLT
+ 351      00
+  72:conversion.c  ****   printf("long * double cast to float (loss of precision): %.15f\n", (float) (2.4 * big_long));
+ 352              		.loc 1 72 0
+ 353 040e F2480F2A 		cvtsi2sd	xmm0, QWORD PTR -96[rbp]
+ 353      45A0
+ 354 0414 F20F100D 		movsd	xmm1, QWORD PTR .LC27[rip]
+ 354      00000000 
+ 355 041c F20F59C1 		mulsd	xmm0, xmm1
+ 356 0420 F20F5AC0 		cvtsd2ss	xmm0, xmm0
+ 357 0424 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 358 0428 488D3D00 		lea	rdi, .LC28[rip]
+ 358      000000
+ 359 042f B8010000 		mov	eax, 1
+ 359      00
+ 360 0434 E8000000 		call	printf@PLT
+ 360      00
+  73:conversion.c  ****   printf("long * double (loss of precision): %.15f\n", 2.4 * big_long);
+ 361              		.loc 1 73 0
+ 362 0439 F2480F2A 		cvtsi2sd	xmm0, QWORD PTR -96[rbp]
+ 362      45A0
+ 363 043f F20F100D 		movsd	xmm1, QWORD PTR .LC27[rip]
+ 363      00000000 
+ 364 0447 F20F59C1 		mulsd	xmm0, xmm1
+ 365 044b 488D3D00 		lea	rdi, .LC29[rip]
+ 365      000000
+ 366 0452 B8010000 		mov	eax, 1
+ 366      00
+ 367 0457 E8000000 		call	printf@PLT
+ 367      00
+  74:conversion.c  ****   printf("long * long double (slight loss of precision): %.15Lf\n", 2.4L * big_long);
+ 368              		.loc 1 74 0
+ 369 045c DF6DA0   		fild	QWORD PTR -96[rbp]
+ 370 045f DB2D0000 		fld	TBYTE PTR .LC30[rip]
+ 370      0000
+ 371 0465 DEC9     		fmulp	st(1), st
+ 372 0467 488D6424 		lea	rsp, -16[rsp]
+ 372      F0
+ 373 046c DB3C24   		fstp	TBYTE PTR [rsp]
+ 374 046f 488D3D00 		lea	rdi, .LC31[rip]
+ 374      000000
+ 375 0476 B8000000 		mov	eax, 0
+ 375      00
+ 376 047b E8000000 		call	printf@PLT
+ 376      00
+ 377 0480 4883C410 		add	rsp, 16
+  75:conversion.c  **** 
+  76:conversion.c  ****   d = 10.5;
+ 378              		.loc 1 76 0
+ 379 0484 F20F1005 		movsd	xmm0, QWORD PTR .LC32[rip]
+ 379      00000000 
+ 380 048c F20F1145 		movsd	QWORD PTR -104[rbp], xmm0
+ 380      98
+  77:conversion.c  ****   d++;
+ 381              		.loc 1 77 0
+ 382 0491 F20F104D 		movsd	xmm1, QWORD PTR -104[rbp]
+ 382      98
+ 383 0496 F20F1005 		movsd	xmm0, QWORD PTR .LC33[rip]
+ 383      00000000 
+ 384 049e F20F58C1 		addsd	xmm0, xmm1
+ 385 04a2 F20F1145 		movsd	QWORD PTR -104[rbp], xmm0
+ 385      98
+  78:conversion.c  **** 
+  79:conversion.c  ****   printf("Incremented double: %f\n", d);
+ 386              		.loc 1 79 0
+ 387 04a7 488B4598 		mov	rax, QWORD PTR -104[rbp]
+ 388 04ab 48898548 		mov	QWORD PTR -184[rbp], rax
+ 388      FFFFFF
+ 389 04b2 F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 389      48FFFFFF 
+ 390 04ba 488D3D00 		lea	rdi, .LC34[rip]
+ 390      000000
+ 391 04c1 B8010000 		mov	eax, 1
+ 391      00
+ 392 04c6 E8000000 		call	printf@PLT
+ 392      00
+  80:conversion.c  **** 
+  81:conversion.c  ****   i = 5;
+ 393              		.loc 1 81 0
+ 394 04cb C78554FF 		mov	DWORD PTR -172[rbp], 5
+ 394      FFFF0500 
+ 394      0000
+  82:conversion.c  ****   d = d + (i * f);
+ 395              		.loc 1 82 0
+ 396 04d5 F30F2A85 		cvtsi2ss	xmm0, DWORD PTR -172[rbp]
+ 396      54FFFFFF 
+ 397 04dd F30F5985 		mulss	xmm0, DWORD PTR -164[rbp]
+ 397      5CFFFFFF 
+ 398 04e5 F30F5AC0 		cvtss2sd	xmm0, xmm0
+ 399 04e9 F20F104D 		movsd	xmm1, QWORD PTR -104[rbp]
+ 399      98
+ 400 04ee F20F58C1 		addsd	xmm0, xmm1
+ 401 04f2 F20F1145 		movsd	QWORD PTR -104[rbp], xmm0
+ 401      98
+  83:conversion.c  **** 
+  84:conversion.c  ****   printf("Compound expression final type double: %f\n", d);
+ 402              		.loc 1 84 0
+ 403 04f7 488B4598 		mov	rax, QWORD PTR -104[rbp]
+ 404 04fb 48898548 		mov	QWORD PTR -184[rbp], rax
+ 404      FFFFFF
+ 405 0502 F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 405      48FFFFFF 
+ 406 050a 488D3D00 		lea	rdi, .LC35[rip]
+ 406      000000
+ 407 0511 B8010000 		mov	eax, 1
+ 407      00
+ 408 0516 E8000000 		call	printf@PLT
+ 408      00
+  85:conversion.c  **** 
+  86:conversion.c  ****   //
+  87:conversion.c  ****   //    King's test pg. 126
+  88:conversion.c  ****   //    
+  89:conversion.c  ****   int signed_i = -10;
+ 409              		.loc 1 89 0
+ 410 051b C78560FF 		mov	DWORD PTR -160[rbp], -10
+ 410      FFFFF6FF 
+ 410      FFFF
+  90:conversion.c  ****   unsigned unsigned_i = 10;
+ 411              		.loc 1 90 0
+ 412 0525 C78564FF 		mov	DWORD PTR -156[rbp], 10
+ 412      FFFF0A00 
+ 412      0000
+  91:conversion.c  **** 
+  92:conversion.c  ****   if ( signed_i < unsigned_i ) { // unsigned int won't necessarily fit in int -> coerce int to unsi
+ 413              		.loc 1 92 0
+ 414 052f 8B8560FF 		mov	eax, DWORD PTR -160[rbp]
+ 414      FFFF
+ 415 0535 398564FF 		cmp	DWORD PTR -156[rbp], eax
+ 415      FFFF
+ 416 053b 760E     		jbe	.L11
+  93:conversion.c  **** 				 // In fact, < translated as cmp instruction: jae
+  94:conversion.c  **** 				 // (Actually signed_i < unsigned_i -> cmp unsigned_i, signed_i -> jbe  !?!?)
+  95:conversion.c  ****     printf("Duh: -10 < 10\n");
+ 417              		.loc 1 95 0
+ 418 053d 488D3D00 		lea	rdi, .LC36[rip]
+ 418      000000
+ 419 0544 E8000000 		call	puts@PLT
+ 419      00
+ 420 0549 EB0C     		jmp	.L12
+ 421              	.L11:
+  96:conversion.c  ****   } else {
+  97:conversion.c  ****     printf("D'oh! This is C.\n");
+ 422              		.loc 1 97 0
+ 423 054b 488D3D00 		lea	rdi, .LC37[rip]
+ 423      000000
+ 424 0552 E8000000 		call	puts@PLT
+ 424      00
+ 425              	.L12:
+ 426              	.LBB2:
+  98:conversion.c  ****   }
+  99:conversion.c  **** 
+ 100:conversion.c  ****   //
+ 101:conversion.c  ****   //    My variant
+ 102:conversion.c  ****   //    
+ 103:conversion.c  ****   {
+ 104:conversion.c  ****     long l = -10;
+ 427              		.loc 1 104 0
+ 428 0557 48C745A8 		mov	QWORD PTR -88[rbp], -10
+ 428      F6FFFFFF 
+ 105:conversion.c  ****     long long ll = -10;
+ 429              		.loc 1 105 0
+ 430 055f 48C745B0 		mov	QWORD PTR -80[rbp], -10
+ 430      F6FFFFFF 
+ 106:conversion.c  ****     unsigned u = 10;
+ 431              		.loc 1 106 0
+ 432 0567 C78568FF 		mov	DWORD PTR -152[rbp], 10
+ 432      FFFF0A00 
+ 432      0000
+ 107:conversion.c  ****     unsigned long ul = 10;
+ 433              		.loc 1 107 0
+ 434 0571 48C745B8 		mov	QWORD PTR -72[rbp], 10
+ 434      0A000000 
+ 108:conversion.c  **** 
+ 109:conversion.c  ****     if ( l < u ) {
+ 435              		.loc 1 109 0
+ 436 0579 8B8568FF 		mov	eax, DWORD PTR -152[rbp]
+ 436      FFFF
+ 437 057f 483945A8 		cmp	QWORD PTR -88[rbp], rax
+ 438 0583 7D0E     		jge	.L13
+ 110:conversion.c  ****       printf("Duh: -10 < 10\n");
+ 439              		.loc 1 110 0
+ 440 0585 488D3D00 		lea	rdi, .LC36[rip]
+ 440      000000
+ 441 058c E8000000 		call	puts@PLT
+ 441      00
+ 442 0591 EB0C     		jmp	.L14
+ 443              	.L13:
+ 111:conversion.c  ****     } else {
+ 112:conversion.c  ****       printf("unsigned\n");
+ 444              		.loc 1 112 0
+ 445 0593 488D3D00 		lea	rdi, .LC38[rip]
+ 445      000000
+ 446 059a E8000000 		call	puts@PLT
+ 446      00
+ 447              	.L14:
+ 113:conversion.c  ****     }
+ 114:conversion.c  **** 
+ 115:conversion.c  ****     if ( l < ul ) {
+ 448              		.loc 1 115 0
+ 449 059f 488B45A8 		mov	rax, QWORD PTR -88[rbp]
+ 450 05a3 483945B8 		cmp	QWORD PTR -72[rbp], rax
+ 451 05a7 760E     		jbe	.L15
+ 116:conversion.c  ****       printf("Duh: -10 < 10\n");
+ 452              		.loc 1 116 0
+ 453 05a9 488D3D00 		lea	rdi, .LC36[rip]
+ 453      000000
+ 454 05b0 E8000000 		call	puts@PLT
+ 454      00
+ 455 05b5 EB0C     		jmp	.L16
+ 456              	.L15:
+ 117:conversion.c  ****     } else {
+ 118:conversion.c  ****       printf("unsigned\n");
+ 457              		.loc 1 118 0
+ 458 05b7 488D3D00 		lea	rdi, .LC38[rip]
+ 458      000000
+ 459 05be E8000000 		call	puts@PLT
+ 459      00
+ 460              	.L16:
+ 119:conversion.c  ****     }
+ 120:conversion.c  **** 
+ 121:conversion.c  ****     if ( ll < u ) {
+ 461              		.loc 1 121 0
+ 462 05c3 8B8568FF 		mov	eax, DWORD PTR -152[rbp]
+ 462      FFFF
+ 463 05c9 483945B0 		cmp	QWORD PTR -80[rbp], rax
+ 464 05cd 7D0E     		jge	.L17
+ 122:conversion.c  ****       printf("Duh: -10 < 10\n");
+ 465              		.loc 1 122 0
+ 466 05cf 488D3D00 		lea	rdi, .LC36[rip]
+ 466      000000
+ 467 05d6 E8000000 		call	puts@PLT
+ 467      00
+ 468 05db EB0C     		jmp	.L18
+ 469              	.L17:
+ 123:conversion.c  ****     } else {
+ 124:conversion.c  ****       printf("unsigned\n");
+ 470              		.loc 1 124 0
+ 471 05dd 488D3D00 		lea	rdi, .LC38[rip]
+ 471      000000
+ 472 05e4 E8000000 		call	puts@PLT
+ 472      00
+ 473              	.L18:
+ 125:conversion.c  ****     }
+ 126:conversion.c  **** 
+ 127:conversion.c  ****     if ( ll < ul ) {
+ 474              		.loc 1 127 0
+ 475 05e9 488B45B0 		mov	rax, QWORD PTR -80[rbp]
+ 476 05ed 483945B8 		cmp	QWORD PTR -72[rbp], rax
+ 477 05f1 760E     		jbe	.L19
+ 128:conversion.c  ****       printf("Duh: -10 < 10\n");
+ 478              		.loc 1 128 0
+ 479 05f3 488D3D00 		lea	rdi, .LC36[rip]
+ 479      000000
+ 480 05fa E8000000 		call	puts@PLT
+ 480      00
+ 481 05ff EB0C     		jmp	.L20
+ 482              	.L19:
+ 129:conversion.c  ****     } else {
+ 130:conversion.c  ****       printf("unsigned\n");
+ 483              		.loc 1 130 0
+ 484 0601 488D3D00 		lea	rdi, .LC38[rip]
+ 484      000000
+ 485 0608 E8000000 		call	puts@PLT
+ 485      00
+ 486              	.L20:
+ 487              	.LBE2:
+ 488              	.LBB3:
+ 131:conversion.c  ****     }
+ 132:conversion.c  ****   }
+ 133:conversion.c  **** 
+ 134:conversion.c  ****   //
+ 135:conversion.c  ****   //    CARM pg. 198
+ 136:conversion.c  ****   //    
+ 137:conversion.c  ****   {
+ 138:conversion.c  ****     unsigned ui = -1; // WTF?!?
+ 489              		.loc 1 138 0
+ 490 060d C7856CFF 		mov	DWORD PTR -148[rbp], -1
+ 490      FFFFFFFF 
+ 490      FFFF
+ 139:conversion.c  ****     long int li = 0;
+ 491              		.loc 1 139 0
+ 492 0617 48C745C0 		mov	QWORD PTR -64[rbp], 0
+ 492      00000000 
+ 140:conversion.c  **** 
+ 141:conversion.c  ****     if ( ui < li ) {
+ 493              		.loc 1 141 0
+ 494 061f 8B856CFF 		mov	eax, DWORD PTR -148[rbp]
+ 494      FFFF
+ 495 0625 483945C0 		cmp	QWORD PTR -64[rbp], rax
+ 496 0629 7E0E     		jle	.L21
+ 142:conversion.c  ****       printf("long+unsigned -> long\n");
+ 497              		.loc 1 142 0
+ 498 062b 488D3D00 		lea	rdi, .LC39[rip]
+ 498      000000
+ 499 0632 E8000000 		call	puts@PLT
+ 499      00
+ 500 0637 EB0C     		jmp	.L22
+ 501              	.L21:
+ 143:conversion.c  ****     } else {
+ 144:conversion.c  ****       printf("long+unsigned -> unsigned\n");
+ 502              		.loc 1 144 0
+ 503 0639 488D3D00 		lea	rdi, .LC40[rip]
+ 503      000000
+ 504 0640 E8000000 		call	puts@PLT
+ 504      00
+ 505              	.L22:
+ 506              	.LBE3:
+ 507              	.LBB4:
+ 145:conversion.c  ****     }
+ 146:conversion.c  ****   }
+ 147:conversion.c  **** 
+ 148:conversion.c  ****   //
+ 149:conversion.c  ****   //    Assignment conversions 
+ 150:conversion.c  ****   {
+ 151:conversion.c  ****     char c = 'a';
+ 508              		.loc 1 151 0
+ 509 0645 C68551FF 		mov	BYTE PTR -175[rbp], 97
+ 509      FFFF61
+ 152:conversion.c  ****     int i = c;
+ 510              		.loc 1 152 0
+ 511 064c 0FBE8551 		movsx	eax, BYTE PTR -175[rbp]
+ 511      FFFFFF
+ 512 0653 898570FF 		mov	DWORD PTR -144[rbp], eax
+ 512      FFFF
+ 153:conversion.c  ****     float f = i;
+ 513              		.loc 1 153 0
+ 514 0659 F30F2A85 		cvtsi2ss	xmm0, DWORD PTR -144[rbp]
+ 514      70FFFFFF 
+ 515 0661 F30F1185 		movss	DWORD PTR -140[rbp], xmm0
+ 515      74FFFFFF 
+ 154:conversion.c  ****     double d = f;
+ 516              		.loc 1 154 0
+ 517 0669 F30F5A85 		cvtss2sd	xmm0, DWORD PTR -140[rbp]
+ 517      74FFFFFF 
+ 518 0671 F20F1145 		movsd	QWORD PTR -56[rbp], xmm0
+ 518      C8
+ 155:conversion.c  **** 
+ 156:conversion.c  ****     c = 10000;
+ 519              		.loc 1 156 0
+ 520 0676 C68551FF 		mov	BYTE PTR -175[rbp], 16
+ 520      FFFF10
+ 157:conversion.c  ****     i = 1.0e20;
+ 521              		.loc 1 157 0
+ 522 067d C78570FF 		mov	DWORD PTR -144[rbp], 2147483647
+ 522      FFFFFFFF 
+ 522      FF7F
+ 158:conversion.c  ****     f = 1.0e100;
+ 523              		.loc 1 158 0
+ 524 0687 F30F1005 		movss	xmm0, DWORD PTR .LC41[rip]
+ 524      00000000 
+ 525 068f F30F1185 		movss	DWORD PTR -140[rbp], xmm0
+ 525      74FFFFFF 
+ 159:conversion.c  ****     printf("c: %c i: %d f: %f\n", c, i, f);
+ 526              		.loc 1 159 0
+ 527 0697 F30F5A85 		cvtss2sd	xmm0, DWORD PTR -140[rbp]
+ 527      74FFFFFF 
+ 528 069f 0FBE8551 		movsx	eax, BYTE PTR -175[rbp]
+ 528      FFFFFF
+ 529 06a6 8B9570FF 		mov	edx, DWORD PTR -144[rbp]
+ 529      FFFF
+ 530 06ac 89C6     		mov	esi, eax
+ 531 06ae 488D3D00 		lea	rdi, .LC42[rip]
+ 531      000000
+ 532 06b5 B8010000 		mov	eax, 1
+ 532      00
+ 533 06ba E8000000 		call	printf@PLT
+ 533      00
+ 534              	.LBE4:
+ 535              	.LBB5:
+ 160:conversion.c  ****   }
+ 161:conversion.c  **** 
+ 162:conversion.c  ****   //
+ 163:conversion.c  ****   //    Casts
+ 164:conversion.c  ****   //    
+ 165:conversion.c  ****   {
+ 166:conversion.c  ****     double d = 1.234;
+ 536              		.loc 1 166 0
+ 537 06bf F20F1005 		movsd	xmm0, QWORD PTR .LC43[rip]
+ 537      00000000 
+ 538 06c7 F20F1145 		movsd	QWORD PTR -48[rbp], xmm0
+ 538      D0
+ 167:conversion.c  ****     double fraction = d - (int) d;
+ 539              		.loc 1 167 0
+ 540 06cc F20F1045 		movsd	xmm0, QWORD PTR -48[rbp]
+ 540      D0
+ 541 06d1 F20F2CC0 		cvttsd2si	eax, xmm0
+ 542 06d5 F20F2AC0 		cvtsi2sd	xmm0, eax
+ 543 06d9 F20F104D 		movsd	xmm1, QWORD PTR -48[rbp]
+ 543      D0
+ 544 06de F20F5CC8 		subsd	xmm1, xmm0
+ 545 06e2 660F28C1 		movapd	xmm0, xmm1
+ 546 06e6 F20F1145 		movsd	QWORD PTR -40[rbp], xmm0
+ 546      D8
+ 168:conversion.c  ****     printf("Fraction: %f\n", fraction);
+ 547              		.loc 1 168 0
+ 548 06eb 488B45D8 		mov	rax, QWORD PTR -40[rbp]
+ 549 06ef 48898548 		mov	QWORD PTR -184[rbp], rax
+ 549      FFFFFF
+ 550 06f6 F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 550      48FFFFFF 
+ 551 06fe 488D3D00 		lea	rdi, .LC44[rip]
+ 551      000000
+ 552 0705 B8010000 		mov	eax, 1
+ 552      00
+ 553 070a E8000000 		call	printf@PLT
+ 553      00
+ 169:conversion.c  ****     fraction = d - (long) d;
+ 554              		.loc 1 169 0
+ 555 070f F20F1045 		movsd	xmm0, QWORD PTR -48[rbp]
+ 555      D0
+ 556 0714 F2480F2C 		cvttsd2si	rax, xmm0
+ 556      C0
+ 557 0719 F2480F2A 		cvtsi2sd	xmm0, rax
+ 557      C0
+ 558 071e F20F104D 		movsd	xmm1, QWORD PTR -48[rbp]
+ 558      D0
+ 559 0723 F20F5CC8 		subsd	xmm1, xmm0
+ 560 0727 660F28C1 		movapd	xmm0, xmm1
+ 561 072b F20F1145 		movsd	QWORD PTR -40[rbp], xmm0
+ 561      D8
+ 170:conversion.c  ****     printf("Fraction: %f\n", fraction);
+ 562              		.loc 1 170 0
+ 563 0730 488B45D8 		mov	rax, QWORD PTR -40[rbp]
+ 564 0734 48898548 		mov	QWORD PTR -184[rbp], rax
+ 564      FFFFFF
+ 565 073b F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 565      48FFFFFF 
+ 566 0743 488D3D00 		lea	rdi, .LC44[rip]
+ 566      000000
+ 567 074a B8010000 		mov	eax, 1
+ 567      00
+ 568 074f E8000000 		call	printf@PLT
+ 568      00
+ 171:conversion.c  **** 
+ 172:conversion.c  ****     int i = (int) 2.4; // Redundant
+ 569              		.loc 1 172 0
+ 570 0754 C78578FF 		mov	DWORD PTR -136[rbp], 2
+ 570      FFFF0200 
+ 570      0000
+ 173:conversion.c  ****     int j = 2.4;
+ 571              		.loc 1 173 0
+ 572 075e C7857CFF 		mov	DWORD PTR -132[rbp], 2
+ 572      FFFF0200 
+ 572      0000
+ 174:conversion.c  **** 
+ 175:conversion.c  ****     int m = 7;
+ 573              		.loc 1 175 0
+ 574 0768 C7458007 		mov	DWORD PTR -128[rbp], 7
+ 574      000000
+ 176:conversion.c  ****     int n = 3;
+ 575              		.loc 1 176 0
+ 576 076f C7458403 		mov	DWORD PTR -124[rbp], 3
+ 576      000000
+ 177:conversion.c  ****     double r = m / n;
+ 577              		.loc 1 177 0
+ 578 0776 8B4580   		mov	eax, DWORD PTR -128[rbp]
+ 579 0779 99       		cdq
+ 580 077a F77D84   		idiv	DWORD PTR -124[rbp]
+ 581 077d F20F2AC0 		cvtsi2sd	xmm0, eax
+ 582 0781 F20F1145 		movsd	QWORD PTR -32[rbp], xmm0
+ 582      E0
+ 178:conversion.c  ****     printf("%f\n", r);
+ 583              		.loc 1 178 0
+ 584 0786 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 585 078a 48898548 		mov	QWORD PTR -184[rbp], rax
+ 585      FFFFFF
+ 586 0791 F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 586      48FFFFFF 
+ 587 0799 488D3D00 		lea	rdi, .LC45[rip]
+ 587      000000
+ 588 07a0 B8010000 		mov	eax, 1
+ 588      00
+ 589 07a5 E8000000 		call	printf@PLT
+ 589      00
+ 179:conversion.c  ****     r = (double) m / n;
+ 590              		.loc 1 179 0
+ 591 07aa F20F2A45 		cvtsi2sd	xmm0, DWORD PTR -128[rbp]
+ 591      80
+ 592 07af F20F2A4D 		cvtsi2sd	xmm1, DWORD PTR -124[rbp]
+ 592      84
+ 593 07b4 F20F5EC1 		divsd	xmm0, xmm1
+ 594 07b8 F20F1145 		movsd	QWORD PTR -32[rbp], xmm0
+ 594      E0
+ 180:conversion.c  ****     printf("%f\n", r);
+ 595              		.loc 1 180 0
+ 596 07bd 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 597 07c1 48898548 		mov	QWORD PTR -184[rbp], rax
+ 597      FFFFFF
+ 598 07c8 F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 598      48FFFFFF 
+ 599 07d0 488D3D00 		lea	rdi, .LC45[rip]
+ 599      000000
+ 600 07d7 B8010000 		mov	eax, 1
+ 600      00
+ 601 07dc E8000000 		call	printf@PLT
+ 601      00
+ 181:conversion.c  ****     r = (double) m / (double) n; // Redundant
+ 602              		.loc 1 181 0
+ 603 07e1 F20F2A45 		cvtsi2sd	xmm0, DWORD PTR -128[rbp]
+ 603      80
+ 604 07e6 F20F2A4D 		cvtsi2sd	xmm1, DWORD PTR -124[rbp]
+ 604      84
+ 605 07eb F20F5EC1 		divsd	xmm0, xmm1
+ 606 07ef F20F1145 		movsd	QWORD PTR -32[rbp], xmm0
+ 606      E0
+ 182:conversion.c  ****     printf("%f\n", r);
+ 607              		.loc 1 182 0
+ 608 07f4 488B45E0 		mov	rax, QWORD PTR -32[rbp]
+ 609 07f8 48898548 		mov	QWORD PTR -184[rbp], rax
+ 609      FFFFFF
+ 610 07ff F20F1085 		movsd	xmm0, QWORD PTR -184[rbp]
+ 610      48FFFFFF 
+ 611 0807 488D3D00 		lea	rdi, .LC45[rip]
+ 611      000000
+ 612 080e B8010000 		mov	eax, 1
+ 612      00
+ 613 0813 E8000000 		call	printf@PLT
+ 613      00
+ 183:conversion.c  **** 
+ 184:conversion.c  ****     i = 200000;
+ 614              		.loc 1 184 0
+ 615 0818 C78578FF 		mov	DWORD PTR -136[rbp], 200000
+ 615      FFFF400D 
+ 615      0300
+ 185:conversion.c  ****     long product = i * i;
+ 616              		.loc 1 185 0
+ 617 0822 8B8578FF 		mov	eax, DWORD PTR -136[rbp]
+ 617      FFFF
+ 618 0828 0FAF8578 		imul	eax, DWORD PTR -136[rbp]
+ 618      FFFFFF
+ 619 082f 4898     		cdqe
+ 620 0831 488945E8 		mov	QWORD PTR -24[rbp], rax
+ 186:conversion.c  ****     printf("Product: %ld\n", product); // (format t "~D~%" (mod (* 200000 200000) (expt 2 32))) => 
+ 621              		.loc 1 186 0
+ 622 0835 488B45E8 		mov	rax, QWORD PTR -24[rbp]
+ 623 0839 4889C6   		mov	rsi, rax
+ 624 083c 488D3D00 		lea	rdi, .LC46[rip]
+ 624      000000
+ 625 0843 B8000000 		mov	eax, 0
+ 625      00
+ 626 0848 E8000000 		call	printf@PLT
+ 626      00
+ 187:conversion.c  ****     product = (long) i * i;
+ 627              		.loc 1 187 0
+ 628 084d 8B8578FF 		mov	eax, DWORD PTR -136[rbp]
+ 628      FFFF
+ 629 0853 4863D0   		movsx	rdx, eax
+ 630 0856 8B8578FF 		mov	eax, DWORD PTR -136[rbp]
+ 630      FFFF
+ 631 085c 4898     		cdqe
+ 632 085e 480FAFC2 		imul	rax, rdx
+ 633 0862 488945E8 		mov	QWORD PTR -24[rbp], rax
+ 188:conversion.c  ****     printf("Product: %ld\n", product);
+ 634              		.loc 1 188 0
+ 635 0866 488B45E8 		mov	rax, QWORD PTR -24[rbp]
+ 636 086a 4889C6   		mov	rsi, rax
+ 637 086d 488D3D00 		lea	rdi, .LC46[rip]
+ 637      000000
+ 638 0874 B8000000 		mov	eax, 0
+ 638      00
+ 639 0879 E8000000 		call	printf@PLT
+ 639      00
+ 640              	.LBE5:
+ 189:conversion.c  ****   }
+ 190:conversion.c  **** 
+ 191:conversion.c  ****   exit(EXIT_SUCCESS);
+ 641              		.loc 1 191 0
+ 642 087e BF000000 		mov	edi, 0
+ 642      00
+ 643 0883 E8000000 		call	exit@PLT
+ 643      00
+ 644              		.cfi_endproc
+ 645              	.LFE5:
+ 647              		.section	.rodata
+ 648 03d6 0000     		.align 4
+ 649              	.LC0:
+ 650 03d8 00002040 		.long	1075838976
+ 651 03dc 00000000 		.align 8
+ 652              	.LC1:
+ 653 03e0 00000000 		.long	0
+ 654 03e4 00000440 		.long	1074003968
+ 655 03e8 00000000 		.align 16
+ 655      00000000 
+ 656              	.LC2:
+ 657 03f0 00000000 		.long	0
+ 658 03f4 000000A0 		.long	2684354560
+ 659 03f8 00400000 		.long	16384
+ 660 03fc 00000000 		.long	0
+ 661              		.align 16
+ 662              	.LC17:
+ 663 0400 00000000 		.long	0
+ 664 0404 00000080 		.long	2147483648
+ 665 0408 3F400000 		.long	16447
+ 666 040c 00000000 		.long	0
+ 667              		.align 4
+ 668              	.LC24:
+ 669 0410 9A991940 		.long	1075419546
+ 670 0414 00000000 		.align 8
+ 671              	.LC27:
+ 672 0418 33333333 		.long	858993459
+ 673 041c 33330340 		.long	1073951539
+ 674              		.align 16
+ 675              	.LC30:
+ 676 0420 9A999999 		.long	2576980378
+ 677 0424 99999999 		.long	2576980377
+ 678 0428 00400000 		.long	16384
+ 679 042c 00000000 		.long	0
+ 680              		.align 8
+ 681              	.LC32:
+ 682 0430 00000000 		.long	0
+ 683 0434 00002540 		.long	1076166656
+ 684              		.align 8
+ 685              	.LC33:
+ 686 0438 00000000 		.long	0
+ 687 043c 0000F03F 		.long	1072693248
+ 688              		.align 4
+ 689              	.LC41:
+ 690 0440 0000807F 		.long	2139095040
+ 691 0444 00000000 		.align 8
+ 692              	.LC43:
+ 693 0448 5839B4C8 		.long	3367254360
+ 694 044c 76BEF33F 		.long	1072938614
+ 695              		.text
+ 696              	.Letext0:
+ 697              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 698              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 699              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 700              		.file 5 "/usr/include/stdio.h"
+ 701              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

@@ -1,0 +1,203 @@
+	.file	"ternary.c"
+	.intel_syntax noprefix
+	.text
+	.globl	foo
+	.type	foo, @function
+foo:
+.LFB5:
+	.cfi_startproc
+	push	rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	mov	rbp, rsp
+	.cfi_def_cfa_register 6
+	mov	DWORD PTR -4[rbp], edi
+	mov	DWORD PTR -8[rbp], esi
+	mov	eax, DWORD PTR -4[rbp]
+	cmp	eax, DWORD PTR -8[rbp]
+	setg	al
+	movzx	eax, al
+	imul	eax, DWORD PTR -4[rbp]
+	mov	edx, eax
+	mov	eax, DWORD PTR -4[rbp]
+	cmp	eax, DWORD PTR -8[rbp]
+	setle	al
+	movzx	eax, al
+	imul	eax, DWORD PTR -8[rbp]
+	add	eax, edx
+	pop	rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE5:
+	.size	foo, .-foo
+	.section	.rodata
+.LC1:
+	.string	"%f\n"
+.LC10:
+	.string	"%f %f %f %f %f %f %f %f %f\n"
+.LC12:
+	.string	"%d\n"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB6:
+	.cfi_startproc
+	push	rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	mov	rbp, rsp
+	.cfi_def_cfa_register 6
+	sub	rsp, 48
+	pxor	xmm0, xmm0
+	movsd	QWORD PTR -8[rbp], xmm0
+	mov	rax, QWORD PTR -8[rbp]
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	movsd	xmm0, QWORD PTR .LC2[rip]
+	movsd	QWORD PTR -8[rbp], xmm0
+	mov	rax, QWORD PTR -8[rbp]
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	pxor	xmm0, xmm0
+	movsd	QWORD PTR -8[rbp], xmm0
+	mov	rax, QWORD PTR -8[rbp]
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	movsd	xmm0, QWORD PTR .LC2[rip]
+	movsd	QWORD PTR -8[rbp], xmm0
+	mov	rax, QWORD PTR -8[rbp]
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	movsd	xmm0, QWORD PTR .LC3[rip]
+	movsd	QWORD PTR -8[rbp], xmm0
+	mov	rax, QWORD PTR -8[rbp]
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	mov	esi, 0
+	lea	rdi, .LC1[rip]
+	mov	eax, 0
+	call	printf@PLT
+	pxor	xmm0, xmm0
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	mov	rax, QWORD PTR .LC2[rip]
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC1[rip]
+	mov	eax, 1
+	call	printf@PLT
+	movsd	xmm7, QWORD PTR .LC3[rip]
+	movsd	xmm6, QWORD PTR .LC4[rip]
+	movsd	xmm5, QWORD PTR .LC5[rip]
+	movsd	xmm4, QWORD PTR .LC2[rip]
+	movsd	xmm3, QWORD PTR .LC6[rip]
+	movsd	xmm2, QWORD PTR .LC7[rip]
+	movsd	xmm1, QWORD PTR .LC8[rip]
+	mov	rax, QWORD PTR .LC9[rip]
+	sub	rsp, 8
+	movsd	xmm0, QWORD PTR .LC11[rip]
+	lea	rsp, -8[rsp]
+	movsd	QWORD PTR [rsp], xmm0
+	mov	QWORD PTR -40[rbp], rax
+	movsd	xmm0, QWORD PTR -40[rbp]
+	lea	rdi, .LC10[rip]
+	mov	eax, 8
+	call	printf@PLT
+	add	rsp, 16
+	mov	DWORD PTR -16[rbp], 1
+	mov	DWORD PTR -12[rbp], 3
+	mov	eax, DWORD PTR -16[rbp]
+	cmp	eax, DWORD PTR -12[rbp]
+	jle	.L4
+	mov	DWORD PTR -20[rbp], 2
+	jmp	.L5
+.L4:
+	mov	DWORD PTR -20[rbp], 9
+.L5:
+	mov	eax, DWORD PTR -20[rbp]
+	mov	esi, eax
+	lea	rdi, .LC12[rip]
+	mov	eax, 0
+	call	printf@PLT
+	mov	eax, DWORD PTR -16[rbp]
+	cmp	eax, DWORD PTR -12[rbp]
+	jle	.L6
+	mov	DWORD PTR -20[rbp], 2
+	jmp	.L7
+.L6:
+	mov	DWORD PTR -20[rbp], 9
+.L7:
+	mov	eax, DWORD PTR -20[rbp]
+	mov	esi, eax
+	lea	rdi, .LC12[rip]
+	mov	eax, 0
+	call	printf@PLT
+	mov	esi, 11
+	mov	edi, 7
+	call	foo
+	mov	esi, eax
+	lea	rdi, .LC12[rip]
+	mov	eax, 0
+	call	printf@PLT
+	mov	edi, 0
+	call	exit@PLT
+	.cfi_endproc
+.LFE6:
+	.size	main, .-main
+	.section	.rodata
+	.align 8
+.LC2:
+	.long	0
+	.long	1071644672
+	.align 8
+.LC3:
+	.long	2576980378
+	.long	1072273817
+	.align 8
+.LC4:
+	.long	1717986918
+	.long	1072064102
+	.align 8
+.LC5:
+	.long	858993459
+	.long	1071854387
+	.align 8
+.LC6:
+	.long	2576980378
+	.long	1071225241
+	.align 8
+.LC7:
+	.long	858993459
+	.long	1070805811
+	.align 8
+.LC8:
+	.long	2576980378
+	.long	1070176665
+	.align 8
+.LC9:
+	.long	2576980378
+	.long	1069128089
+	.align 8
+.LC11:
+	.long	3435973837
+	.long	1072483532
+	.ident	"GCC: (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0"
+	.section	.note.GNU-stack,"",@progbits

@@ -1,0 +1,187 @@
+
+strings:	file format Mach-O 64-bit x86-64
+
+Disassembly of section __TEXT,__text:
+__text:
+; int main(void) {
+100000e70:	55 	push	rbp
+100000e71:	48 89 e5 	mov	rbp, rsp
+100000e74:	48 83 ec 40 	sub	rsp, 64
+100000e78:	c7 45 fc 00 00 00 00 	mov	dword ptr [rbp - 4], 0
+; for (int i = 0; i < 32; i++) {
+100000e7f:	c7 45 f8 00 00 00 00 	mov	dword ptr [rbp - 8], 0
+100000e86:	83 7d f8 20 	cmp	dword ptr [rbp - 8], 32
+100000e8a:	0f 8d 2a 00 00 00 	jge	42 <_main+0x4a>
+; printf("%c", digit_to_hex_char(i));
+100000e90:	8b 7d f8 	mov	edi, dword ptr [rbp - 8]
+100000e93:	e8 a8 00 00 00 	call	168 <_digit_to_hex_char>
+100000e98:	0f be f0 	movsx	esi, al
+100000e9b:	48 8d 3d f2 00 00 00 	lea	rdi, [rip + 242]
+100000ea2:	b0 00 	mov	al, 0
+100000ea4:	e8 c1 00 00 00 	call	193 <strings.c+0x100000f6a>
+100000ea9:	89 45 ec 	mov	dword ptr [rbp - 20], eax
+; for (int i = 0; i < 32; i++) {
+100000eac:	8b 45 f8 	mov	eax, dword ptr [rbp - 8]
+100000eaf:	83 c0 01 	add	eax, 1
+100000eb2:	89 45 f8 	mov	dword ptr [rbp - 8], eax
+100000eb5:	e9 cc ff ff ff 	jmp	-52 <_main+0x16>
+; printf("\n");
+100000eba:	48 8d 05 d6 00 00 00 	lea	rax, [rip + 214]
+100000ec1:	31 c9 	xor	ecx, ecx
+100000ec3:	88 ca 	mov	dl, cl
+100000ec5:	48 89 c7 	mov	rdi, rax
+100000ec8:	48 89 45 e0 	mov	qword ptr [rbp - 32], rax
+100000ecc:	88 d0 	mov	al, dl
+100000ece:	89 4d dc 	mov	dword ptr [rbp - 36], ecx
+100000ed1:	88 55 db 	mov	byte ptr [rbp - 37], dl
+100000ed4:	e8 91 00 00 00 	call	145 <strings.c+0x100000f6a>
+; char *p = "pung";
+100000ed9:	48 8d 3d b9 00 00 00 	lea	rdi, [rip + 185]
+100000ee0:	48 89 7d f0 	mov	qword ptr [rbp - 16], rdi
+; printf(p);
+100000ee4:	48 8b 7d f0 	mov	rdi, qword ptr [rbp - 16]
+100000ee8:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000eeb:	89 45 d4 	mov	dword ptr [rbp - 44], eax
+100000eee:	88 d0 	mov	al, dl
+100000ef0:	e8 75 00 00 00 	call	117 <strings.c+0x100000f6a>
+100000ef5:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000ef9:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000efc:	89 45 d0 	mov	dword ptr [rbp - 48], eax
+; printf("\n");
+100000eff:	88 d0 	mov	al, dl
+100000f01:	e8 64 00 00 00 	call	100 <strings.c+0x100000f6a>
+; *(p+3) = 'k';
+100000f06:	48 8b 7d f0 	mov	rdi, qword ptr [rbp - 16]
+100000f0a:	c6 47 03 6b 	mov	byte ptr [rdi + 3], 107
+; printf(p);
+100000f0e:	48 8b 7d f0 	mov	rdi, qword ptr [rbp - 16]
+100000f12:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f15:	89 45 cc 	mov	dword ptr [rbp - 52], eax
+100000f18:	88 d0 	mov	al, dl
+100000f1a:	e8 4b 00 00 00 	call	75 <strings.c+0x100000f6a>
+100000f1f:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000f23:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f26:	89 45 c8 	mov	dword ptr [rbp - 56], eax
+; printf("\n");
+100000f29:	88 d0 	mov	al, dl
+100000f2b:	e8 3a 00 00 00 	call	58 <strings.c+0x100000f6a>
+100000f30:	8b 7d dc 	mov	edi, dword ptr [rbp - 36]
+100000f33:	89 45 c4 	mov	dword ptr [rbp - 60], eax
+; exit(EXIT_SUCCESS);
+100000f36:	e8 29 00 00 00 	call	41 <strings.c+0x100000f64>
+100000f3b:	0f 1f 44 00 00 	nop	dword ptr [rax + rax]
+; char digit_to_hex_char(int digit) {
+100000f40:	55 	push	rbp
+100000f41:	48 89 e5 	mov	rbp, rsp
+100000f44:	89 7d fc 	mov	dword ptr [rbp - 4], edi
+; return "0123456789ABCDEF"[digit % 16];
+100000f47:	8b 45 fc 	mov	eax, dword ptr [rbp - 4]
+100000f4a:	99 	cdq
+100000f4b:	bf 10 00 00 00 	mov	edi, 16
+100000f50:	f7 ff 	idiv	edi
+100000f52:	48 63 ca 	movsxd	rcx, edx
+100000f55:	48 8d 35 42 00 00 00 	lea	rsi, [rip + 66]
+100000f5c:	0f be 14 0e 	movsx	edx, byte ptr [rsi + rcx]
+100000f60:	89 d0 	mov	eax, edx
+100000f62:	5d 	pop	rbp
+100000f63:	c3 	ret
+
+_main:
+; int main(void) {
+100000e70:	55 	push	rbp
+100000e71:	48 89 e5 	mov	rbp, rsp
+100000e74:	48 83 ec 40 	sub	rsp, 64
+100000e78:	c7 45 fc 00 00 00 00 	mov	dword ptr [rbp - 4], 0
+; for (int i = 0; i < 32; i++) {
+100000e7f:	c7 45 f8 00 00 00 00 	mov	dword ptr [rbp - 8], 0
+100000e86:	83 7d f8 20 	cmp	dword ptr [rbp - 8], 32
+100000e8a:	0f 8d 2a 00 00 00 	jge	42 <_main+0x4a>
+; printf("%c", digit_to_hex_char(i));
+100000e90:	8b 7d f8 	mov	edi, dword ptr [rbp - 8]
+100000e93:	e8 a8 00 00 00 	call	168 <_digit_to_hex_char>
+100000e98:	0f be f0 	movsx	esi, al
+100000e9b:	48 8d 3d f2 00 00 00 	lea	rdi, [rip + 242]
+100000ea2:	b0 00 	mov	al, 0
+100000ea4:	e8 c1 00 00 00 	call	193 <strings.c+0x100000f6a>
+100000ea9:	89 45 ec 	mov	dword ptr [rbp - 20], eax
+; for (int i = 0; i < 32; i++) {
+100000eac:	8b 45 f8 	mov	eax, dword ptr [rbp - 8]
+100000eaf:	83 c0 01 	add	eax, 1
+100000eb2:	89 45 f8 	mov	dword ptr [rbp - 8], eax
+100000eb5:	e9 cc ff ff ff 	jmp	-52 <_main+0x16>
+; printf("\n");
+100000eba:	48 8d 05 d6 00 00 00 	lea	rax, [rip + 214]
+100000ec1:	31 c9 	xor	ecx, ecx
+100000ec3:	88 ca 	mov	dl, cl
+100000ec5:	48 89 c7 	mov	rdi, rax
+100000ec8:	48 89 45 e0 	mov	qword ptr [rbp - 32], rax
+100000ecc:	88 d0 	mov	al, dl
+100000ece:	89 4d dc 	mov	dword ptr [rbp - 36], ecx
+100000ed1:	88 55 db 	mov	byte ptr [rbp - 37], dl
+100000ed4:	e8 91 00 00 00 	call	145 <strings.c+0x100000f6a>
+; char *p = "pung";
+100000ed9:	48 8d 3d b9 00 00 00 	lea	rdi, [rip + 185]
+100000ee0:	48 89 7d f0 	mov	qword ptr [rbp - 16], rdi
+; printf(p);
+100000ee4:	48 8b 7d f0 	mov	rdi, qword ptr [rbp - 16]
+100000ee8:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000eeb:	89 45 d4 	mov	dword ptr [rbp - 44], eax
+100000eee:	88 d0 	mov	al, dl
+100000ef0:	e8 75 00 00 00 	call	117 <strings.c+0x100000f6a>
+100000ef5:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000ef9:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000efc:	89 45 d0 	mov	dword ptr [rbp - 48], eax
+; printf("\n");
+100000eff:	88 d0 	mov	al, dl
+100000f01:	e8 64 00 00 00 	call	100 <strings.c+0x100000f6a>
+; *(p+3) = 'k';
+100000f06:	48 8b 7d f0 	mov	rdi, qword ptr [rbp - 16]
+100000f0a:	c6 47 03 6b 	mov	byte ptr [rdi + 3], 107
+; printf(p);
+100000f0e:	48 8b 7d f0 	mov	rdi, qword ptr [rbp - 16]
+100000f12:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f15:	89 45 cc 	mov	dword ptr [rbp - 52], eax
+100000f18:	88 d0 	mov	al, dl
+100000f1a:	e8 4b 00 00 00 	call	75 <strings.c+0x100000f6a>
+100000f1f:	48 8b 7d e0 	mov	rdi, qword ptr [rbp - 32]
+100000f23:	8a 55 db 	mov	dl, byte ptr [rbp - 37]
+100000f26:	89 45 c8 	mov	dword ptr [rbp - 56], eax
+; printf("\n");
+100000f29:	88 d0 	mov	al, dl
+100000f2b:	e8 3a 00 00 00 	call	58 <strings.c+0x100000f6a>
+100000f30:	8b 7d dc 	mov	edi, dword ptr [rbp - 36]
+100000f33:	89 45 c4 	mov	dword ptr [rbp - 60], eax
+; exit(EXIT_SUCCESS);
+100000f36:	e8 29 00 00 00 	call	41 <strings.c+0x100000f64>
+100000f3b:	0f 1f 44 00 00 	nop	dword ptr [rax + rax]
+
+_digit_to_hex_char:
+; char digit_to_hex_char(int digit) {
+100000f40:	55 	push	rbp
+100000f41:	48 89 e5 	mov	rbp, rsp
+100000f44:	89 7d fc 	mov	dword ptr [rbp - 4], edi
+; return "0123456789ABCDEF"[digit % 16];
+100000f47:	8b 45 fc 	mov	eax, dword ptr [rbp - 4]
+100000f4a:	99 	cdq
+100000f4b:	bf 10 00 00 00 	mov	edi, 16
+100000f50:	f7 ff 	idiv	edi
+100000f52:	48 63 ca 	movsxd	rcx, edx
+100000f55:	48 8d 35 42 00 00 00 	lea	rsi, [rip + 66]
+100000f5c:	0f be 14 0e 	movsx	edx, byte ptr [rsi + rcx]
+100000f60:	89 d0 	mov	eax, edx
+100000f62:	5d 	pop	rbp
+100000f63:	c3 	ret
+Disassembly of section __TEXT,__stubs:
+__stubs:
+100000f64:	ff 25 96 10 00 00 	jmp	qword ptr [rip + 4246]
+100000f6a:	ff 25 98 10 00 00 	jmp	qword ptr [rip + 4248]
+Disassembly of section __TEXT,__stub_helper:
+__stub_helper:
+100000f70:	4c 8d 1d 99 10 00 00 	lea	r11, [rip + 4249]
+100000f77:	41 53 	push	r11
+100000f79:	ff 25 81 00 00 00 	jmp	qword ptr [rip + 129]
+100000f7f:	90 	nop
+100000f80:	68 00 00 00 00 	push	0
+100000f85:	e9 e6 ff ff ff 	jmp	-26 </var/folders/kt/q3xbpytd4t92sxv_w264m8bh0000gq/T/strings-3acab6.o+0xa14afa6d>
+100000f8a:	68 0c 00 00 00 	push	12
+100000f8f:	e9 dc ff ff ff 	jmp	-36 </var/folders/kt/q3xbpytd4t92sxv_w264m8bh0000gq/T/strings-3acab6.o+0xa14afa6d>

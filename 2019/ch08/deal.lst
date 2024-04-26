@@ -1,0 +1,226 @@
+   1              		.file	"deal.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.globl	main
+   7              	main:
+   8              	.LFB5:
+   9              		.file 1 "deal.c"
+   1:deal.c        **** /*
+   2:deal.c        ****  *
+   3:deal.c        ****  *   File:
+   4:deal.c        ****  *      deal.c
+   5:deal.c        ****  *
+   6:deal.c        ****  *   Synopsis:
+   7:deal.c        ****  *
+   8:deal.c        ****  *   Revision History:
+   9:deal.c        ****  *      Date    Change Description
+  10:deal.c        ****  *      ------  -----------------------------------------
+  11:deal.c        ****  *      200227  Original.
+  12:deal.c        ****  *
+  13:deal.c        ****  */
+  14:deal.c        **** #include <stdio.h>
+  15:deal.c        **** #include <stdlib.h>
+  16:deal.c        **** #include <time.h>
+  17:deal.c        **** #include <stdbool.h>
+  18:deal.c        **** 
+  19:deal.c        **** #define SUITS 4
+  20:deal.c        **** #define RANKS 13
+  21:deal.c        **** 
+  22:deal.c        **** int get_n_cards();
+  23:deal.c        **** 
+  24:deal.c        **** int main(void) {
+  10              		.loc 1 24 0
+  11              		.cfi_startproc
+  12 0000 55       		push	rbp
+  13              		.cfi_def_cfa_offset 16
+  14              		.cfi_offset 6, -16
+  15 0001 4889E5   		mov	rbp, rsp
+  16              		.cfi_def_cfa_register 6
+  17 0004 4883EC50 		sub	rsp, 80
+  18              		.loc 1 24 0
+  19 0008 64488B04 		mov	rax, QWORD PTR fs:40
+  19      25280000 
+  19      00
+  20 0011 488945F8 		mov	QWORD PTR -8[rbp], rax
+  21 0015 31C0     		xor	eax, eax
+  25:deal.c        ****   bool in_hand[SUITS][RANKS] = {false};
+  22              		.loc 1 25 0
+  23 0017 48C745C0 		mov	QWORD PTR -64[rbp], 0
+  23      00000000 
+  24 001f 48C745C8 		mov	QWORD PTR -56[rbp], 0
+  24      00000000 
+  25 0027 48C745D0 		mov	QWORD PTR -48[rbp], 0
+  25      00000000 
+  26 002f 48C745D8 		mov	QWORD PTR -40[rbp], 0
+  26      00000000 
+  27 0037 48C745E0 		mov	QWORD PTR -32[rbp], 0
+  27      00000000 
+  28 003f 48C745E8 		mov	QWORD PTR -24[rbp], 0
+  28      00000000 
+  29 0047 C745F000 		mov	DWORD PTR -16[rbp], 0
+  29      000000
+  26:deal.c        ****   int rank, suit;
+  27:deal.c        ****   const char ranks[] = {'2', '3', '4', '5', '6', '7', '8', '9', 't', 'j', 'q', 'k', 'a'};
+  28:deal.c        ****   const char suits[] = {'c', 'd', 'h', 's'};
+  29:deal.c        **** 
+  30:deal.c        ****   srand((unsigned) time(NULL));
+  30              		.loc 1 30 0
+  31 004e BF000000 		mov	edi, 0
+  31      00
+  32 0053 E8000000 		call	time@PLT
+  32      00
+  33 0058 89C7     		mov	edi, eax
+  34 005a E8000000 		call	srand@PLT
+  34      00
+  31:deal.c        **** 
+  32:deal.c        ****   int cards = get_n_cards();
+  35              		.loc 1 32 0
+  36 005f B8000000 		mov	eax, 0
+  36      00
+  37 0064 E8000000 		call	get_n_cards
+  37      00
+  38 0069 8945BC   		mov	DWORD PTR -68[rbp], eax
+  33:deal.c        **** 
+  34:deal.c        ****   exit(EXIT_SUCCESS);
+  39              		.loc 1 34 0
+  40 006c BF000000 		mov	edi, 0
+  40      00
+  41 0071 E8000000 		call	exit@PLT
+  41      00
+  42              		.cfi_endproc
+  43              	.LFE5:
+  45              		.section	.rodata
+  46              		.align 8
+  47              	.LC0:
+  48 0000 456E7465 		.string	"Enter number of cards in hand: "
+  48      72206E75 
+  48      6D626572 
+  48      206F6620 
+  48      63617264 
+  49              	.LC1:
+  50 0020 256400   		.string	"%d"
+  51              		.text
+  52              		.globl	get_n_cards
+  54              	get_n_cards:
+  55              	.LFB6:
+  35:deal.c        **** }
+  36:deal.c        **** 
+  37:deal.c        **** int get_n_cards() {
+  56              		.loc 1 37 0
+  57              		.cfi_startproc
+  58 0076 55       		push	rbp
+  59              		.cfi_def_cfa_offset 16
+  60              		.cfi_offset 6, -16
+  61 0077 4889E5   		mov	rbp, rsp
+  62              		.cfi_def_cfa_register 6
+  63 007a 4883EC10 		sub	rsp, 16
+  64              		.loc 1 37 0
+  65 007e 64488B04 		mov	rax, QWORD PTR fs:40
+  65      25280000 
+  65      00
+  66 0087 488945F8 		mov	QWORD PTR -8[rbp], rax
+  67 008b 31C0     		xor	eax, eax
+  38:deal.c        ****   printf("Enter number of cards in hand: ");
+  68              		.loc 1 38 0
+  69 008d 488D3D00 		lea	rdi, .LC0[rip]
+  69      000000
+  70 0094 B8000000 		mov	eax, 0
+  70      00
+  71 0099 E8000000 		call	printf@PLT
+  71      00
+  39:deal.c        ****   int n;
+  40:deal.c        **** 
+  41:deal.c        ****   int count = scanf("%d", &n);
+  72              		.loc 1 41 0
+  73 009e 488D45F0 		lea	rax, -16[rbp]
+  74 00a2 4889C6   		mov	rsi, rax
+  75 00a5 488D3D00 		lea	rdi, .LC1[rip]
+  75      000000
+  76 00ac B8000000 		mov	eax, 0
+  76      00
+  77 00b1 E8000000 		call	__isoc99_scanf@PLT
+  77      00
+  78 00b6 8945F4   		mov	DWORD PTR -12[rbp], eax
+  42:deal.c        **** 
+  43:deal.c        ****   if ( count == 1  &&  n > 0  &&  n < SUITS*RANKS ) {
+  79              		.loc 1 43 0
+  80 00b9 837DF401 		cmp	DWORD PTR -12[rbp], 1
+  81 00bd 7514     		jne	.L9
+  82              		.loc 1 43 0 is_stmt 0 discriminator 1
+  83 00bf 8B45F0   		mov	eax, DWORD PTR -16[rbp]
+  84 00c2 85C0     		test	eax, eax
+  85 00c4 7E0D     		jle	.L9
+  86              		.loc 1 43 0 discriminator 2
+  87 00c6 8B45F0   		mov	eax, DWORD PTR -16[rbp]
+  88 00c9 83F833   		cmp	eax, 51
+  89 00cc 7F05     		jg	.L9
+  44:deal.c        ****     return n;
+  90              		.loc 1 44 0 is_stmt 1
+  91 00ce 8B45F0   		mov	eax, DWORD PTR -16[rbp]
+  92 00d1 EB15     		jmp	.L7
+  93              	.L9:
+  45:deal.c        ****   } else {
+  46:deal.c        ****     while ( getchar() != '\n' ) {}
+  94              		.loc 1 46 0
+  95 00d3 90       		nop
+  96              	.L6:
+  97              		.loc 1 46 0 is_stmt 0 discriminator 1
+  98 00d4 E8000000 		call	getchar@PLT
+  98      00
+  99 00d9 83F80A   		cmp	eax, 10
+ 100 00dc 75F6     		jne	.L6
+  47:deal.c        **** 
+  48:deal.c        ****     return get_n_cards();
+ 101              		.loc 1 48 0 is_stmt 1
+ 102 00de B8000000 		mov	eax, 0
+ 102      00
+ 103 00e3 E8000000 		call	get_n_cards
+ 103      00
+ 104              	.L7:
+  49:deal.c        ****   }
+  50:deal.c        **** }
+ 105              		.loc 1 50 0 discriminator 1
+ 106 00e8 488B55F8 		mov	rdx, QWORD PTR -8[rbp]
+ 107 00ec 64483314 		xor	rdx, QWORD PTR fs:40
+ 107      25280000 
+ 107      00
+ 108 00f5 7405     		je	.L8
+ 109              		.loc 1 50 0 is_stmt 0
+ 110 00f7 E8000000 		call	__stack_chk_fail@PLT
+ 110      00
+ 111              	.L8:
+ 112 00fc C9       		leave
+ 113              		.cfi_def_cfa 7, 8
+ 114 00fd C3       		ret
+ 115              		.cfi_endproc
+ 116              	.LFE6:
+ 118              		.section	.rodata
+ 121              	suits.2889:
+ 122 0023 63       		.byte	99
+ 123 0024 64       		.byte	100
+ 124 0025 68       		.byte	104
+ 125 0026 73       		.byte	115
+ 126 0027 00       		.align 8
+ 129              	ranks.2888:
+ 130 0028 32       		.byte	50
+ 131 0029 33       		.byte	51
+ 132 002a 34       		.byte	52
+ 133 002b 35       		.byte	53
+ 134 002c 36       		.byte	54
+ 135 002d 37       		.byte	55
+ 136 002e 38       		.byte	56
+ 137 002f 39       		.byte	57
+ 138 0030 74       		.byte	116
+ 139 0031 6A       		.byte	106
+ 140 0032 71       		.byte	113
+ 141 0033 6B       		.byte	107
+ 142 0034 61       		.byte	97
+ 143              		.text
+ 144              	.Letext0:
+ 145              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 146              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 147              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 148              		.file 5 "/usr/include/stdio.h"
+ 149              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"
+ 150              		.file 7 "/usr/include/time.h"

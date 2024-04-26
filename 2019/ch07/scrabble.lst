@@ -1,0 +1,326 @@
+   1              		.file	"scrabble.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 456E7465 		.string	"Enter a word: "
+   7      72206120 
+   7      776F7264 
+   7      3A2000
+   8              	.LC1:
+   9 000f 546F6F20 		.string	"Too many tiles!"
+   9      6D616E79 
+   9      2074696C 
+   9      65732100 
+  10              	.LC2:
+  11 001f 496E7661 		.string	"Invalid tile: %c\n"
+  11      6C696420 
+  11      74696C65 
+  11      3A202563 
+  11      0A00
+  12              	.LC3:
+  13 0031 53637261 		.string	"Scrabble value: %d\n"
+  13      62626C65 
+  13      2076616C 
+  13      75653A20 
+  13      25640A00 
+  14              		.text
+  15              		.globl	main
+  17              	main:
+  18              	.LFB5:
+  19              		.file 1 "scrabble.c"
+   1:scrabble.c    **** /*
+   2:scrabble.c    ****  *
+   3:scrabble.c    ****  *   File:
+   4:scrabble.c    ****  *      scrabble.c
+   5:scrabble.c    ****  *
+   6:scrabble.c    ****  *   Synopsis:
+   7:scrabble.c    ****  *
+   8:scrabble.c    ****  *   Revision History:
+   9:scrabble.c    ****  *      Date    Change Description
+  10:scrabble.c    ****  *      ------  -----------------------------------------
+  11:scrabble.c    ****  *      200216  Original.
+  12:scrabble.c    ****  *
+  13:scrabble.c    ****  */
+  14:scrabble.c    **** #include <stdio.h>
+  15:scrabble.c    **** #include <stdlib.h>
+  16:scrabble.c    **** #include <ctype.h>
+  17:scrabble.c    **** 
+  18:scrabble.c    **** #define TILE_COUNT 7
+  19:scrabble.c    **** 
+  20:scrabble.c    **** int translate(int ch);
+  21:scrabble.c    **** 
+  22:scrabble.c    **** int main(void) {
+  20              		.loc 1 22 0
+  21              		.cfi_startproc
+  22 0000 55       		push	rbp
+  23              		.cfi_def_cfa_offset 16
+  24              		.cfi_offset 6, -16
+  25 0001 4889E5   		mov	rbp, rsp
+  26              		.cfi_def_cfa_register 6
+  27 0004 4883EC10 		sub	rsp, 16
+  23:scrabble.c    ****   printf("Enter a word: ");
+  28              		.loc 1 23 0
+  29 0008 488D3D00 		lea	rdi, .LC0[rip]
+  29      000000
+  30 000f B8000000 		mov	eax, 0
+  30      00
+  31 0014 E8000000 		call	printf@PLT
+  31      00
+  24:scrabble.c    **** 
+  25:scrabble.c    ****   int i = 0;
+  32              		.loc 1 25 0
+  33 0019 C745F400 		mov	DWORD PTR -12[rbp], 0
+  33      000000
+  26:scrabble.c    ****   int score = 0;
+  34              		.loc 1 26 0
+  35 0020 C745F800 		mov	DWORD PTR -8[rbp], 0
+  35      000000
+  27:scrabble.c    **** 
+  28:scrabble.c    ****   int ch;
+  29:scrabble.c    ****   while ( (ch = getchar()) != '\n' ) {
+  36              		.loc 1 29 0
+  37 0027 EB77     		jmp	.L2
+  38              	.L5:
+  30:scrabble.c    ****     i++;
+  39              		.loc 1 30 0
+  40 0029 8345F401 		add	DWORD PTR -12[rbp], 1
+  31:scrabble.c    ****     if ( i > TILE_COUNT ) {
+  41              		.loc 1 31 0
+  42 002d 837DF407 		cmp	DWORD PTR -12[rbp], 7
+  43 0031 7E16     		jle	.L3
+  32:scrabble.c    ****       printf("Too many tiles!\n");
+  44              		.loc 1 32 0
+  45 0033 488D3D00 		lea	rdi, .LC1[rip]
+  45      000000
+  46 003a E8000000 		call	puts@PLT
+  46      00
+  33:scrabble.c    ****       exit(EXIT_FAILURE);
+  47              		.loc 1 33 0
+  48 003f BF010000 		mov	edi, 1
+  48      00
+  49 0044 E8000000 		call	exit@PLT
+  49      00
+  50              	.L3:
+  34:scrabble.c    ****     } else if ( !isalpha(ch) ) {
+  51              		.loc 1 34 0
+  52 0049 E8000000 		call	__ctype_b_loc@PLT
+  52      00
+  53 004e 488B00   		mov	rax, QWORD PTR [rax]
+  54 0051 8B55FC   		mov	edx, DWORD PTR -4[rbp]
+  55 0054 4863D2   		movsx	rdx, edx
+  56 0057 4801D2   		add	rdx, rdx
+  57 005a 4801D0   		add	rax, rdx
+  58 005d 0FB700   		movzx	eax, WORD PTR [rax]
+  59 0060 0FB7C0   		movzx	eax, ax
+  60 0063 25000400 		and	eax, 1024
+  60      00
+  61 0068 85C0     		test	eax, eax
+  62 006a 7520     		jne	.L4
+  35:scrabble.c    ****       printf("Invalid tile: %c\n", ch);
+  63              		.loc 1 35 0
+  64 006c 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+  65 006f 89C6     		mov	esi, eax
+  66 0071 488D3D00 		lea	rdi, .LC2[rip]
+  66      000000
+  67 0078 B8000000 		mov	eax, 0
+  67      00
+  68 007d E8000000 		call	printf@PLT
+  68      00
+  36:scrabble.c    ****       exit(EXIT_FAILURE);
+  69              		.loc 1 36 0
+  70 0082 BF010000 		mov	edi, 1
+  70      00
+  71 0087 E8000000 		call	exit@PLT
+  71      00
+  72              	.L4:
+  37:scrabble.c    ****     } else {
+  38:scrabble.c    ****       score += translate(toupper(ch));
+  73              		.loc 1 38 0
+  74 008c 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+  75 008f 89C7     		mov	edi, eax
+  76 0091 E8000000 		call	toupper@PLT
+  76      00
+  77 0096 89C7     		mov	edi, eax
+  78 0098 E8000000 		call	translate
+  78      00
+  79 009d 0145F8   		add	DWORD PTR -8[rbp], eax
+  80              	.L2:
+  29:scrabble.c    ****     i++;
+  81              		.loc 1 29 0
+  82 00a0 E8000000 		call	getchar@PLT
+  82      00
+  83 00a5 8945FC   		mov	DWORD PTR -4[rbp], eax
+  84 00a8 837DFC0A 		cmp	DWORD PTR -4[rbp], 10
+  85 00ac 0F8577FF 		jne	.L5
+  85      FFFF
+  39:scrabble.c    ****     }
+  40:scrabble.c    ****   }
+  41:scrabble.c    **** 
+  42:scrabble.c    ****   printf("Scrabble value: %d\n", score);
+  86              		.loc 1 42 0
+  87 00b2 8B45F8   		mov	eax, DWORD PTR -8[rbp]
+  88 00b5 89C6     		mov	esi, eax
+  89 00b7 488D3D00 		lea	rdi, .LC3[rip]
+  89      000000
+  90 00be B8000000 		mov	eax, 0
+  90      00
+  91 00c3 E8000000 		call	printf@PLT
+  91      00
+  43:scrabble.c    **** 
+  44:scrabble.c    ****   exit(EXIT_SUCCESS);
+  92              		.loc 1 44 0
+  93 00c8 BF000000 		mov	edi, 0
+  93      00
+  94 00cd E8000000 		call	exit@PLT
+  94      00
+  95              		.cfi_endproc
+  96              	.LFE5:
+  98              		.globl	translate
+ 100              	translate:
+ 101              	.LFB6:
+  45:scrabble.c    **** }
+  46:scrabble.c    **** 
+  47:scrabble.c    **** int translate(int ch) {
+ 102              		.loc 1 47 0
+ 103              		.cfi_startproc
+ 104 00d2 55       		push	rbp
+ 105              		.cfi_def_cfa_offset 16
+ 106              		.cfi_offset 6, -16
+ 107 00d3 4889E5   		mov	rbp, rsp
+ 108              		.cfi_def_cfa_register 6
+ 109 00d6 897DFC   		mov	DWORD PTR -4[rbp], edi
+  48:scrabble.c    ****   switch ( ch ) {
+ 110              		.loc 1 48 0
+ 111 00d9 8B45FC   		mov	eax, DWORD PTR -4[rbp]
+ 112 00dc 83E841   		sub	eax, 65
+ 113 00df 83F819   		cmp	eax, 25
+ 114 00e2 7754     		ja	.L7
+ 115 00e4 89C0     		mov	eax, eax
+ 116 00e6 488D1485 		lea	rdx, 0[0+rax*4]
+ 116      00000000 
+ 117 00ee 488D0500 		lea	rax, .L9[rip]
+ 117      000000
+ 118 00f5 8B0402   		mov	eax, DWORD PTR [rdx+rax]
+ 119 00f8 4863D0   		movsx	rdx, eax
+ 120 00fb 488D0500 		lea	rax, .L9[rip]
+ 120      000000
+ 121 0102 4801D0   		add	rax, rdx
+ 122 0105 FFE0     		jmp	rax
+ 123              		.section	.rodata
+ 124 0045 000000   		.align 4
+ 125              		.align 4
+ 126              	.L9:
+ 127 0048 00000000 		.long	.L8-.L9
+ 128 004c 00000000 		.long	.L10-.L9
+ 129 0050 00000000 		.long	.L10-.L9
+ 130 0054 00000000 		.long	.L11-.L9
+ 131 0058 00000000 		.long	.L8-.L9
+ 132 005c 00000000 		.long	.L12-.L9
+ 133 0060 00000000 		.long	.L11-.L9
+ 134 0064 00000000 		.long	.L12-.L9
+ 135 0068 00000000 		.long	.L8-.L9
+ 136 006c 00000000 		.long	.L13-.L9
+ 137 0070 00000000 		.long	.L14-.L9
+ 138 0074 00000000 		.long	.L8-.L9
+ 139 0078 00000000 		.long	.L10-.L9
+ 140 007c 00000000 		.long	.L8-.L9
+ 141 0080 00000000 		.long	.L8-.L9
+ 142 0084 00000000 		.long	.L10-.L9
+ 143 0088 00000000 		.long	.L15-.L9
+ 144 008c 00000000 		.long	.L8-.L9
+ 145 0090 00000000 		.long	.L8-.L9
+ 146 0094 00000000 		.long	.L8-.L9
+ 147 0098 00000000 		.long	.L8-.L9
+ 148 009c 00000000 		.long	.L12-.L9
+ 149 00a0 00000000 		.long	.L12-.L9
+ 150 00a4 00000000 		.long	.L13-.L9
+ 151 00a8 00000000 		.long	.L12-.L9
+ 152 00ac 00000000 		.long	.L15-.L9
+ 153              		.text
+ 154              	.L8:
+  49:scrabble.c    ****     case 'A':
+  50:scrabble.c    ****     case 'E':
+  51:scrabble.c    ****     case 'I':
+  52:scrabble.c    ****     case 'L':
+  53:scrabble.c    ****     case 'N':
+  54:scrabble.c    ****     case 'O':
+  55:scrabble.c    ****     case 'R':
+  56:scrabble.c    ****     case 'S':
+  57:scrabble.c    ****     case 'T':
+  58:scrabble.c    ****     case 'U':
+  59:scrabble.c    ****       return 1;
+ 155              		.loc 1 59 0
+ 156 0107 B8010000 		mov	eax, 1
+ 156      00
+ 157 010c EB2A     		jmp	.L6
+ 158              	.L11:
+  60:scrabble.c    ****     case 'D':
+  61:scrabble.c    ****     case 'G':
+  62:scrabble.c    ****       return 2;
+ 159              		.loc 1 62 0
+ 160 010e B8020000 		mov	eax, 2
+ 160      00
+ 161 0113 EB23     		jmp	.L6
+ 162              	.L10:
+  63:scrabble.c    ****     case 'B':
+  64:scrabble.c    ****     case 'C':
+  65:scrabble.c    ****     case 'M':
+  66:scrabble.c    ****     case 'P':
+  67:scrabble.c    ****       return 3;
+ 163              		.loc 1 67 0
+ 164 0115 B8030000 		mov	eax, 3
+ 164      00
+ 165 011a EB1C     		jmp	.L6
+ 166              	.L12:
+  68:scrabble.c    ****     case 'F':
+  69:scrabble.c    ****     case 'H':
+  70:scrabble.c    ****     case 'V':
+  71:scrabble.c    ****     case 'W':
+  72:scrabble.c    ****     case 'Y':
+  73:scrabble.c    ****       return 4;
+ 167              		.loc 1 73 0
+ 168 011c B8040000 		mov	eax, 4
+ 168      00
+ 169 0121 EB15     		jmp	.L6
+ 170              	.L14:
+  74:scrabble.c    ****     case 'K':
+  75:scrabble.c    ****       return 5;
+ 171              		.loc 1 75 0
+ 172 0123 B8050000 		mov	eax, 5
+ 172      00
+ 173 0128 EB0E     		jmp	.L6
+ 174              	.L13:
+  76:scrabble.c    ****     case 'J':
+  77:scrabble.c    ****     case 'X':
+  78:scrabble.c    ****       return 8;
+ 175              		.loc 1 78 0
+ 176 012a B8080000 		mov	eax, 8
+ 176      00
+ 177 012f EB07     		jmp	.L6
+ 178              	.L15:
+  79:scrabble.c    ****     case 'Q':
+  80:scrabble.c    ****     case 'Z':
+  81:scrabble.c    ****       return 10;
+ 179              		.loc 1 81 0
+ 180 0131 B80A0000 		mov	eax, 10
+ 180      00
+ 181 0136 EB00     		jmp	.L6
+ 182              	.L7:
+ 183              	.L6:
+  82:scrabble.c    ****   }
+  83:scrabble.c    **** }
+ 184              		.loc 1 83 0
+ 185 0138 5D       		pop	rbp
+ 186              		.cfi_def_cfa 7, 8
+ 187 0139 C3       		ret
+ 188              		.cfi_endproc
+ 189              	.LFE6:
+ 191              	.Letext0:
+ 192              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 193              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 194              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 195              		.file 5 "/usr/include/stdio.h"
+ 196              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"
+ 197              		.file 7 "/usr/include/ctype.h"

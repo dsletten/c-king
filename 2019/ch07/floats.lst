@@ -1,0 +1,269 @@
+   1              		.file	"floats.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC1:
+   7 0000 25650A00 		.string	"%e\n"
+   8              	.LC5:
+   9 0004 254C650A 		.string	"%Le\n"
+   9      00
+  10              	.LC9:
+  11 0009 252E2A4C 		.string	"%.*Lg\n"
+  11      670A00
+  12              	.LC11:
+  13 0010 252E3130 		.string	"%.10Le\n"
+  13      4C650A00 
+  14              	.LC12:
+  15 0018 252E3135 		.string	"%.15Le\n"
+  15      4C650A00 
+  16              	.LC13:
+  17 0020 252E3230 		.string	"%.20Le\n"
+  17      4C650A00 
+  18              	.LC14:
+  19 0028 252E3235 		.string	"%.25Le\n"
+  19      4C650A00 
+  20              		.text
+  21              		.globl	main
+  23              	main:
+  24              	.LFB5:
+  25              		.file 1 "floats.c"
+   1:floats.c      **** /*
+   2:floats.c      ****  *
+   3:floats.c      ****  *   File:
+   4:floats.c      ****  *      floats.c
+   5:floats.c      ****  *
+   6:floats.c      ****  *   Synopsis:
+   7:floats.c      ****  *
+   8:floats.c      ****  *   Revision History:
+   9:floats.c      ****  *      Date    Change Description
+  10:floats.c      ****  *      ------  -----------------------------------------
+  11:floats.c      ****  *      200118  Original.
+  12:floats.c      ****  *
+  13:floats.c      ****  */
+  14:floats.c      **** #include <stdio.h>
+  15:floats.c      **** #include <stdlib.h>
+  16:floats.c      **** #include <float.h>
+  17:floats.c      **** #include <math.h>
+  18:floats.c      **** 
+  19:floats.c      **** int main(void) {
+  26              		.loc 1 19 0
+  27              		.cfi_startproc
+  28 0000 55       		push	rbp
+  29              		.cfi_def_cfa_offset 16
+  30              		.cfi_offset 6, -16
+  31 0001 4889E5   		mov	rbp, rsp
+  32              		.cfi_def_cfa_register 6
+  33 0004 4883EC20 		sub	rsp, 32
+  20:floats.c      ****   printf("%e\n", FLT_MIN);
+  34              		.loc 1 20 0
+  35 0008 488B0500 		mov	rax, QWORD PTR .LC0[rip]
+  35      000000
+  36 000f 488945E8 		mov	QWORD PTR -24[rbp], rax
+  37 0013 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  37      E8
+  38 0018 488D3D00 		lea	rdi, .LC1[rip]
+  38      000000
+  39 001f B8010000 		mov	eax, 1
+  39      00
+  40 0024 E8000000 		call	printf@PLT
+  40      00
+  21:floats.c      ****   printf("%e\n", FLT_MAX);
+  41              		.loc 1 21 0
+  42 0029 488B0500 		mov	rax, QWORD PTR .LC2[rip]
+  42      000000
+  43 0030 488945E8 		mov	QWORD PTR -24[rbp], rax
+  44 0034 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  44      E8
+  45 0039 488D3D00 		lea	rdi, .LC1[rip]
+  45      000000
+  46 0040 B8010000 		mov	eax, 1
+  46      00
+  47 0045 E8000000 		call	printf@PLT
+  47      00
+  22:floats.c      **** 
+  23:floats.c      ****   printf("%e\n", DBL_MIN);
+  48              		.loc 1 23 0
+  49 004a 488B0500 		mov	rax, QWORD PTR .LC3[rip]
+  49      000000
+  50 0051 488945E8 		mov	QWORD PTR -24[rbp], rax
+  51 0055 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  51      E8
+  52 005a 488D3D00 		lea	rdi, .LC1[rip]
+  52      000000
+  53 0061 B8010000 		mov	eax, 1
+  53      00
+  54 0066 E8000000 		call	printf@PLT
+  54      00
+  24:floats.c      ****   printf("%e\n", DBL_MAX);
+  55              		.loc 1 24 0
+  56 006b 488B0500 		mov	rax, QWORD PTR .LC4[rip]
+  56      000000
+  57 0072 488945E8 		mov	QWORD PTR -24[rbp], rax
+  58 0076 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  58      E8
+  59 007b 488D3D00 		lea	rdi, .LC1[rip]
+  59      000000
+  60 0082 B8010000 		mov	eax, 1
+  60      00
+  61 0087 E8000000 		call	printf@PLT
+  61      00
+  25:floats.c      **** 
+  26:floats.c      ****   printf("%Le\n", LDBL_MIN);
+  62              		.loc 1 26 0
+  63 008c DB2D0000 		fld	TBYTE PTR .LC6[rip]
+  63      0000
+  64 0092 488D6424 		lea	rsp, -16[rsp]
+  64      F0
+  65 0097 DB3C24   		fstp	TBYTE PTR [rsp]
+  66 009a 488D3D00 		lea	rdi, .LC5[rip]
+  66      000000
+  67 00a1 B8000000 		mov	eax, 0
+  67      00
+  68 00a6 E8000000 		call	printf@PLT
+  68      00
+  69 00ab 4883C410 		add	rsp, 16
+  27:floats.c      ****   printf("%Le\n", LDBL_MAX);
+  70              		.loc 1 27 0
+  71 00af DB2D0000 		fld	TBYTE PTR .LC7[rip]
+  71      0000
+  72 00b5 488D6424 		lea	rsp, -16[rsp]
+  72      F0
+  73 00ba DB3C24   		fstp	TBYTE PTR [rsp]
+  74 00bd 488D3D00 		lea	rdi, .LC5[rip]
+  74      000000
+  75 00c4 B8000000 		mov	eax, 0
+  75      00
+  76 00c9 E8000000 		call	printf@PLT
+  76      00
+  77 00ce 4883C410 		add	rsp, 16
+  28:floats.c      **** 
+  29:floats.c      ****   long double pi = M_PI;
+  78              		.loc 1 29 0
+  79 00d2 DB2D0000 		fld	TBYTE PTR .LC8[rip]
+  79      0000
+  80 00d8 DB7DF0   		fstp	TBYTE PTR -16[rbp]
+  30:floats.c      ****   printf("%.*Lg\n", LDBL_DIG, pi);
+  81              		.loc 1 30 0
+  82 00db FF75F8   		push	QWORD PTR -8[rbp]
+  83 00de FF75F0   		push	QWORD PTR -16[rbp]
+  84 00e1 BE120000 		mov	esi, 18
+  84      00
+  85 00e6 488D3D00 		lea	rdi, .LC9[rip]
+  85      000000
+  86 00ed B8000000 		mov	eax, 0
+  86      00
+  87 00f2 E8000000 		call	printf@PLT
+  87      00
+  88 00f7 4883C410 		add	rsp, 16
+  31:floats.c      **** 
+  32:floats.c      ****   pi /= 1000;
+  89              		.loc 1 32 0
+  90 00fb DB6DF0   		fld	TBYTE PTR -16[rbp]
+  91 00fe DB2D0000 		fld	TBYTE PTR .LC10[rip]
+  91      0000
+  92 0104 DEF9     		fdivp	st(1), st
+  93 0106 DB7DF0   		fstp	TBYTE PTR -16[rbp]
+  33:floats.c      ****   printf("%.10Le\n", pi);
+  94              		.loc 1 33 0
+  95 0109 FF75F8   		push	QWORD PTR -8[rbp]
+  96 010c FF75F0   		push	QWORD PTR -16[rbp]
+  97 010f 488D3D00 		lea	rdi, .LC11[rip]
+  97      000000
+  98 0116 B8000000 		mov	eax, 0
+  98      00
+  99 011b E8000000 		call	printf@PLT
+  99      00
+ 100 0120 4883C410 		add	rsp, 16
+  34:floats.c      ****   printf("%.15Le\n", pi);
+ 101              		.loc 1 34 0
+ 102 0124 FF75F8   		push	QWORD PTR -8[rbp]
+ 103 0127 FF75F0   		push	QWORD PTR -16[rbp]
+ 104 012a 488D3D00 		lea	rdi, .LC12[rip]
+ 104      000000
+ 105 0131 B8000000 		mov	eax, 0
+ 105      00
+ 106 0136 E8000000 		call	printf@PLT
+ 106      00
+ 107 013b 4883C410 		add	rsp, 16
+  35:floats.c      ****   printf("%.20Le\n", pi);
+ 108              		.loc 1 35 0
+ 109 013f FF75F8   		push	QWORD PTR -8[rbp]
+ 110 0142 FF75F0   		push	QWORD PTR -16[rbp]
+ 111 0145 488D3D00 		lea	rdi, .LC13[rip]
+ 111      000000
+ 112 014c B8000000 		mov	eax, 0
+ 112      00
+ 113 0151 E8000000 		call	printf@PLT
+ 113      00
+ 114 0156 4883C410 		add	rsp, 16
+  36:floats.c      ****   printf("%.25Le\n", pi);
+ 115              		.loc 1 36 0
+ 116 015a FF75F8   		push	QWORD PTR -8[rbp]
+ 117 015d FF75F0   		push	QWORD PTR -16[rbp]
+ 118 0160 488D3D00 		lea	rdi, .LC14[rip]
+ 118      000000
+ 119 0167 B8000000 		mov	eax, 0
+ 119      00
+ 120 016c E8000000 		call	printf@PLT
+ 120      00
+ 121 0171 4883C410 		add	rsp, 16
+  37:floats.c      **** 
+  38:floats.c      **** 
+  39:floats.c      ****   exit(EXIT_SUCCESS);
+ 122              		.loc 1 39 0
+ 123 0175 BF000000 		mov	edi, 0
+ 123      00
+ 124 017a E8000000 		call	exit@PLT
+ 124      00
+ 125              		.cfi_endproc
+ 126              	.LFE5:
+ 128              		.section	.rodata
+ 129              		.align 8
+ 130              	.LC0:
+ 131 0030 00000000 		.long	0
+ 132 0034 00001038 		.long	940572672
+ 133              		.align 8
+ 134              	.LC2:
+ 135 0038 000000E0 		.long	3758096384
+ 136 003c FFFFEF47 		.long	1206910975
+ 137              		.align 8
+ 138              	.LC3:
+ 139 0040 00000000 		.long	0
+ 140 0044 00001000 		.long	1048576
+ 141              		.align 8
+ 142              	.LC4:
+ 143 0048 FFFFFFFF 		.long	4294967295
+ 144 004c FFFFEF7F 		.long	2146435071
+ 145              		.align 16
+ 146              	.LC6:
+ 147 0050 00000000 		.long	0
+ 148 0054 00000080 		.long	2147483648
+ 149 0058 01000000 		.long	1
+ 150 005c 00000000 		.long	0
+ 151              		.align 16
+ 152              	.LC7:
+ 153 0060 FFFFFFFF 		.long	4294967295
+ 154 0064 FFFFFFFF 		.long	4294967295
+ 155 0068 FE7F0000 		.long	32766
+ 156 006c 00000000 		.long	0
+ 157              		.align 16
+ 158              	.LC8:
+ 159 0070 00C06821 		.long	560513024
+ 160 0074 A2DA0FC9 		.long	3373259426
+ 161 0078 00400000 		.long	16384
+ 162 007c 00000000 		.long	0
+ 163              		.align 16
+ 164              	.LC10:
+ 165 0080 00000000 		.long	0
+ 166 0084 000000FA 		.long	4194304000
+ 167 0088 08400000 		.long	16392
+ 168 008c 00000000 		.long	0
+ 169              		.text
+ 170              	.Letext0:
+ 171              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 172              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 173              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 174              		.file 5 "/usr/include/stdio.h"
+ 175              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"
+ 176              		.file 7 "/usr/include/math.h"

@@ -1,0 +1,130 @@
+   1              		.file	"tip.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 456E7465 		.string	"Enter a dollar amount: "
+   7      72206120 
+   7      646F6C6C 
+   7      61722061 
+   7      6D6F756E 
+   8              	.LC1:
+   9 0018 256C6600 		.string	"%lf"
+  10              	.LC3:
+  11 001c 50726963 		.string	"Price: %f Tip: %f Total: %f\n"
+  11      653A2025 
+  11      66205469 
+  11      703A2025 
+  11      6620546F 
+  12              		.text
+  13              		.globl	main
+  15              	main:
+  16              	.LFB5:
+  17              		.file 1 "tip.c"
+   1:tip.c         **** /*
+   2:tip.c         ****  *
+   3:tip.c         ****  *   File:
+   4:tip.c         ****  *      tip.c
+   5:tip.c         ****  *
+   6:tip.c         ****  *   Synopsis:
+   7:tip.c         ****  *       Compute a 20% tip.
+   8:tip.c         ****  *
+   9:tip.c         ****  *   Revision History:
+  10:tip.c         ****  *      Date    Change Description
+  11:tip.c         ****  *      ------  -----------------------------------------
+  12:tip.c         ****  *      190725  Original.
+  13:tip.c         ****  *
+  14:tip.c         ****  */
+  15:tip.c         **** #include <stdio.h>
+  16:tip.c         **** #include <stdlib.h>
+  17:tip.c         **** 
+  18:tip.c         **** #define TIP_RATE 20.0
+  19:tip.c         **** 
+  20:tip.c         **** int main(void) {
+  18              		.loc 1 20 0
+  19              		.cfi_startproc
+  20 0000 55       		push	rbp
+  21              		.cfi_def_cfa_offset 16
+  22              		.cfi_offset 6, -16
+  23 0001 4889E5   		mov	rbp, rsp
+  24              		.cfi_def_cfa_register 6
+  25 0004 4883EC30 		sub	rsp, 48
+  26              		.loc 1 20 0
+  27 0008 64488B04 		mov	rax, QWORD PTR fs:40
+  27      25280000 
+  27      00
+  28 0011 488945F8 		mov	QWORD PTR -8[rbp], rax
+  29 0015 31C0     		xor	eax, eax
+  21:tip.c         ****   double price;
+  22:tip.c         **** 
+  23:tip.c         ****   printf("Enter a dollar amount: ");
+  30              		.loc 1 23 0
+  31 0017 488D3D00 		lea	rdi, .LC0[rip]
+  31      000000
+  32 001e B8000000 		mov	eax, 0
+  32      00
+  33 0023 E8000000 		call	printf@PLT
+  33      00
+  24:tip.c         ****   scanf("%lf", &price);
+  34              		.loc 1 24 0
+  35 0028 488D45E8 		lea	rax, -24[rbp]
+  36 002c 4889C6   		mov	rsi, rax
+  37 002f 488D3D00 		lea	rdi, .LC1[rip]
+  37      000000
+  38 0036 B8000000 		mov	eax, 0
+  38      00
+  39 003b E8000000 		call	__isoc99_scanf@PLT
+  39      00
+  25:tip.c         **** 
+  26:tip.c         ****   double tip = (TIP_RATE/100.0) * price;
+  40              		.loc 1 26 0
+  41 0040 F20F104D 		movsd	xmm1, QWORD PTR -24[rbp]
+  41      E8
+  42 0045 F20F1005 		movsd	xmm0, QWORD PTR .LC2[rip]
+  42      00000000 
+  43 004d F20F59C1 		mulsd	xmm0, xmm1
+  44 0051 F20F1145 		movsd	QWORD PTR -16[rbp], xmm0
+  44      F0
+  27:tip.c         **** 
+  28:tip.c         ****   printf("Price: %f Tip: %f Total: %f\n", price, tip, price + tip);
+  45              		.loc 1 28 0
+  46 0056 F20F1045 		movsd	xmm0, QWORD PTR -24[rbp]
+  46      E8
+  47 005b F20F5845 		addsd	xmm0, QWORD PTR -16[rbp]
+  47      F0
+  48 0060 488B45E8 		mov	rax, QWORD PTR -24[rbp]
+  49 0064 F20F104D 		movsd	xmm1, QWORD PTR -16[rbp]
+  49      F0
+  50 0069 660F28D0 		movapd	xmm2, xmm0
+  51 006d 488945D8 		mov	QWORD PTR -40[rbp], rax
+  52 0071 F20F1045 		movsd	xmm0, QWORD PTR -40[rbp]
+  52      D8
+  53 0076 488D3D00 		lea	rdi, .LC3[rip]
+  53      000000
+  54 007d B8030000 		mov	eax, 3
+  54      00
+  55 0082 E8000000 		call	printf@PLT
+  55      00
+  29:tip.c         **** 
+  30:tip.c         ****   exit(EXIT_SUCCESS);
+  56              		.loc 1 30 0
+  57 0087 BF000000 		mov	edi, 0
+  57      00
+  58 008c E8000000 		call	exit@PLT
+  58      00
+  59              		.cfi_endproc
+  60              	.LFE5:
+  62              		.section	.rodata
+  63 0039 00000000 		.align 8
+  63      000000
+  64              	.LC2:
+  65 0040 9A999999 		.long	2576980378
+  66 0044 9999C93F 		.long	1070176665
+  67              		.text
+  68              	.Letext0:
+  69              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+  70              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+  71              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+  72              		.file 5 "/usr/include/stdio.h"
+  73              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

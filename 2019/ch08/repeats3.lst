@@ -1,0 +1,274 @@
+   1              		.file	"repeats3.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 456E7465 		.string	"Enter a number: "
+   7      72206120 
+   7      6E756D62 
+   7      65723A20 
+   7      00
+   8              	.LC1:
+   9 0011 256C6400 		.string	"%ld"
+  10              	.LC2:
+  11 0015 44696769 		.string	"Digit:"
+  11      743A00
+  12              	.LC3:
+  13 001c 252D3132 		.string	"%-12s"
+  13      7300
+  14              	.LC4:
+  15 0022 25336400 		.string	"%3d"
+  16              	.LC5:
+  17 0026 4F636375 		.string	"Occurrences:"
+  17      7272656E 
+  17      6365733A 
+  17      00
+  18              		.text
+  19              		.globl	main
+  21              	main:
+  22              	.LFB5:
+  23              		.file 1 "repeats3.c"
+   1:repeats3.c    **** /*
+   2:repeats3.c    ****  *
+   3:repeats3.c    ****  *   File:
+   4:repeats3.c    ****  *      repeats3.c
+   5:repeats3.c    ****  *
+   6:repeats3.c    ****  *   Synopsis:
+   7:repeats3.c    ****  *       Ex. 3
+   8:repeats3.c    ****  *
+   9:repeats3.c    ****  *   Revision History:
+  10:repeats3.c    ****  *      Date    Change Description
+  11:repeats3.c    ****  *      ------  -----------------------------------------
+  12:repeats3.c    ****  *      200301  Original.
+  13:repeats3.c    ****  *
+  14:repeats3.c    ****  */
+  15:repeats3.c    **** #include <stdio.h>
+  16:repeats3.c    **** #include <stdlib.h>
+  17:repeats3.c    **** #include <stdbool.h>
+  18:repeats3.c    **** 
+  19:repeats3.c    **** #define WIDTH "%-12s"
+  20:repeats3.c    **** 
+  21:repeats3.c    **** int main(void) {
+  24              		.loc 1 21 0
+  25              		.cfi_startproc
+  26 0000 55       		push	rbp
+  27              		.cfi_def_cfa_offset 16
+  28              		.cfi_offset 6, -16
+  29 0001 4889E5   		mov	rbp, rsp
+  30              		.cfi_def_cfa_register 6
+  31 0004 4883EC50 		sub	rsp, 80
+  32              		.loc 1 21 0
+  33 0008 64488B04 		mov	rax, QWORD PTR fs:40
+  33      25280000 
+  33      00
+  34 0011 488945F8 		mov	QWORD PTR -8[rbp], rax
+  35 0015 31C0     		xor	eax, eax
+  36              	.L9:
+  22:repeats3.c    ****   long int n;
+  23:repeats3.c    **** 
+  24:repeats3.c    ****   while ( true ) {
+  25:repeats3.c    ****     printf("Enter a number: ");
+  37              		.loc 1 25 0
+  38 0017 488D3D00 		lea	rdi, .LC0[rip]
+  38      000000
+  39 001e B8000000 		mov	eax, 0
+  39      00
+  40 0023 E8000000 		call	printf@PLT
+  40      00
+  26:repeats3.c    ****     scanf("%ld", &n);
+  41              		.loc 1 26 0
+  42 0028 488D45C8 		lea	rax, -56[rbp]
+  43 002c 4889C6   		mov	rsi, rax
+  44 002f 488D3D00 		lea	rdi, .LC1[rip]
+  44      000000
+  45 0036 B8000000 		mov	eax, 0
+  45      00
+  46 003b E8000000 		call	__isoc99_scanf@PLT
+  46      00
+  27:repeats3.c    **** 
+  28:repeats3.c    ****     if ( n <= 0 ) { // Terminate if input is not positive.
+  47              		.loc 1 28 0
+  48 0040 488B45C8 		mov	rax, QWORD PTR -56[rbp]
+  49 0044 4885C0   		test	rax, rax
+  50 0047 7F0A     		jg	.L2
+  29:repeats3.c    ****       exit(EXIT_SUCCESS);
+  51              		.loc 1 29 0
+  52 0049 BF000000 		mov	edi, 0
+  52      00
+  53 004e E8000000 		call	exit@PLT
+  53      00
+  54              	.L2:
+  55              	.LBB2:
+  30:repeats3.c    ****     } else {
+  31:repeats3.c    ****       int repeats[10] = {0};
+  56              		.loc 1 31 0
+  57 0053 48C745D0 		mov	QWORD PTR -48[rbp], 0
+  57      00000000 
+  58 005b 48C745D8 		mov	QWORD PTR -40[rbp], 0
+  58      00000000 
+  59 0063 48C745E0 		mov	QWORD PTR -32[rbp], 0
+  59      00000000 
+  60 006b 48C745E8 		mov	QWORD PTR -24[rbp], 0
+  60      00000000 
+  61 0073 48C745F0 		mov	QWORD PTR -16[rbp], 0
+  61      00000000 
+  32:repeats3.c    ****       while ( n > 0 ) {
+  62              		.loc 1 32 0
+  63 007b EB76     		jmp	.L3
+  64              	.L4:
+  65              	.LBB3:
+  33:repeats3.c    **** 	int digit = n % 10;
+  66              		.loc 1 33 0
+  67 007d 488B4DC8 		mov	rcx, QWORD PTR -56[rbp]
+  68 0081 48BA6766 		movabs	rdx, 7378697629483820647
+  68      66666666 
+  68      6666
+  69 008b 4889C8   		mov	rax, rcx
+  70 008e 48F7EA   		imul	rdx
+  71 0091 48C1FA02 		sar	rdx, 2
+  72 0095 4889C8   		mov	rax, rcx
+  73 0098 48C1F83F 		sar	rax, 63
+  74 009c 4829C2   		sub	rdx, rax
+  75 009f 4889D0   		mov	rax, rdx
+  76 00a2 48C1E002 		sal	rax, 2
+  77 00a6 4801D0   		add	rax, rdx
+  78 00a9 4801C0   		add	rax, rax
+  79 00ac 4829C1   		sub	rcx, rax
+  80 00af 4889CA   		mov	rdx, rcx
+  81 00b2 8955C4   		mov	DWORD PTR -60[rbp], edx
+  34:repeats3.c    **** 	
+  35:repeats3.c    **** 	repeats[digit]++;
+  82              		.loc 1 35 0
+  83 00b5 8B45C4   		mov	eax, DWORD PTR -60[rbp]
+  84 00b8 4898     		cdqe
+  85 00ba 8B4485D0 		mov	eax, DWORD PTR -48[rbp+rax*4]
+  86 00be 8D5001   		lea	edx, 1[rax]
+  87 00c1 8B45C4   		mov	eax, DWORD PTR -60[rbp]
+  88 00c4 4898     		cdqe
+  89 00c6 895485D0 		mov	DWORD PTR -48[rbp+rax*4], edx
+  36:repeats3.c    **** 	n /= 10;
+  90              		.loc 1 36 0
+  91 00ca 488B4DC8 		mov	rcx, QWORD PTR -56[rbp]
+  92 00ce 48BA6766 		movabs	rdx, 7378697629483820647
+  92      66666666 
+  92      6666
+  93 00d8 4889C8   		mov	rax, rcx
+  94 00db 48F7EA   		imul	rdx
+  95 00de 48C1FA02 		sar	rdx, 2
+  96 00e2 4889C8   		mov	rax, rcx
+  97 00e5 48C1F83F 		sar	rax, 63
+  98 00e9 4829C2   		sub	rdx, rax
+  99 00ec 4889D0   		mov	rax, rdx
+ 100 00ef 488945C8 		mov	QWORD PTR -56[rbp], rax
+ 101              	.L3:
+ 102              	.LBE3:
+  32:repeats3.c    **** 	int digit = n % 10;
+ 103              		.loc 1 32 0
+ 104 00f3 488B45C8 		mov	rax, QWORD PTR -56[rbp]
+ 105 00f7 4885C0   		test	rax, rax
+ 106 00fa 7F81     		jg	.L4
+  37:repeats3.c    ****       }
+  38:repeats3.c    ****       
+  39:repeats3.c    ****       printf(WIDTH, "Digit:");
+ 107              		.loc 1 39 0
+ 108 00fc 488D3500 		lea	rsi, .LC2[rip]
+ 108      000000
+ 109 0103 488D3D00 		lea	rdi, .LC3[rip]
+ 109      000000
+ 110 010a B8000000 		mov	eax, 0
+ 110      00
+ 111 010f E8000000 		call	printf@PLT
+ 111      00
+ 112              	.LBB4:
+  40:repeats3.c    ****       for (int i = 0; i < 10; i++) {
+ 113              		.loc 1 40 0
+ 114 0114 C745BC00 		mov	DWORD PTR -68[rbp], 0
+ 114      000000
+ 115 011b EB1A     		jmp	.L5
+ 116              	.L6:
+  41:repeats3.c    **** 	printf("%3d", i);
+ 117              		.loc 1 41 0 discriminator 3
+ 118 011d 8B45BC   		mov	eax, DWORD PTR -68[rbp]
+ 119 0120 89C6     		mov	esi, eax
+ 120 0122 488D3D00 		lea	rdi, .LC4[rip]
+ 120      000000
+ 121 0129 B8000000 		mov	eax, 0
+ 121      00
+ 122 012e E8000000 		call	printf@PLT
+ 122      00
+  40:repeats3.c    ****       for (int i = 0; i < 10; i++) {
+ 123              		.loc 1 40 0 discriminator 3
+ 124 0133 8345BC01 		add	DWORD PTR -68[rbp], 1
+ 125              	.L5:
+  40:repeats3.c    ****       for (int i = 0; i < 10; i++) {
+ 126              		.loc 1 40 0 is_stmt 0 discriminator 1
+ 127 0137 837DBC09 		cmp	DWORD PTR -68[rbp], 9
+ 128 013b 7EE0     		jle	.L6
+ 129              	.LBE4:
+  42:repeats3.c    ****       }
+  43:repeats3.c    ****       printf("\n");
+ 130              		.loc 1 43 0 is_stmt 1
+ 131 013d BF0A0000 		mov	edi, 10
+ 131      00
+ 132 0142 E8000000 		call	putchar@PLT
+ 132      00
+  44:repeats3.c    ****       
+  45:repeats3.c    ****       printf(WIDTH, "Occurrences:");
+ 133              		.loc 1 45 0
+ 134 0147 488D3500 		lea	rsi, .LC5[rip]
+ 134      000000
+ 135 014e 488D3D00 		lea	rdi, .LC3[rip]
+ 135      000000
+ 136 0155 B8000000 		mov	eax, 0
+ 136      00
+ 137 015a E8000000 		call	printf@PLT
+ 137      00
+ 138              	.LBB5:
+  46:repeats3.c    ****       for (int i = 0; i < 10; i++) {
+ 139              		.loc 1 46 0
+ 140 015f C745C000 		mov	DWORD PTR -64[rbp], 0
+ 140      000000
+ 141 0166 EB20     		jmp	.L7
+ 142              	.L8:
+  47:repeats3.c    **** 	printf("%3d", repeats[i]);
+ 143              		.loc 1 47 0 discriminator 3
+ 144 0168 8B45C0   		mov	eax, DWORD PTR -64[rbp]
+ 145 016b 4898     		cdqe
+ 146 016d 8B4485D0 		mov	eax, DWORD PTR -48[rbp+rax*4]
+ 147 0171 89C6     		mov	esi, eax
+ 148 0173 488D3D00 		lea	rdi, .LC4[rip]
+ 148      000000
+ 149 017a B8000000 		mov	eax, 0
+ 149      00
+ 150 017f E8000000 		call	printf@PLT
+ 150      00
+  46:repeats3.c    ****       for (int i = 0; i < 10; i++) {
+ 151              		.loc 1 46 0 discriminator 3
+ 152 0184 8345C001 		add	DWORD PTR -64[rbp], 1
+ 153              	.L7:
+  46:repeats3.c    ****       for (int i = 0; i < 10; i++) {
+ 154              		.loc 1 46 0 is_stmt 0 discriminator 1
+ 155 0188 837DC009 		cmp	DWORD PTR -64[rbp], 9
+ 156 018c 7EDA     		jle	.L8
+ 157              	.LBE5:
+  48:repeats3.c    ****       }
+  49:repeats3.c    ****       printf("\n");
+ 158              		.loc 1 49 0 is_stmt 1
+ 159 018e BF0A0000 		mov	edi, 10
+ 159      00
+ 160 0193 E8000000 		call	putchar@PLT
+ 160      00
+ 161              	.LBE2:
+  25:repeats3.c    ****     scanf("%ld", &n);
+ 162              		.loc 1 25 0
+ 163 0198 E97AFEFF 		jmp	.L9
+ 163      FF
+ 164              		.cfi_endproc
+ 165              	.LFE5:
+ 167              	.Letext0:
+ 168              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 169              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 170              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 171              		.file 5 "/usr/include/stdio.h"
+ 172              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

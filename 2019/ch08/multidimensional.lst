@@ -1,0 +1,309 @@
+   1              		.file	"multidimensional.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC1:
+   7 0000 25352E31 		.string	"%5.1f"
+   7      6600
+   8              		.text
+   9              		.globl	main
+  11              	main:
+  12              	.LFB5:
+  13              		.file 1 "multidimensional.c"
+   1:multidimensional.c **** /*
+   2:multidimensional.c ****  *
+   3:multidimensional.c ****  *   File:
+   4:multidimensional.c ****  *      multidimensional.c
+   5:multidimensional.c ****  *
+   6:multidimensional.c ****  *   Synopsis:
+   7:multidimensional.c ****  *
+   8:multidimensional.c ****  *   Revision History:
+   9:multidimensional.c ****  *      Date    Change Description
+  10:multidimensional.c ****  *      ------  -----------------------------------------
+  11:multidimensional.c ****  *      200224  Original.
+  12:multidimensional.c ****  *
+  13:multidimensional.c ****  */
+  14:multidimensional.c **** #include <stdio.h>
+  15:multidimensional.c **** #include <stdlib.h>
+  16:multidimensional.c **** 
+  17:multidimensional.c **** #define N 10
+  18:multidimensional.c **** 
+  19:multidimensional.c **** int main(void) {
+  14              		.loc 1 19 0
+  15              		.cfi_startproc
+  16 0000 55       		push	rbp
+  17              		.cfi_def_cfa_offset 16
+  18              		.cfi_offset 6, -16
+  19 0001 4889E5   		mov	rbp, rsp
+  20              		.cfi_def_cfa_register 6
+  21 0004 4881ECE0 		sub	rsp, 992
+  21      030000
+  22              		.loc 1 19 0
+  23 000b 64488B04 		mov	rax, QWORD PTR fs:40
+  23      25280000 
+  23      00
+  24 0014 488945F8 		mov	QWORD PTR -8[rbp], rax
+  25 0018 31C0     		xor	eax, eax
+  20:multidimensional.c ****   double identity[N][N] = {0.0};
+  26              		.loc 1 20 0
+  27 001a 488D95D0 		lea	rdx, -816[rbp]
+  27      FCFFFF
+  28 0021 B8000000 		mov	eax, 0
+  28      00
+  29 0026 B9640000 		mov	ecx, 100
+  29      00
+  30 002b 4889D7   		mov	rdi, rdx
+  31 002e F348AB   		rep stosq
+  32              	.LBB2:
+  21:multidimensional.c **** 
+  22:multidimensional.c ****   /* const int m[2][3] = {1, 2, 3, 4, 5, 6, 7, 8, 9}; */
+  23:multidimensional.c **** 
+  24:multidimensional.c ****   /* printf("%d\n", m[1][0]); */
+  25:multidimensional.c ****   /* m[1][0] = 94; */
+  26:multidimensional.c ****   /* printf("%d\n", m[1][0]); */
+  27:multidimensional.c **** 
+  28:multidimensional.c ****   for (int i = 0; i < N; i++) {
+  33              		.loc 1 28 0
+  34 0031 C78534FC 		mov	DWORD PTR -972[rbp], 0
+  34      FFFF0000 
+  34      0000
+  35 003b EB39     		jmp	.L2
+  36              	.L3:
+  29:multidimensional.c ****     identity[i][i] = 1.0;
+  37              		.loc 1 29 0 discriminator 3
+  38 003d 8B8534FC 		mov	eax, DWORD PTR -972[rbp]
+  38      FFFF
+  39 0043 4863D0   		movsx	rdx, eax
+  40 0046 4889D0   		mov	rax, rdx
+  41 0049 48C1E002 		sal	rax, 2
+  42 004d 4801D0   		add	rax, rdx
+  43 0050 4801C0   		add	rax, rax
+  44 0053 4801D0   		add	rax, rdx
+  45 0056 48C1E003 		sal	rax, 3
+  46 005a 4801E8   		add	rax, rbp
+  47 005d 482D3003 		sub	rax, 816
+  47      0000
+  48 0063 F20F1005 		movsd	xmm0, QWORD PTR .LC0[rip]
+  48      00000000 
+  49 006b F20F1100 		movsd	QWORD PTR [rax], xmm0
+  28:multidimensional.c ****     identity[i][i] = 1.0;
+  50              		.loc 1 28 0 discriminator 3
+  51 006f 838534FC 		add	DWORD PTR -972[rbp], 1
+  51      FFFF01
+  52              	.L2:
+  28:multidimensional.c ****     identity[i][i] = 1.0;
+  53              		.loc 1 28 0 is_stmt 0 discriminator 1
+  54 0076 83BD34FC 		cmp	DWORD PTR -972[rbp], 9
+  54      FFFF09
+  55 007d 7EBE     		jle	.L3
+  56              	.LBE2:
+  57              	.LBB3:
+  30:multidimensional.c ****   }
+  31:multidimensional.c **** 
+  32:multidimensional.c ****   for (int i = 0; i < N; i++) {
+  58              		.loc 1 32 0 is_stmt 1
+  59 007f C78538FC 		mov	DWORD PTR -968[rbp], 0
+  59      FFFF0000 
+  59      0000
+  60 0089 EB77     		jmp	.L4
+  61              	.L7:
+  62              	.LBB4:
+  33:multidimensional.c ****     for (int j = 0; j < N; j++) {
+  63              		.loc 1 33 0
+  64 008b C7853CFC 		mov	DWORD PTR -964[rbp], 0
+  64      FFFF0000 
+  64      0000
+  65 0095 EB51     		jmp	.L5
+  66              	.L6:
+  34:multidimensional.c ****       printf("%5.1f", identity[i][j]);
+  67              		.loc 1 34 0 discriminator 3
+  68 0097 8B853CFC 		mov	eax, DWORD PTR -964[rbp]
+  68      FFFF
+  69 009d 4863C8   		movsx	rcx, eax
+  70 00a0 8B8538FC 		mov	eax, DWORD PTR -968[rbp]
+  70      FFFF
+  71 00a6 4863D0   		movsx	rdx, eax
+  72 00a9 4889D0   		mov	rax, rdx
+  73 00ac 48C1E002 		sal	rax, 2
+  74 00b0 4801D0   		add	rax, rdx
+  75 00b3 4801C0   		add	rax, rax
+  76 00b6 4801C8   		add	rax, rcx
+  77 00b9 488B84C5 		mov	rax, QWORD PTR -816[rbp+rax*8]
+  77      D0FCFFFF 
+  78 00c1 48898528 		mov	QWORD PTR -984[rbp], rax
+  78      FCFFFF
+  79 00c8 F20F1085 		movsd	xmm0, QWORD PTR -984[rbp]
+  79      28FCFFFF 
+  80 00d0 488D3D00 		lea	rdi, .LC1[rip]
+  80      000000
+  81 00d7 B8010000 		mov	eax, 1
+  81      00
+  82 00dc E8000000 		call	printf@PLT
+  82      00
+  33:multidimensional.c ****     for (int j = 0; j < N; j++) {
+  83              		.loc 1 33 0 discriminator 3
+  84 00e1 83853CFC 		add	DWORD PTR -964[rbp], 1
+  84      FFFF01
+  85              	.L5:
+  33:multidimensional.c ****     for (int j = 0; j < N; j++) {
+  86              		.loc 1 33 0 is_stmt 0 discriminator 1
+  87 00e8 83BD3CFC 		cmp	DWORD PTR -964[rbp], 9
+  87      FFFF09
+  88 00ef 7EA6     		jle	.L6
+  89              	.LBE4:
+  35:multidimensional.c ****     }
+  36:multidimensional.c ****     printf("\n");
+  90              		.loc 1 36 0 is_stmt 1 discriminator 2
+  91 00f1 BF0A0000 		mov	edi, 10
+  91      00
+  92 00f6 E8000000 		call	putchar@PLT
+  92      00
+  32:multidimensional.c ****     for (int j = 0; j < N; j++) {
+  93              		.loc 1 32 0 discriminator 2
+  94 00fb 838538FC 		add	DWORD PTR -968[rbp], 1
+  94      FFFF01
+  95              	.L4:
+  32:multidimensional.c ****     for (int j = 0; j < N; j++) {
+  96              		.loc 1 32 0 is_stmt 0 discriminator 1
+  97 0102 83BD38FC 		cmp	DWORD PTR -968[rbp], 9
+  97      FFFF09
+  98 0109 7E80     		jle	.L7
+  99              	.LBE3:
+  37:multidimensional.c ****   }
+  38:multidimensional.c **** 
+  39:multidimensional.c ****   int a[4][3] = {{0, 0, 1},
+ 100              		.loc 1 39 0 is_stmt 1
+ 101 010b C78540FC 		mov	DWORD PTR -960[rbp], 0
+ 101      FFFF0000 
+ 101      0000
+ 102 0115 C78544FC 		mov	DWORD PTR -956[rbp], 0
+ 102      FFFF0000 
+ 102      0000
+ 103 011f C78548FC 		mov	DWORD PTR -952[rbp], 1
+ 103      FFFF0100 
+ 103      0000
+ 104 0129 C7854CFC 		mov	DWORD PTR -948[rbp], 0
+ 104      FFFF0000 
+ 104      0000
+ 105 0133 C78550FC 		mov	DWORD PTR -944[rbp], 1
+ 105      FFFF0100 
+ 105      0000
+ 106 013d C78554FC 		mov	DWORD PTR -940[rbp], 0
+ 106      FFFF0000 
+ 106      0000
+ 107 0147 C78558FC 		mov	DWORD PTR -936[rbp], 0
+ 107      FFFF0000 
+ 107      0000
+ 108 0151 C7855CFC 		mov	DWORD PTR -932[rbp], 1
+ 108      FFFF0100 
+ 108      0000
+ 109 015b C78560FC 		mov	DWORD PTR -928[rbp], 1
+ 109      FFFF0100 
+ 109      0000
+ 110 0165 C78564FC 		mov	DWORD PTR -924[rbp], 1
+ 110      FFFF0100 
+ 110      0000
+ 111 016f C78568FC 		mov	DWORD PTR -920[rbp], 0
+ 111      FFFF0000 
+ 111      0000
+ 112 0179 C7856CFC 		mov	DWORD PTR -916[rbp], 0
+ 112      FFFF0000 
+ 112      0000
+  40:multidimensional.c **** 		 {0, 1, 0},
+  41:multidimensional.c **** 		 {0, 1, 1},
+  42:multidimensional.c **** 		 {1, 0, 0}};
+  43:multidimensional.c **** 
+  44:multidimensional.c ****   int b[4][3] = {{0, 0, 1},  // Initialize 48 bytes to 0 (12 * 4) [8 bytes at a time, i.e., across 
+ 113              		.loc 1 44 0
+ 114 0183 48C78570 		mov	QWORD PTR -912[rbp], 0
+ 114      FCFFFF00 
+ 114      000000
+ 115 018e 48C78578 		mov	QWORD PTR -904[rbp], 0
+ 115      FCFFFF00 
+ 115      000000
+ 116 0199 48C78580 		mov	QWORD PTR -896[rbp], 0
+ 116      FCFFFF00 
+ 116      000000
+ 117 01a4 48C78588 		mov	QWORD PTR -888[rbp], 0
+ 117      FCFFFF00 
+ 117      000000
+ 118 01af 48C78590 		mov	QWORD PTR -880[rbp], 0
+ 118      FCFFFF00 
+ 118      000000
+ 119 01ba 48C78598 		mov	QWORD PTR -872[rbp], 0
+ 119      FCFFFF00 
+ 119      000000
+ 120 01c5 C78578FC 		mov	DWORD PTR -904[rbp], 1
+ 120      FFFF0100 
+ 120      0000
+ 121 01cf C78580FC 		mov	DWORD PTR -896[rbp], 1
+ 121      FFFF0100 
+ 121      0000
+  45:multidimensional.c **** 		 {0, 1, 0}};
+  46:multidimensional.c **** 
+  47:multidimensional.c ****   int c[4][3] = {{1, 1, 1},
+ 122              		.loc 1 47 0
+ 123 01d9 48C785A0 		mov	QWORD PTR -864[rbp], 0
+ 123      FCFFFF00 
+ 123      000000
+ 124 01e4 48C785A8 		mov	QWORD PTR -856[rbp], 0
+ 124      FCFFFF00 
+ 124      000000
+ 125 01ef 48C785B0 		mov	QWORD PTR -848[rbp], 0
+ 125      FCFFFF00 
+ 125      000000
+ 126 01fa 48C785B8 		mov	QWORD PTR -840[rbp], 0
+ 126      FCFFFF00 
+ 126      000000
+ 127 0205 48C785C0 		mov	QWORD PTR -832[rbp], 0
+ 127      FCFFFF00 
+ 127      000000
+ 128 0210 48C785C8 		mov	QWORD PTR -824[rbp], 0
+ 128      FCFFFF00 
+ 128      000000
+ 129 021b C785A0FC 		mov	DWORD PTR -864[rbp], 1
+ 129      FFFF0100 
+ 129      0000
+ 130 0225 C785A4FC 		mov	DWORD PTR -860[rbp], 1
+ 130      FFFF0100 
+ 130      0000
+ 131 022f C785A8FC 		mov	DWORD PTR -856[rbp], 1
+ 131      FFFF0100 
+ 131      0000
+ 132 0239 C785ACFC 		mov	DWORD PTR -852[rbp], 1
+ 132      FFFF0100 
+ 132      0000
+ 133 0243 C785B0FC 		mov	DWORD PTR -848[rbp], 1
+ 133      FFFF0100 
+ 133      0000
+ 134 024d C785B8FC 		mov	DWORD PTR -840[rbp], 1
+ 134      FFFF0100 
+ 134      0000
+ 135 0257 C785C4FC 		mov	DWORD PTR -828[rbp], 1
+ 135      FFFF0100 
+ 135      0000
+  48:multidimensional.c **** 		 {1, 1},
+  49:multidimensional.c **** 		 {1},
+  50:multidimensional.c **** 		 {1}};
+  51:multidimensional.c **** 
+  52:multidimensional.c ****   exit(EXIT_SUCCESS);
+ 136              		.loc 1 52 0
+ 137 0261 BF000000 		mov	edi, 0
+ 137      00
+ 138 0266 E8000000 		call	exit@PLT
+ 138      00
+ 139              		.cfi_endproc
+ 140              	.LFE5:
+ 142              		.section	.rodata
+ 143 0006 0000     		.align 8
+ 144              	.LC0:
+ 145 0008 00000000 		.long	0
+ 146 000c 0000F03F 		.long	1072693248
+ 147              		.text
+ 148              	.Letext0:
+ 149              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 150              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 151              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 152              		.file 5 "/usr/include/stdio.h"
+ 153              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"

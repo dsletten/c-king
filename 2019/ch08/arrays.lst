@@ -1,0 +1,214 @@
+   1              		.file	"arrays.c"
+   2              		.intel_syntax noprefix
+   3              		.text
+   4              	.Ltext0:
+   5              		.section	.rodata
+   6              	.LC0:
+   7 0000 456E7465 		.string	"Enter array size: "
+   7      72206172 
+   7      72617920 
+   7      73697A65 
+   7      3A2000
+   8              	.LC1:
+   9 0013 256400   		.string	"%d"
+  10              	.LC2:
+  11 0016 256C750A 		.string	"%lu\n"
+  11      00
+  12              		.text
+  13              		.globl	main
+  15              	main:
+  16              	.LFB5:
+  17              		.file 1 "arrays.c"
+   1:arrays.c      **** /*
+   2:arrays.c      ****  *
+   3:arrays.c      ****  *   File:
+   4:arrays.c      ****  *      arrays.c
+   5:arrays.c      ****  *
+   6:arrays.c      ****  *   Synopsis:
+   7:arrays.c      ****  *
+   8:arrays.c      ****  *   Revision History:
+   9:arrays.c      ****  *      Date    Change Description
+  10:arrays.c      ****  *      ------  -----------------------------------------
+  11:arrays.c      ****  *      200221  Original.
+  12:arrays.c      ****  *
+  13:arrays.c      ****  */
+  14:arrays.c      **** #include <stdio.h>
+  15:arrays.c      **** #include <stdlib.h>
+  16:arrays.c      **** 
+  17:arrays.c      **** int main(void) {
+  18              		.loc 1 17 0
+  19              		.cfi_startproc
+  20 0000 55       		push	rbp
+  21              		.cfi_def_cfa_offset 16
+  22              		.cfi_offset 6, -16
+  23 0001 4889E5   		mov	rbp, rsp
+  24              		.cfi_def_cfa_register 6
+  25 0004 4157     		push	r15
+  26 0006 4156     		push	r14
+  27 0008 4155     		push	r13
+  28 000a 4154     		push	r12
+  29 000c 4881ECD0 		sub	rsp, 208
+  29      000000
+  30              		.cfi_offset 15, -24
+  31              		.cfi_offset 14, -32
+  32              		.cfi_offset 13, -40
+  33              		.cfi_offset 12, -48
+  34              		.loc 1 17 0
+  35 0013 64488B04 		mov	rax, QWORD PTR fs:40
+  35      25280000 
+  35      00
+  36 001c 488945D8 		mov	QWORD PTR -40[rbp], rax
+  37 0020 31C0     		xor	eax, eax
+  18:arrays.c      ****   int a[5] = {0, 1, 2, 3, 4};
+  38              		.loc 1 18 0
+  39 0022 C78530FF 		mov	DWORD PTR -208[rbp], 0
+  39      FFFF0000 
+  39      0000
+  40 002c C78534FF 		mov	DWORD PTR -204[rbp], 1
+  40      FFFF0100 
+  40      0000
+  41 0036 C78538FF 		mov	DWORD PTR -200[rbp], 2
+  41      FFFF0200 
+  41      0000
+  42 0040 C7853CFF 		mov	DWORD PTR -196[rbp], 3
+  42      FFFF0300 
+  42      0000
+  43 004a C78540FF 		mov	DWORD PTR -192[rbp], 4
+  43      FFFF0400 
+  43      0000
+  19:arrays.c      ****   int b[5] = {2, 3};
+  44              		.loc 1 19 0
+  45 0054 48C78550 		mov	QWORD PTR -176[rbp], 0
+  45      FFFFFF00 
+  45      000000
+  46 005f 48C78558 		mov	QWORD PTR -168[rbp], 0
+  46      FFFFFF00 
+  46      000000
+  47 006a C78560FF 		mov	DWORD PTR -160[rbp], 0
+  47      FFFF0000 
+  47      0000
+  48 0074 C78550FF 		mov	DWORD PTR -176[rbp], 2
+  48      FFFF0200 
+  48      0000
+  49 007e C78554FF 		mov	DWORD PTR -172[rbp], 3
+  49      FFFF0300 
+  49      0000
+  20:arrays.c      ****   int c[5] = {0};
+  50              		.loc 1 20 0
+  51 0088 48C78570 		mov	QWORD PTR -144[rbp], 0
+  51      FFFFFF00 
+  51      000000
+  52 0093 48C78578 		mov	QWORD PTR -136[rbp], 0
+  52      FFFFFF00 
+  52      000000
+  53 009e C7458000 		mov	DWORD PTR -128[rbp], 0
+  53      000000
+  21:arrays.c      ****   double d[5] = {0};
+  54              		.loc 1 21 0
+  55 00a5 48C745B0 		mov	QWORD PTR -80[rbp], 0
+  55      00000000 
+  56 00ad 48C745B8 		mov	QWORD PTR -72[rbp], 0
+  56      00000000 
+  57 00b5 48C745C0 		mov	QWORD PTR -64[rbp], 0
+  57      00000000 
+  58 00bd 48C745C8 		mov	QWORD PTR -56[rbp], 0
+  58      00000000 
+  59 00c5 48C745D0 		mov	QWORD PTR -48[rbp], 0
+  59      00000000 
+  22:arrays.c      ****   int e[] = {2, 4, 6, 8, 10};
+  60              		.loc 1 22 0
+  61 00cd C7459002 		mov	DWORD PTR -112[rbp], 2
+  61      000000
+  62 00d4 C7459404 		mov	DWORD PTR -108[rbp], 4
+  62      000000
+  63 00db C7459806 		mov	DWORD PTR -104[rbp], 6
+  63      000000
+  64 00e2 C7459C08 		mov	DWORD PTR -100[rbp], 8
+  64      000000
+  65 00e9 C745A00A 		mov	DWORD PTR -96[rbp], 10
+  65      000000
+  23:arrays.c      **** 
+  24:arrays.c      ****   int i;
+  25:arrays.c      ****   printf("Enter array size: ");
+  66              		.loc 1 25 0
+  67 00f0 488D3D00 		lea	rdi, .LC0[rip]
+  67      000000
+  68 00f7 B8000000 		mov	eax, 0
+  68      00
+  69 00fc E8000000 		call	printf@PLT
+  69      00
+  26:arrays.c      ****   scanf("%d", &i);
+  70              		.loc 1 26 0
+  71 0101 488D851C 		lea	rax, -228[rbp]
+  71      FFFFFF
+  72 0108 4889C6   		mov	rsi, rax
+  73 010b 488D3D00 		lea	rdi, .LC1[rip]
+  73      000000
+  74 0112 B8000000 		mov	eax, 0
+  74      00
+  75 0117 E8000000 		call	__isoc99_scanf@PLT
+  75      00
+  27:arrays.c      **** 
+  28:arrays.c      ****   int f[i];
+  76              		.loc 1 28 0
+  77 011c 8B8D1CFF 		mov	ecx, DWORD PTR -228[rbp]
+  77      FFFF
+  78 0122 4863C1   		movsx	rax, ecx
+  79 0125 4883E801 		sub	rax, 1
+  80 0129 48898520 		mov	QWORD PTR -224[rbp], rax
+  80      FFFFFF
+  81 0130 4863C1   		movsx	rax, ecx
+  82 0133 4989C6   		mov	r14, rax
+  83 0136 41BF0000 		mov	r15d, 0
+  83      0000
+  84 013c 4863C1   		movsx	rax, ecx
+  85 013f 4989C4   		mov	r12, rax
+  86 0142 41BD0000 		mov	r13d, 0
+  86      0000
+  87 0148 4863C1   		movsx	rax, ecx
+  88 014b 48C1E002 		sal	rax, 2
+  89 014f 488D5003 		lea	rdx, 3[rax]
+  90 0153 B8100000 		mov	eax, 16
+  90      00
+  91 0158 4883E801 		sub	rax, 1
+  92 015c 4801D0   		add	rax, rdx
+  93 015f BE100000 		mov	esi, 16
+  93      00
+  94 0164 BA000000 		mov	edx, 0
+  94      00
+  95 0169 48F7F6   		div	rsi
+  96 016c 486BC010 		imul	rax, rax, 16
+  97 0170 4829C4   		sub	rsp, rax
+  98 0173 4889E0   		mov	rax, rsp
+  99 0176 4883C003 		add	rax, 3
+ 100 017a 48C1E802 		shr	rax, 2
+ 101 017e 48C1E002 		sal	rax, 2
+ 102 0182 48898528 		mov	QWORD PTR -216[rbp], rax
+ 102      FFFFFF
+  29:arrays.c      **** 
+  30:arrays.c      ****   printf("%lu\n", (unsigned long) sizeof(f));
+ 103              		.loc 1 30 0
+ 104 0189 4863C1   		movsx	rax, ecx
+ 105 018c 48C1E002 		sal	rax, 2
+ 106 0190 4889C6   		mov	rsi, rax
+ 107 0193 488D3D00 		lea	rdi, .LC2[rip]
+ 107      000000
+ 108 019a B8000000 		mov	eax, 0
+ 108      00
+ 109 019f E8000000 		call	printf@PLT
+ 109      00
+  31:arrays.c      ****   
+  32:arrays.c      ****   exit(EXIT_SUCCESS);
+ 110              		.loc 1 32 0
+ 111 01a4 BF000000 		mov	edi, 0
+ 111      00
+ 112 01a9 E8000000 		call	exit@PLT
+ 112      00
+ 113              		.cfi_endproc
+ 114              	.LFE5:
+ 116              	.Letext0:
+ 117              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+ 118              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 119              		.file 4 "/usr/include/x86_64-linux-gnu/bits/libio.h"
+ 120              		.file 5 "/usr/include/stdio.h"
+ 121              		.file 6 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"
