@@ -21,29 +21,34 @@ int main(void) {
   
   size_t int_size = sizeof i;
 
-  printf("%lu\n", int_size);
+  printf("%2zd\n", int_size);
   
   int_size = sizeof(i + j);
-  printf("%lu\n", int_size);
-  printf("%lu\n", sizeof i + j);
+  printf("%2zd\n", int_size);
+  printf("%2zd\n", sizeof i + j); // Junk!
 
-  printf("Size of %s: %lu\n", "signed short", (unsigned long) sizeof(signed short));
-  printf("Size of %s: %lu\n", "signed int", (unsigned long) sizeof(signed int));
-  printf("Size of %s: %lu\n", "signed long", (unsigned long) sizeof(signed long));
-  printf("Size of %s: %lu\n", "signed long long", (unsigned long) sizeof(signed long long));
-  printf("Size of %s: %lu\n", "unsigned short", (unsigned long) sizeof(unsigned short));
-  printf("Size of %s: %lu\n", "unsigned int", (unsigned long) sizeof(unsigned int));
-  printf("Size of %s: %lu\n", "unsigned long", (unsigned long) sizeof(unsigned long));
-  printf("Size of %s: %lu\n", "unsigned long long", (unsigned long) sizeof(unsigned long long));
+  printf("Size of %s: %2zd\n", "char", sizeof(char));
+  printf("Size of %s: %2zd\n", "signed char", sizeof(signed char));
+  printf("Size of %s: %2zd\n", "unsigned char", sizeof(unsigned char));
 
-  printf("Size of %s: %lu\n", "float", (unsigned long) sizeof(float));
-  printf("Size of %s: %lu\n", "double", (unsigned long) sizeof(double));
-  printf("Size of %s: %lu\n", "long double", (unsigned long) sizeof(long double));
+  printf("Size of %s: %2zd\n", "signed short", sizeof(signed short));
+  printf("Size of %s: %2zd\n", "signed int", sizeof(signed int));
+  printf("Size of %s: %2zd\n", "signed long", sizeof(signed long));
+  printf("Size of %s: %2zd\n", "signed long long", sizeof(signed long long));
+  printf("Size of %s: %2zd\n", "unsigned short", sizeof(unsigned short));
+  printf("Size of %s: %2zd\n", "unsigned int", sizeof(unsigned int));
+  printf("Size of %s: %2zd\n", "unsigned long", sizeof(unsigned long));
+  printf("Size of %s: %2zd\n", "unsigned long long", sizeof(unsigned long long));
+
+  printf("Size of %s: %2zd\n", "float", sizeof(float));
+  printf("Size of %s: %2zd\n", "double", sizeof(double));
+  printf("Size of %s: %2zd\n", "long double", sizeof(long double));
+  printf("Size of %s: %2zd\n", "pointer", sizeof(void *));
 
   {
     int i;
-    printf("%lu\n", sizeof(i));  // No casts anymore???
-    printf("%lu\n", sizeof(int));
+    printf("%2zd\n", sizeof(i));  // No casts anymore???
+    printf("%2zd\n", sizeof(int));
   }
 
   {
@@ -53,15 +58,15 @@ int main(void) {
     size_t s3 = sizeof('A');  // "char" literal -> int
     size_t s4 = sizeof 'A';
 
-    printf("%lu\n", sizeof(ch));
-    printf("%lu\n", sizeof(char));
-    printf("%lu\n", sizeof('A'));
-    printf("%lu\n", sizeof 'A');
+    printf("%2zd\n", sizeof(ch));
+    printf("%2zd\n", sizeof(char));
+    printf("%2zd\n", sizeof('A'));
+    printf("%2zd\n", sizeof 'A');
 
-    printf("%lu\n", s1);
-    printf("%lu\n", s2);
-    printf("%lu\n", s3);
-    printf("%lu\n", s4);
+    printf("%2zd\n", s1);
+    printf("%2zd\n", s2);
+    printf("%2zd\n", s3);
+    printf("%2zd\n", s4);
   }
 
   exit(EXIT_SUCCESS);

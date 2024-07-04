@@ -35,6 +35,13 @@ int main(void) {
 
   printf("%d\n", sum);
 
+  sum = 0;
+  for (i = 0; i < 10; i += 2) {
+    sum += i;
+  }
+
+  printf("%d\n", sum);
+
   printf("Ex. 15\n");
   int m = 6;
   int n;

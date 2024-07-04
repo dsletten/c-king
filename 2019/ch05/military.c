@@ -22,6 +22,9 @@
 int hours;
 int minutes;
 
+//
+//     This is not quite right... Consider 0:23 or 12:46
+//     
 void print_meridian(bool is_morning, bool is_noon_or_midnight) {
   if ( is_morning ) {
     printf("%s", is_noon_or_midnight ? "midnight" : "AM");

@@ -24,5 +24,37 @@ int main(void) {
   printf("%d %d %d %d %d\n", i , j, k, m, n);
   printf("%d\n", j * -2);
 
+  printf("-----------------\n");
+  printf("Decimal\n");
+  printf("%d\n", 4294967296);
+  printf("%ld\n", 4294967296);
+  printf("%lld\n", 4294967296);
+
+  printf("%d\n", 4294967295);
+  printf("%ld\n", 4294967295);
+  printf("%lld\n", 4294967295);
+
+  printf("Hex\n");
+  printf("%d\n", 0xFFFFFFFF);
+  printf("%ld\n", 0xFFFFFFFF);
+  printf("%lld\n", 0xFFFFFFFF);
+
+  printf("-----------------\n");
+  printf("Decimal\n");
+  printf("%d\n", 18446744073709551615);
+  printf("%ld\n", 18446744073709551615);
+  printf("%lld\n", 18446744073709551615);
+  printf("%llu\n", 18446744073709551615LLU);
+
+  printf("Hex\n");
+  printf("%d\n", 0xFFFFFFFFFFFFFFFF);
+  printf("%ld\n", 0xFFFFFFFFFFFFFFFF);
+  printf("%lld\n", 0xFFFFFFFFFFFFFFFF);
+  printf("-----------------\n");
+  printf("Decimal\n");
+  printf("%d\n", 340282366920938463463374607431768211456);
+  printf("%ld\n", 340282366920938463463374607431768211456);
+  printf("%lld\n", 340282366920938463463374607431768211456);
+
   exit(EXIT_SUCCESS);
 }

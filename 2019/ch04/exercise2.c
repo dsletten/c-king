@@ -43,21 +43,27 @@ int main(void) {
 
   printf("%d %d\n", (-i)/j, -(i/j));
 
-  for (j = 1; j < i; j++) {
-    printf("%d %d\n", (-i)/j, -(i/j));
-  }
+  {
+    int i = 9;
 
-  i = 100;
-  bool exception = false;
-  for (j = 1; j < i; j++) {
-    if ( (-i)/j != -(i/j) ) {
-      exception = true;
-      printf("%d %d\n", (-i)/j, -(i/j));
+    for (int j = 1; j < i; j++) {
+      printf("%d %d %d %d\n", i, j, (-i)/j, -(i/j));
     }
   }
 
-  if ( !exception ) {
-    printf("No exception\n");
+  {
+    int i = 100;
+    bool exception = false;
+    for (int j = 1; j < i; j++) {
+      if ( (-i)/j != -(i/j) ) {
+        exception = true;
+        printf("%d %d\n", (-i)/j, -(i/j));
+      }
+    }
+
+    if ( !exception ) {
+      printf("No exception\n");
+    }
   }
 
   exit(EXIT_SUCCESS);

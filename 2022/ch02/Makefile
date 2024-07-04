@@ -4,7 +4,7 @@ CFLAGS=-Wall -g
 # 	${CC} ${CFLAGS} -o $@ hello.c
 
 dweight: dweight.c
-	${CC} ${CFLAGS} -o $@ dweight.c -lm
+	${CC} ${CFLAGS} -o $@ dweight.c
 
 sphere: sphere.c
 	${CC} ${CFLAGS} -o $@ sphere.c -lm

@@ -65,6 +65,7 @@ int main(void) {
   printf("|%10.2e|\n", 3.6);
   printf("|%10.3e|\n", 3.6);
   printf("|%10.4e|\n", 3.6);
+  printf("|%010.2e|\n", 3.6);
   printf("|%10.1e|\n", 99.0);
   printf("|%10.2e|\n", 99.0);
   printf("|%10.3e|\n", 99.0);
